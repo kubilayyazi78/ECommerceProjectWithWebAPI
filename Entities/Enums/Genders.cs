@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace Entities.Enums
 {
-   public enum Genders
+    public enum Genders
     {
         /// <summary>
         /// Kadın
         /// </summary>
-        Famele=0,
+        Female = 0,
         /// <summary>
         /// Erkek
         /// </summary>
-        Male=1
+        Male = 1
     }
 }
