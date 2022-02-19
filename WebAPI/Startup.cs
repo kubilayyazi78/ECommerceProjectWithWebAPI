@@ -10,6 +10,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DataAccess.Abstract;
+using DataAccess.Concrete.Contexts;
+using DataAccess.Concrete.EntityFramework;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace WebAPI
 {
@@ -25,8 +30,15 @@ namespace WebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            IServiceCollection serviceCollections = services.AddDbContext<ECommerceProjectWithWebAPIContext>(opts =>
+                opts.UseSqlServer(
+                    "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=ECommerceProjectWithWebAPIDb;Integrated Security=True;" +
+                     "Connect Timeout=30;Encrypt=False;" +
+                     "TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False",
+                    options => options.MigrationsAssembly("DataAccess")
+                        .MigrationsHistoryTable(HistoryRepository.DefaultTableName, "dbo")));
             services.AddControllers();
+            services.AddTransient<IUserDal, EfUserDal>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAPI", Version = "v1" });
