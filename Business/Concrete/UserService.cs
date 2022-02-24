@@ -44,19 +44,23 @@ namespace Business.Concrete
         public async Task<UserDto> GetAsync(int id)
         {
             var user = await _userDal.GetAsync(x => x.Id == id);
-
-            UserDto userDto = new UserDto()
+            if (user != null)
             {
-                Address = user.Address,
-                DateOfBirth = user.DateOfBirth,
-                Email = user.Email,
-                FirstName = user.FirstName,
-                Gender = user.Gender,
-                Id = user.Id,
-                LastName = user.LastName,
-                UserName = user.UserName
-            };
-            return userDto;
+                UserDto userDto = new UserDto()
+                {
+                    Address = user.Address,
+                    DateOfBirth = user.DateOfBirth,
+                    Email = user.Email,
+                    FirstName = user.FirstName,
+                    Gender = user.Gender,
+                    Id = user.Id,
+                    LastName = user.LastName,
+                    UserName = user.UserName
+                };
+                return userDto;
+            }
+
+            return null;
 
         }
 
