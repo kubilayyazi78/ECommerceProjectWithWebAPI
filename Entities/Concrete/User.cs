@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Entities.Concrete.BaseEntities;
+using Core.Entity.Concrete;
 
 namespace Entities.Concrete
 {

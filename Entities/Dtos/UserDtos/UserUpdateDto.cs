@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Entities.Abstract;
+﻿using Core.Entity.Abstract;
+using System;
 
 namespace Entities.Dtos.UserDtos
 {
-   public class UserUpdateDto:IDto
+    public class UserUpdateDto : IDto
     {
         public int Id { get; set; }
         public string UserName { get; set; }
