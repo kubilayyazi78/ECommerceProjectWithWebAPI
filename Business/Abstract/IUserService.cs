@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Core.Helpers.JWT;
+using Core.Utilities.Security.Token;
 using Entities.Dtos.UserDtos;
 
 namespace Business.Abstract

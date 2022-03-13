@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace Core.Helpers.JWT
+namespace Core.Utilities.Security.Token
 {
     public class AccessToken
     {
