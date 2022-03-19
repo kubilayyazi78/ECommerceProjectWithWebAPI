@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Core.Utilities.Responses;
 using Core.Utilities.Security.Token;
 using Entities.Dtos.UserDtos;
 
@@ -10,11 +11,11 @@ namespace Business.Abstract
 {
     public interface IUserService
     {
-        Task<IEnumerable<UserDetailDto>> GetListAsync();
-        Task<UserDto> GetAsync(int id);
-        Task<UserDto> AddAsync(UserAddDto userAddDto);
-        Task<UserUpdateDto> UpdateAsync(UserUpdateDto userUpdateDto);
-        Task<bool> DeleteAsync(int id);
-        Task<AccessToken> Authenticate(UserForLoginDto userForLoginDto);
+        Task<ApiDataResponse<IEnumerable<UserDetailDto>>> GetListAsync();
+        Task<ApiDataResponse<UserDto>> GetAsync(int id);
+        Task<ApiDataResponse<UserDto>> AddAsync(UserAddDto userAddDto);
+        Task<ApiDataResponse<UserUpdateDto>> UpdateAsync(UserUpdateDto userUpdateDto);
+        Task<ApiDataResponse<bool>> DeleteAsync(int id);
+        Task<ApiDataResponse<AccessToken>> Authenticate(UserForLoginDto userForLoginDto);
     }
 }

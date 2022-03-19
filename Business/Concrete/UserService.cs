@@ -6,6 +6,8 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using Business.Abstract;
+using Business.Constants;
+using Core.Utilities.Responses;
 using Core.Utilities.Security.Token;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -25,7 +27,7 @@ namespace Business.Concrete
             _appSettings = appSettings.Value;
         }
 
-        public async Task<IEnumerable<UserDetailDto>> GetListAsync()
+        public async Task<ApiDataResponse<IEnumerable<UserDetailDto>>> GetListAsync()
         {
             List<UserDetailDto> userDetailDtos = new List<UserDetailDto>();
             var response = await _userDal.GetListAsync();
@@ -44,10 +46,10 @@ namespace Business.Concrete
                 });
             }
 
-            return userDetailDtos;
+            return new SuccessApiDataResponse<IEnumerable<UserDetailDto>>(userDetailDtos, Messages.Listed);
         }
 
-        public async Task<UserDto> GetAsync(int id)
+        public async Task<ApiDataResponse<UserDto>> GetAsync(int id)
         {
             var user = await _userDal.GetAsync(x => x.Id == id);
             if (user != null)
@@ -64,14 +66,14 @@ namespace Business.Concrete
                     UserName = user.UserName,
                     Password = user.Password
                 };
-                return userDto;
+                return new SuccessApiDataResponse<UserDto>(userDto, Messages.Listed);
             }
 
-            return null;
+            return new ErrorApiDataResponse<UserDto>(null, Messages.NotListed);
 
         }
 
-        public async Task<UserDto> AddAsync(UserAddDto userAddDto)
+        public async Task<ApiDataResponse<UserDto>> AddAsync(UserAddDto userAddDto)
         {
             User user = new User()
             {
@@ -102,10 +104,10 @@ namespace Business.Concrete
             };
 
 
-            return userDto;
+            return new SuccessApiDataResponse<UserDto>(userDto, Messages.Added);
         }
 
-        public async Task<UserUpdateDto> UpdateAsync(UserUpdateDto userUpdateDto)
+        public async Task<ApiDataResponse<UserUpdateDto>> UpdateAsync(UserUpdateDto userUpdateDto)
         {
             var getUser = await _userDal.GetAsync(x => x.Id == userUpdateDto.Id);
 
@@ -139,15 +141,17 @@ namespace Business.Concrete
                 UserName = userUpdate.UserName,
                 Id = userUpdate.Id
             };
-            return newUserUpdateDto;
+            return new SuccessApiDataResponse<UserUpdateDto>(newUserUpdateDto, Messages.Updated);
         }
 
-        public async Task<bool> DeleteAsync(int id)
+        public async Task<ApiDataResponse<bool>> DeleteAsync(int id)
         {
-            return await _userDal.DeleteAsync(id);
+            var isDelete = await _userDal.DeleteAsync(id);
+
+            return new SuccessApiDataResponse<bool>(isDelete, Messages.Deleted);
         }
 
-        public async Task<AccessToken> Authenticate(UserForLoginDto userForLoginDto)
+        public async Task<ApiDataResponse<AccessToken>> Authenticate(UserForLoginDto userForLoginDto)
         {
             var user = await _userDal.GetAsync(x =>
                 x.UserName == userForLoginDto.UserName && x.Password == userForLoginDto.Password);
@@ -178,7 +182,7 @@ namespace Business.Concrete
                 UserId = user.Id
             };
 
-            return await Task.Run(() => accessToken);
+            return new SuccessApiDataResponse<AccessToken>(await Task.Run(() => accessToken), Messages.Listed);
         }
     }
 }
