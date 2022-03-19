@@ -37,7 +37,7 @@ namespace WebAPI.Controllers
         [Route("[action]/{id:int}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var result = await _userService.GetAsync(id);
+            var result = await _userService.GetByIdAsync(id);
             if (result != null)
             {
                 return Ok(result);

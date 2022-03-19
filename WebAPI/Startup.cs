@@ -11,8 +11,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using Business.Abstract;
 using Business.Concrete;
+using Business.Mappings;
 using Core.Utilities.Security.Token;
 using Core.Utilities.Security.Token.Jwt;
 using DataAccess.Abstract;
@@ -88,20 +90,29 @@ namespace WebAPI
             {
                 x.RequireHttpsMetadata = false;
                 x.SaveToken = true;
-                    x.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(key),
-                        ValidateIssuer = false,
-                        ValidateAudience = false
-                    };
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                };
             });
+            #endregion
+            #region AutoMapper
+
+            var mapperConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new MappingProfile());
+            });
+            var mapper = mapperConfig.CreateMapper();
+            services.AddSingleton(mapper);
             #endregion
             #region DI
 
             services.AddTransient<IUserDal, EfUserDal>();
             services.AddTransient<IUserService, UserService>();
-            services.AddTransient<ITokenService, JwtTokenService>(); 
+            services.AddTransient<ITokenService, JwtTokenService>();
             #endregion
         }
 
