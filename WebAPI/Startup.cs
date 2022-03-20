@@ -113,6 +113,7 @@ namespace WebAPI
             services.AddTransient<IUserDal, EfUserDal>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<ITokenService, JwtTokenService>();
+            services.AddTransient<IAuthService, AuthService>();
             #endregion
         }
 

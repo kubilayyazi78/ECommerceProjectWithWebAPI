@@ -106,7 +106,7 @@ namespace Business.Concrete
             return new SuccessApiDataResponse<bool>(await _userDal.DeleteAsync(id), Messages.Deleted);
         }
 
-        public async Task<ApiDataResponse<AccessToken>> Authenticate(UserForLoginDto userForLoginDto)
+        public async Task<ApiDataResponse<AccessToken>> Authenticate(LoginDto userForLoginDto)
         {
             var user = await _userDal.GetAsync(x =>
                 x.UserName == userForLoginDto.UserName && x.Password == userForLoginDto.Password);

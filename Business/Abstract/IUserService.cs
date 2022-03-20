@@ -19,6 +19,6 @@ namespace Business.Abstract
         Task<ApiDataResponse<UserDto>> AddAsync(UserAddDto userAddDto);
         Task<ApiDataResponse<UserUpdateDto>> UpdateAsync(UserUpdateDto userUpdateDto);
         Task<ApiDataResponse<bool>> DeleteAsync(int id);
-        Task<ApiDataResponse<AccessToken>> Authenticate(UserForLoginDto userForLoginDto);
+        Task<ApiDataResponse<AccessToken>> Authenticate(LoginDto userForLoginDto);
     }
 }

@@ -85,7 +85,7 @@ namespace WebAPI.Controllers
         [AllowAnonymous]
         [HttpPost]
         [Route("[action]")]
-        public async Task<IActionResult> Authenticate([FromBody] UserForLoginDto userForLoginDto)
+        public async Task<IActionResult> Authenticate([FromBody] LoginDto userForLoginDto)
         {
             var result = await _userService.Authenticate(userForLoginDto);
             if (result != null)

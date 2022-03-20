@@ -13,5 +13,8 @@ namespace Business.Constants
         public const string Updated = "Güncellendi";
         public const string Listed = "Listelendi";
         public const string NotListed = "Listelenmedi";
+        public const string UserNotFound = "Kullanıcı Bulunamadı";
+        public const string SystemLoginSuccessful = "Sisteme Giriş Başarılı";
+        public static string SystemLoginFailed = "Sisteme Giriş Başarısız";
     }
 }
