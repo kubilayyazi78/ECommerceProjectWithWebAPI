@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Business.Abstract;
-using Entities.Dtos.UserDtos;
+using Entities.Dtos.Auth;
 using Microsoft.AspNetCore.Authorization;
 
 namespace WebAPI.Controllers

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
-using Entities.Dtos.UserDtos;
+using Entities.Dtos.User;
 using WebAPIWithCoreMvc.ViewModels;
 
 namespace WebAPIWithCoreMvc.Controllers

@@ -8,7 +8,8 @@ using Business.Abstract;
 using Business.Constants;
 using Core.Utilities.Responses;
 using Core.Utilities.Security.Token;
-using Entities.Dtos.UserDtos;
+using Entities.Dtos.Auth;
+using Entities.Dtos.User;
 
 namespace Business.Concrete
 {

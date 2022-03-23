@@ -13,7 +13,8 @@ using Core.Utilities.Responses;
 using Core.Utilities.Security.Token;
 using DataAccess.Abstract;
 using Entities.Concrete;
-using Entities.Dtos.UserDtos;
+using Entities.Dtos.Auth;
+using Entities.Dtos.User;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
