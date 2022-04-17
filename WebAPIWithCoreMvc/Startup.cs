@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using WebAPIWithCoreMvc.ApiServices;
 using WebAPIWithCoreMvc.ApiServices.Interfaces;
+using WebAPIWithCoreMvc.Handlers;
 
 namespace WebAPIWithCoreMvc
 {
@@ -28,6 +29,7 @@ namespace WebAPIWithCoreMvc
             services.AddControllersWithViews();
             services.AddHttpContextAccessor();
             services.AddSession();
+            services.AddScoped<AuthTokenHandler>();
             #region HttpClient
             services.AddHttpClient<IAuthApiService, AuthApiService>(opt =>
                {
@@ -36,7 +38,7 @@ namespace WebAPIWithCoreMvc
             services.AddHttpClient<IUserApiService, UserApiService>(opt =>
             {
                 opt.BaseAddress = new Uri("http://localhost:16148/api/");
-            });
+            }).AddHttpMessageHandler<AuthTokenHandler>();
             #endregion
 
             #region Cookie
