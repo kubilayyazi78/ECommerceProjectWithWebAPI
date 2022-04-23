@@ -50,7 +50,7 @@ namespace WebAPIWithCoreMvc
                        opt.ExpireTimeSpan = TimeSpan.FromDays(60);
                        opt.SlidingExpiration = true;
                        opt.Cookie.Name = "mvccookie";
-                   }); 
+                   });
             #endregion
         }
 
@@ -61,10 +61,8 @@ namespace WebAPIWithCoreMvc
             {
                 app.UseDeveloperExceptionPage();
             }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
-            }
+            app.UseExceptionHandler("/Home/Error");
+            app.UseStatusCodePagesWithRedirects("/Admin/Error/MyStatusCode?code={0}");
 
             app.UseSession();
             app.UseStaticFiles();
@@ -76,7 +74,7 @@ namespace WebAPIWithCoreMvc
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapAreaControllerRoute(
-                    areaName:"Admin",
+                    areaName: "Admin",
                     name: "Admin",
                     pattern: "Admin/{controller=Home}/{action=Index}/{id?}"
                 );

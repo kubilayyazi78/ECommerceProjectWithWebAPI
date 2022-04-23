@@ -1,0 +1,13 @@
+﻿@{
+    Layout = null;
+}
+@{
+    ViewData["Title"] = "Status Code @ViewBag.ErrorStatusCode";
+}
+
+<head>
+    <link rel="icon" href="data:," />
+</head>
+<h1>MyStatusCode Page</h1>
+<h2 class="text-danger">Status code: @ViewBag.ErrorStatusCode</h2>
+<h2 class="text-danger">@ViewBag.ErrorMessage</h2>
