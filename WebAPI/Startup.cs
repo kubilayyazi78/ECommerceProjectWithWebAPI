@@ -59,13 +59,7 @@ namespace WebAPI
             var mapper = mapperConfig.CreateMapper();
             services.AddSingleton(mapper);
             #endregion
-            #region DI
 
-            services.AddTransient<IUserDal, EfUserDal>();
-            services.AddTransient<IUserService, UserService>();
-            services.AddTransient<ITokenService, JwtTokenService>();
-            services.AddTransient<IAuthService, AuthService>();
-            #endregion
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

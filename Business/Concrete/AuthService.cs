@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Business.Abstract;
 using Business.Constants;
+using Business.Validations.FluentValidation;
+using Core.Aspects;
 using Core.Utilities.Responses;
 using Core.Utilities.Security.Token;
 using Entities.Dtos.Auth;
@@ -26,6 +28,7 @@ namespace Business.Concrete
             _tokenService = tokenService;
         }
 
+        [ValidationAspect(typeof(LoginDtoValidator))]
         public async Task<ApiDataResponse<UserDto>> LoginAsync(LoginDto loginDto)
         {
             var user = await _userService.GetAsync(x =>
