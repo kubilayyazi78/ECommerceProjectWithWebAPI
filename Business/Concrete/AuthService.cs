@@ -8,6 +8,7 @@ using Business.Abstract;
 using Business.Constants;
 using Business.Validations.FluentValidation;
 using Core.Aspects;
+using Core.Aspects.Autofac;
 using Core.Utilities.Responses;
 using Core.Utilities.Security.Token;
 using Entities.Dtos.Auth;

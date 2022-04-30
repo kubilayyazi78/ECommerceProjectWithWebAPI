@@ -48,7 +48,16 @@ namespace Core.Utilities.Interceptors
             OnBefore(invocation);
             try
             {
-                invocation.Proceed(); //metodu çalıştırır
+                invocation.Proceed();
+                if (invocation.ReturnValue is Task returnValueTask)
+                {
+                    returnValueTask.GetAwaiter().GetResult();
+                }
+
+                if (invocation.ReturnValue is Task task && task.Exception != null)
+                {
+                    throw task.Exception;
+                }
             }
             catch (Exception e)
             {

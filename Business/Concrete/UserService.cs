@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Business.Abstract;
 using Business.Constants;
+using Core.Aspects.Transaction;
 using Core.Utilities.Responses;
 using Core.Utilities.Security.Token;
 using DataAccess.Abstract;
@@ -74,7 +75,7 @@ namespace Business.Concrete
             return new ErrorApiDataResponse<UserDto>(null, Messages.NotListed);
 
         }
-
+        [TransactionScopeAsync]
         public async Task<ApiDataResponse<UserDto>> AddAsync(UserAddDto userAddDto)
         {
             var user = _mapper.Map<User>(userAddDto);
@@ -91,6 +92,7 @@ namespace Business.Concrete
             var getUser = await _userDal.GetAsync(x => x.Id == userUpdateDto.Id);
             var user = _mapper.Map<User>(userUpdateDto);
             //Todo: createddate ve createdid düzenlenecek
+            user.Password = getUser.Password;
             user.CreatedDate = getUser.CreatedDate;
             user.CreatedUserId = getUser.CreatedUserId;
             user.UpdatedDate=DateTime.Now;
