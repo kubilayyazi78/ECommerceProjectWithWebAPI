@@ -75,7 +75,7 @@ namespace Business.Concrete
             return new ErrorApiDataResponse<UserDto>(null, Messages.NotListed);
 
         }
-        [TransactionScopeAsync]
+        [TransactionScopeAspect]
         public async Task<ApiDataResponse<UserDto>> AddAsync(UserAddDto userAddDto)
         {
             var user = _mapper.Map<User>(userAddDto);

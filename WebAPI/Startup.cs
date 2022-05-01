@@ -50,6 +50,8 @@ namespace WebAPI
             services.AddControllers();
             services.AddCustomSwagger();
             services.AddCustomJwtToken(Configuration);
+            services.AddCustomHttpContextAccessor();
+            
             #region AutoMapper
 
             var mapperConfig = new MapperConfiguration(mc =>
@@ -71,6 +73,7 @@ namespace WebAPI
                 app.UseCustomSwagger();
             }
 
+            app.UseStaticHttpContext();
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();

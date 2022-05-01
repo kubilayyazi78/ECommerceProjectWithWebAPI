@@ -9,7 +9,7 @@ using Core.Utilities.Interceptors;
 
 namespace Core.Aspects.Transaction
 {
-    public class TransactionScopeAsync : MethodInterception
+    public class TransactionScopeAspect : MethodInterception
     {
         public override void Intercept(IInvocation invocation)
         {
