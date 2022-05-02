@@ -1,20 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Caching.Memory;
+﻿using Microsoft.Extensions.Caching.Memory;
+using System;
 
 namespace Core.CrossCuttingConcerns.Caching.Microsoft
 {
-    public class CacheService : ICacheService
+    public class MemoryCacheService : ICacheService
     {
         private readonly IMemoryCache _memoryCache;
 
-        public CacheService()
+        public MemoryCacheService()
         {
             _memoryCache = (IMemoryCache)Utilities.Helpers.HttpContext.Current.RequestServices.GetService(typeof(IMemoryCache));
         }
+
         public T Get<T>(string key)
         {
             return _memoryCache.Get<T>(key);

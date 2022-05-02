@@ -14,7 +14,7 @@ namespace Business.Abstract
 {
     public interface IUserService
     {
-        Task<ApiDataResponse<IEnumerable<UserDetailDto>>> GetListAsync(Expression<Func<User, bool>> filter = null);
+        Task<ApiDataResponse<IEnumerable<UserDetailDto>>> GetListAsync();
         Task<ApiDataResponse<UserDto>> GetByIdAsync(int id);
         Task<ApiDataResponse<UserDto>> GetAsync(Expression<Func<User, bool>> filter);
         Task<ApiDataResponse<UserDto>> AddAsync(UserAddDto userAddDto);

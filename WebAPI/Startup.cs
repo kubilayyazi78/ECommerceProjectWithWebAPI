@@ -51,7 +51,7 @@ namespace WebAPI
             services.AddCustomSwagger();
             services.AddCustomJwtToken(Configuration);
             services.AddCustomHttpContextAccessor();
-            
+            services.AddMemoryCache();
             #region AutoMapper
 
             var mapperConfig = new MapperConfiguration(mc =>

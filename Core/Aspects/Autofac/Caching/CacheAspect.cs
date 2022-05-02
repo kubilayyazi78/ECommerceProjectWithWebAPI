@@ -1,7 +1,7 @@
-﻿using System.Linq;
-using Castle.DynamicProxy;
+﻿using Castle.DynamicProxy;
 using Core.CrossCuttingConcerns.Caching;
 using Core.Utilities.Interceptors;
+using System.Linq;
 
 namespace Core.Aspects.Autofac.Caching
 {
@@ -9,6 +9,7 @@ namespace Core.Aspects.Autofac.Caching
     {
         private readonly int _duration;
         private readonly ICacheService _cacheService;
+
         public CacheAspect(int duration)
         {
             _duration = duration;

@@ -17,6 +17,7 @@ using System.Linq.Expressions;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using Core.Aspects.Autofac.Caching;
 
 namespace Business.Concrete
 {
@@ -34,20 +35,12 @@ namespace Business.Concrete
         }
         #endregion
 
-        public async Task<ApiDataResponse<IEnumerable<UserDetailDto>>> GetListAsync(Expression<Func<User, bool>> filter = null)
+        [CacheAspect(10)]
+        public async Task<ApiDataResponse<IEnumerable<UserDetailDto>>> GetListAsync()
         {
-            if (filter == null)
-            {
-                var response = await _userDal.GetListAsync();
-                var userDetailDtos = _mapper.Map<IEnumerable<UserDetailDto>>(response);
-                return new SuccessApiDataResponse<IEnumerable<UserDetailDto>>(userDetailDtos, Messages.Listed);
-            }
-            else
-            {
-                var response = await _userDal.GetListAsync(filter);
-                var userDetailDtos = _mapper.Map<IEnumerable<UserDetailDto>>(response);
-                return new SuccessApiDataResponse<IEnumerable<UserDetailDto>>(userDetailDtos, Messages.Listed);
-            }
+            var response = await _userDal.GetListAsync();
+            var userDetailDtos = _mapper.Map<IEnumerable<UserDetailDto>>(response);
+            return new SuccessApiDataResponse<IEnumerable<UserDetailDto>>(userDetailDtos, Messages.Listed);
         }
 
         public async Task<ApiDataResponse<UserDto>> GetAsync(Expression<Func<User, bool>> filter)
@@ -75,6 +68,7 @@ namespace Business.Concrete
 
         }
         [TransactionScopeAspect]
+        [CacheRemoveAspect("IUserService.GetListAsync")]
         public async Task<ApiDataResponse<UserDto>> AddAsync(UserAddDto userAddDto)
         {
             var user = _mapper.Map<User>(userAddDto);
@@ -94,7 +88,7 @@ namespace Business.Concrete
             user.Password = getUser.Password;
             user.CreatedDate = getUser.CreatedDate;
             user.CreatedUserId = getUser.CreatedUserId;
-            user.UpdatedDate=DateTime.Now;
+            user.UpdatedDate = DateTime.Now;
             user.UpdatedUserId = 1;
             user.Token = userUpdateDto.Token;
             user.TokenExpireDate = userUpdateDto.TokenExpireDate;

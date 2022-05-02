@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Castle.DynamicProxy;
+using Core.Utilities.Interceptors;
+using System;
 using System.Threading.Tasks;
 using System.Transactions;
-using Castle.DynamicProxy;
-using Core.Utilities.Interceptors;
 
 namespace Core.Aspects.Autofac.Transaction
 {
@@ -10,7 +10,7 @@ namespace Core.Aspects.Autofac.Transaction
     {
         public override void Intercept(IInvocation invocation)
         {
-            using (TransactionScope transactionScope =new TransactionScope())
+            using (TransactionScope transactionScope = new TransactionScope())
             {
                 try
                 {
@@ -20,7 +20,7 @@ namespace Core.Aspects.Autofac.Transaction
                         returnValueTask.GetAwaiter().GetResult();
                     }
 
-                    if (invocation.ReturnValue is Task task && task.Exception!=null)
+                    if (invocation.ReturnValue is Task task && task.Exception != null)
                     {
                         throw task.Exception;
                     }
@@ -32,8 +32,6 @@ namespace Core.Aspects.Autofac.Transaction
                     throw;
                 }
             }
-            base.Intercept(invocation);
-
         }
     }
 }
