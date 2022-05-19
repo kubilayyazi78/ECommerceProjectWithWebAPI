@@ -1,6 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using Core.Entity.Abstract;
+using Core.Entities;
 
 namespace Entities.Dtos.User
 {
