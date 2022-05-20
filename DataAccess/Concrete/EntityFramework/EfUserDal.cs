@@ -10,7 +10,7 @@ using Entities.Concrete;
 
 namespace DataAccess.Concrete.EntityFramework
 {
-    public class EfUserDal : EfBaseRepository<User, ECommerceProjectWithWebAPIContext>, IUserDal
+    public class EfUserDal : EfBaseRepository<AppUser, ECommerceProjectWithWebAPIContext>, IUserDal
     {
     }
 }

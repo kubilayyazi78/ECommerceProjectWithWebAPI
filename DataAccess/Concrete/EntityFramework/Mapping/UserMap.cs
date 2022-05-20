@@ -9,9 +9,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace DataAccess.Concrete.EntityFramework.Mapping
 {
-    public class UserMap:IEntityTypeConfiguration<User>
+    public class UserMap:IEntityTypeConfiguration<AppUser>
     {
-        public void Configure(EntityTypeBuilder<User> builder)
+        public void Configure(EntityTypeBuilder<AppUser> builder)
         {
             builder.ToTable("Users", @"dbo");
             builder.HasKey(x => x.Id);
@@ -47,7 +47,7 @@ namespace DataAccess.Concrete.EntityFramework.Mapping
 
             builder.Property(x => x.CreatedDate).HasDefaultValue(DateTime.Now);
 
-            builder.HasData(new User
+            builder.HasData(new AppUser
             {
                 Id = 1,
                 FirstName = "Kubilay",

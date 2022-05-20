@@ -34,6 +34,6 @@ namespace DataAccess.Concrete.Contexts
             modelBuilder.ApplyConfiguration(new UserMap());
         }
 
-        public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<AppUser> Users { get; set; }
     }
 }

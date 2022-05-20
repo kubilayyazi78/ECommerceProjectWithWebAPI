@@ -43,7 +43,7 @@ namespace Business.Concrete
             return new SuccessApiDataResponse<IEnumerable<UserDetailDto>>(userDetailDtos, Messages.Listed);
         }
 
-        public async Task<ApiDataResponse<UserDto>> GetAsync(Expression<Func<User, bool>> filter)
+        public async Task<ApiDataResponse<UserDto>> GetAsync(Expression<Func<AppUser, bool>> filter)
         {
             var user = await _userDal.GetAsync(filter);
 
@@ -71,7 +71,7 @@ namespace Business.Concrete
         [CacheRemoveAspect("IUserService.GetListAsync")]
         public async Task<ApiDataResponse<UserDto>> AddAsync(UserAddDto userAddDto)
         {
-            var user = _mapper.Map<User>(userAddDto);
+            var user = _mapper.Map<AppUser>(userAddDto);
             //todo:created date ve createduserid düzenlenecek
             user.CreatedDate = DateTime.Now;
             user.CreatedUserId = 1;
@@ -83,7 +83,7 @@ namespace Business.Concrete
         public async Task<ApiDataResponse<UserUpdateDto>> UpdateAsync(UserUpdateDto userUpdateDto)
         {
             var getUser = await _userDal.GetAsync(x => x.Id == userUpdateDto.Id);
-            var user = _mapper.Map<User>(userUpdateDto);
+            var user = _mapper.Map<AppUser>(userUpdateDto);
             //Todo: createddate ve createdid düzenlenecek
             user.Password = getUser.Password;
             user.CreatedDate = getUser.CreatedDate;
