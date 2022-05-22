@@ -1,19 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Core.Entities.Concrete;
 using Entities.Concrete;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
 
-namespace DataAccess.Concrete.EntityFramework.Mapping
+namespace DataAccess.Concrete.EntityFramework.Configurations
 {
-    public class UserMap:IEntityTypeConfiguration<AppUser>
+    public class AppUserConfiguration:IEntityTypeConfiguration<User>
     {
-        public void Configure(EntityTypeBuilder<AppUser> builder)
+        public void Configure(EntityTypeBuilder<User> builder)
         {
-            builder.ToTable("Users", @"dbo");
+            builder.ToTable("AppUsers", @"dbo");
             builder.HasKey(x => x.Id);
 
             builder.Property(x => x.UserName)
@@ -32,18 +29,18 @@ namespace DataAccess.Concrete.EntityFramework.Mapping
                 .IsRequired();
 
 
-            builder.Property(x => x.Password)
-                .HasColumnName("Password")
-                .HasMaxLength(20)
-                .IsRequired();
+            //builder.Property(x => x.Password)
+            //    .HasColumnName("Password")
+            //    .HasMaxLength(20)
+            //    .IsRequired();
 
-            builder.Property(x => x.Gender)
-                .HasColumnName("Gender")
-                .IsRequired();
+            //builder.Property(x => x.Gender)
+            //    .HasColumnName("Gender")
+            //    .IsRequired();
 
-            builder.Property(x => x.DateOfBirth)
-                .HasColumnName("DateOfBirth")
-                .IsRequired();
+            //builder.Property(x => x.DateOfBirth)
+            //    .HasColumnName("DateOfBirth")
+            //    .IsRequired();
 
             builder.Property(x => x.CreatedDate).HasDefaultValue(DateTime.Now);
 
@@ -52,11 +49,11 @@ namespace DataAccess.Concrete.EntityFramework.Mapping
                 Id = 1,
                 FirstName = "Kubilay",
                 LastName = "Yazı",
-                Password = "123456",
-                Gender = true,
-                DateOfBirth = Convert.ToDateTime("23-02-1996"),
+                //Password = "123456",
+                //Gender = true,
+                //DateOfBirth = Convert.ToDateTime("23-02-1996"),
                 CreatedDate = DateTime.Now,
-                Address = "Karabük",
+              //  Address = "Karabük",
                 CreatedUserId = 1,
                 Email = "kubi@hot.com",
                 UserName = "kubilayyazi"

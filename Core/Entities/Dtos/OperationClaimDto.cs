@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Core.Entities.Dtos
 {
-    class RoleDto : IDto
+    class OperationClaimDto : IDto
     {
         public int Id { get; set; }
-        public string RoleName { get; set; }
+        public string Name { get; set; }
     }
 }

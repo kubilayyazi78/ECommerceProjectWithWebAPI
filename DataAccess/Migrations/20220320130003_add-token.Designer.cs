@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DataAccess.Migrations
 {
-    [DbContext(typeof(ECommerceProjectWithWebAPIContext))]
+    [DbContext(typeof(ECommerceDbContext))]
     [Migration("20220320130003_add-token")]
     partial class addtoken
     {

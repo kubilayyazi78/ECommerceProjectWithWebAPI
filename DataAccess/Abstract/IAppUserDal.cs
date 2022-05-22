@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Core.DataAccess;
+using Core.Entities.Concrete;
 using Entities.Concrete;
 
 namespace DataAccess.Abstract
 {
-    public interface IUserDal : IBaseRepository<AppUser>
+    public interface IAppUserDal : IBaseRepository<User>
     {
     }
 }

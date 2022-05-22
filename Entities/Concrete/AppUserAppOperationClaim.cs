@@ -8,10 +8,10 @@ using Core.Entities.Concrete;
 
 namespace Entities.Concrete
 {
-    public class AppUserAppRole:UserRole
+    public class AppUserAppOperationClaim : UserOperationClaim
     {
-        [ForeignKey("RoleId")]
-        public virtual AppRole AppRole { get; set; }
+        [ForeignKey("OperationClaimId")]
+        public virtual AppOperationClaim AppOperationClaim { get; set; }
 
         [ForeignKey("UserId")]
         public virtual AppUser AppUser { get; set; }

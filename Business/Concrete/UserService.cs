@@ -18,16 +18,17 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using Core.Aspects.Autofac.Caching;
+using Core.Entities.Concrete;
 
 namespace Business.Concrete
 {
     public class UserService : IUserService
     {
         #region DI
-        private readonly IUserDal _userDal;
+        private readonly IAppUserDal _userDal;
         private AppSettings _appSettings;
         private IMapper _mapper;
-        public UserService(IUserDal userDal, IOptions<AppSettings> appSettings, IMapper mapper)
+        public UserService(IAppUserDal userDal, IOptions<AppSettings> appSettings, IMapper mapper)
         {
             _userDal = userDal;
             _mapper = mapper;
@@ -43,7 +44,7 @@ namespace Business.Concrete
             return new SuccessApiDataResponse<IEnumerable<UserDetailDto>>(userDetailDtos, Messages.Listed);
         }
 
-        public async Task<ApiDataResponse<UserDto>> GetAsync(Expression<Func<AppUser, bool>> filter)
+        public async Task<ApiDataResponse<UserDto>> GetAsync(Expression<Func<User, bool>> filter)
         {
             var user = await _userDal.GetAsync(filter);
 
@@ -85,13 +86,13 @@ namespace Business.Concrete
             var getUser = await _userDal.GetAsync(x => x.Id == userUpdateDto.Id);
             var user = _mapper.Map<AppUser>(userUpdateDto);
             //Todo: createddate ve createdid düzenlenecek
-            user.Password = getUser.Password;
+            //user.Password = getUser.Password;
             user.CreatedDate = getUser.CreatedDate;
             user.CreatedUserId = getUser.CreatedUserId;
             user.UpdatedDate = DateTime.Now;
             user.UpdatedUserId = 1;
-            user.Token = userUpdateDto.Token;
-            user.TokenExpireDate = userUpdateDto.TokenExpireDate;
+           // user.Token = userUpdateDto.Token;
+           // user.TokenExpireDate = userUpdateDto.TokenExpireDate;
             var resultUpdate = await _userDal.UpdateAsync(user);
             var userUpdateMap = _mapper.Map<UserUpdateDto>(resultUpdate);
             return new SuccessApiDataResponse<UserUpdateDto>(userUpdateMap, Messages.Updated);
@@ -102,39 +103,39 @@ namespace Business.Concrete
             return new SuccessApiDataResponse<bool>(await _userDal.DeleteAsync(id), Messages.Deleted);
         }
 
-        public async Task<ApiDataResponse<AccessToken>> Authenticate(LoginDto userForLoginDto)
-        {
-            var user = await _userDal.GetAsync(x =>
-                x.UserName == userForLoginDto.UserName && x.Password == userForLoginDto.Password);
+        //public async Task<ApiDataResponse<AccessToken>> Authenticate(LoginDto userForLoginDto)
+        //{
+        //    var user = await _userDal.GetAsync(x =>
+        //        x.UserName == userForLoginDto.UserName && x.Password == userForLoginDto.Password);
 
-            if (user == null)
-            {
-                return null;
-            }
+        //    if (user == null)
+        //    {
+        //        return null;
+        //    }
 
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_appSettings.SecurityKey);
-            var tokenDescriptor = new SecurityTokenDescriptor()
-            {
-                Subject = new ClaimsIdentity(new[]
-                {
-                    new Claim(ClaimTypes.Name, user.Id.ToString())
-                }),
-                Expires = DateTime.UtcNow.AddDays(7),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key),
-                    SecurityAlgorithms.HmacSha256Signature)
-            };
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-            AccessToken accessToken = new AccessToken()
-            {
-                Token = tokenHandler.WriteToken(token),
-                UserName = user.UserName,
-                Expiration = (DateTime)tokenDescriptor.Expires,
-                UserId = user.Id
-            };
+        //    var tokenHandler = new JwtSecurityTokenHandler();
+        //    var key = Encoding.ASCII.GetBytes(_appSettings.SecurityKey);
+        //    var tokenDescriptor = new SecurityTokenDescriptor()
+        //    {
+        //        Subject = new ClaimsIdentity(new[]
+        //        {
+        //            new Claim(ClaimTypes.Name, user.Id.ToString())
+        //        }),
+        //        Expires = DateTime.UtcNow.AddDays(7),
+        //        SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key),
+        //            SecurityAlgorithms.HmacSha256Signature)
+        //    };
+        //    var token = tokenHandler.CreateToken(tokenDescriptor);
+        //    AccessToken accessToken = new AccessToken()
+        //    {
+        //        Token = tokenHandler.WriteToken(token),
+        //        UserName = user.UserName,
+        //        Expiration = (DateTime)tokenDescriptor.Expires,
+        //        UserId = user.Id
+        //    };
 
-            return new SuccessApiDataResponse<AccessToken>(await Task.Run(() => accessToken), Messages.Listed);
-        }
+        //    return new SuccessApiDataResponse<AccessToken>(await Task.Run(() => accessToken), Messages.Listed);
+        //}
 
 
     }
