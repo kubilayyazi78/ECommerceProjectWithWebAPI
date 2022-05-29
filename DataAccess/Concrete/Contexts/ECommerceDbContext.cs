@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using DataAccess.Concrete.EntityFramework.Configurations;
@@ -31,11 +32,15 @@ namespace DataAccess.Concrete.Contexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new AppUserConfiguration());
+            //modelBuilder.ApplyConfiguration(new AppUserConfiguration());
+            base.OnModelCreating(modelBuilder);
+            Assembly assemblyConfiguration = GetType().Assembly;
+            modelBuilder.ApplyConfigurationsFromAssembly(assemblyConfiguration);
         }
 
         public virtual DbSet<AppUser> AppUsers { get; set; }
-        public virtual DbSet<AppUserAppOperationClaim> AppUserAppOperationClaims { get; set; }
+        public virtual DbSet<AppUserTypeAppOperationClaim> AppUserTypeAppOperationClaims { get; set; }
         public virtual DbSet<AppOperationClaim> AppOperationClaims { get; set; }
+        public virtual DbSet<AppUserType> AppUserTypes { get; set; }
     }
 }

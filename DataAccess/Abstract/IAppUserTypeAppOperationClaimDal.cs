@@ -9,7 +9,7 @@ using Entities.Concrete;
 
 namespace DataAccess.Abstract
 {
-    public interface IAppUserDal : IBaseRepository<AppUser>
+    public interface IAppUserTypeAppOperationClaimDal : IBaseRepository<AppUserTypeAppOperationClaim>
     {
     }
 }

@@ -11,7 +11,7 @@ using Entities.Concrete;
 
 namespace DataAccess.Concrete.EntityFramework
 {
-    public class EfAppUserDal : EfBaseRepository<AppUser, ECommerceDbContext>, IAppUserDal
+    public class EfAppUserTypeDal : EfBaseRepository<AppUserType, ECommerceDbContext>, IAppUserTypeDal
     {
     }
 }

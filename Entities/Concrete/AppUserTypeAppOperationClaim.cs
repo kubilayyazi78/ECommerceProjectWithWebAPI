@@ -8,12 +8,13 @@ using Core.Entities.Concrete;
 
 namespace Entities.Concrete
 {
-    public class AppUserAppOperationClaim : UserOperationClaim
+    public class AppUserTypeAppOperationClaim : UserOperationClaim
     {
+        public string Status { get; set; }
         [ForeignKey("OperationClaimId")]
         public virtual AppOperationClaim AppOperationClaim { get; set; }
 
-        [ForeignKey("UserId")]
-        public virtual AppUser AppUser { get; set; }
+        [ForeignKey("UserTypeId")]
+        public virtual AppUserType AppUserType { get; set; }
     }
 }
