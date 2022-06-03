@@ -64,7 +64,7 @@ namespace WebAPIWithCoreMvc.Controllers
         [HttpGet]
         public async Task<IActionResult> Update(int id)
         {
-            var user = await _httpClient.GetFromJsonAsync<UserDto>(url + "Users/GetById/" + id);
+            var user = await _httpClient.GetFromJsonAsync<AppUserDto>(url + "Users/GetById/" + id);
 
             UserUpdateViewModel userUpdateViewModel = new UserUpdateViewModel()
             {
@@ -110,7 +110,7 @@ namespace WebAPIWithCoreMvc.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-            var user = await _httpClient.GetFromJsonAsync<UserDto>(url + "Users/GetById/" + id);
+            var user = await _httpClient.GetFromJsonAsync<AppUserDto>(url + "Users/GetById/" + id);
 
             UserDeleteViewModel userDeleteViewModel = new UserDeleteViewModel()
             {

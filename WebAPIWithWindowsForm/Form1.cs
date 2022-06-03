@@ -69,7 +69,7 @@ namespace WebAPIWithWindowsForm
                 selectedId = Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value.ToString());
             using (HttpClient httpClient = new HttpClient())
             {
-                var user = await httpClient.GetFromJsonAsync<UserDto>(url + "Users/GetById/" + selectedId);
+                var user = await httpClient.GetFromJsonAsync<AppUserDto>(url + "Users/GetById/" + selectedId);
 
                 txtAddress.Text = user.Address;
                 cmbGender.SelectedValue = user.Gender == true ? 1 : 2;

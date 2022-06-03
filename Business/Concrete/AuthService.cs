@@ -9,57 +9,67 @@ using Entities.Dtos.Auth;
 using Entities.Dtos.User;
 using System;
 using System.Threading.Tasks;
+using Core.Utilities.Security.Hash.Sha512;
+using Entities.Concrete;
 
 namespace Business.Concrete
 {
     public class AuthService : IAuthService
     {
-        private IUserService _userService;
+        #region DI
+        private IAppUserService _appUserService;
         private ITokenService _tokenService;
         private IMapper _mapper;
 
-        public AuthService(IUserService userService, IMapper mapper, ITokenService tokenService)
+        public AuthService(IAppUserService appUserService, IMapper mapper, ITokenService tokenService)
         {
-            _userService = userService;
+            _appUserService = appUserService;
             _mapper = mapper;
             _tokenService = tokenService;
         }
+        #endregion
 
         [ValidationAspect(typeof(LoginDtoValidator))]
-        public async Task<ApiDataResponse<UserDto>> LoginAsync(LoginDto loginDto)
+        public async Task<ApiDataResponse<AccessToken>> LoginAsync(LoginDto loginDto)
         {
-            var user = await _userService.GetAsync(x =>
-                x.UserName == loginDto.UserName /* && x.Password == loginDto.Password*/);
+            var user = await _appUserService.GetAsync(x => x.UserName == loginDto.UserName);
             if (user.Data == null)
             {
-                return new ErrorApiDataResponse<UserDto>(null, Messages.UserNotFound);
+                return new ErrorApiDataResponse<AccessToken>(null, Messages.UserNotFound);
             }
             else
             {
-                if (user.Data.TokenExpireDate == null || String.IsNullOrEmpty(user.Data.Token))
+                if (!Sha512Helper.VerifyPasswordHash(loginDto.Password, user.Data.PasswordHash, user.Data.PasswordSalt))
                 {
-                    return await UpdateToken(user);
+                    return new ErrorApiDataResponse<AccessToken>(null, Messages.UserNotFound);
                 }
 
-                if (user.Data.TokenExpireDate < DateTime.Now)
-                {
-                    return await UpdateToken(user);
-                }
+                var appUser = _mapper.Map<AppUser>(user.Data);
+                var accessToken = await CreateAccessTokenAync(appUser);
+                return new SuccessApiDataResponse<AccessToken>(accessToken, Messages.SystemLoginSuccessful);
             }
 
-            return new SuccessApiDataResponse<UserDto>(user.Data, Messages.SystemLoginSuccessful);
         }
 
-        private async Task<ApiDataResponse<UserDto>> UpdateToken(ApiDataResponse<UserDto> user)
+        //private async Task<ApiDataResponse<AppUserDto>> UpdateToken(ApiDataResponse<AppUserDto> user)
+        //{
+        //    var accessToken = _tokenService.CreateToken(user.Data.Id, user.Data.UserName);
+        //    var userUpdateDto = _mapper.Map<UserUpdateDto>(user.Data);
+        //    userUpdateDto.TokenExpireDate = accessToken.Expiration;
+        //    userUpdateDto.Token = accessToken.Token;
+        //    userUpdateDto.UpdatedUserId = user.Data.Id;
+        //    var resultUserUpdateDto = await _appUserService.UpdateAsync(userUpdateDto);
+        //    var userDto = _mapper.Map<AppUserDto>(resultUserUpdateDto.Data);
+        //    return new SuccessApiDataResponse<AppUserDto>(userDto, Messages.SystemLoginSuccessful);
+        //}
+
+        public async Task<AccessToken> CreateAccessTokenAync(AppUser appUser)
         {
-            var accessToken = _tokenService.CreateToken(user.Data.Id, user.Data.UserName);
-            var userUpdateDto = _mapper.Map<UserUpdateDto>(user.Data);
-            userUpdateDto.TokenExpireDate = accessToken.Expiration;
-            userUpdateDto.Token = accessToken.Token;
-            userUpdateDto.UpdatedUserId = user.Data.Id;
-            var resultUserUpdateDto = await _userService.UpdateAsync(userUpdateDto);
-            var userDto = _mapper.Map<UserDto>(resultUserUpdateDto.Data);
-            return new SuccessApiDataResponse<UserDto>(userDto, Messages.SystemLoginSuccessful);
+            var roles = await _appUserService.GetRolesAsync(appUser);
+
+            var accessToken = _tokenService.CreateToken(appUser, roles);
+
+            return accessToken;
         }
     }
 }

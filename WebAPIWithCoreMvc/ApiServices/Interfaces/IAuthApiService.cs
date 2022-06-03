@@ -10,6 +10,6 @@ namespace WebAPIWithCoreMvc.ApiServices.Interfaces
 {
     public interface IAuthApiService
     {
-        Task<ApiDataResponse<UserDto>> LoginAsync(LoginDto loginDto);
+        Task<ApiDataResponse<AppUserDto>> LoginAsync(LoginDto loginDto);
     }
 }

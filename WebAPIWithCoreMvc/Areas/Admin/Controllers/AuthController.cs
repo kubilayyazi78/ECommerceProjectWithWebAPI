@@ -35,7 +35,8 @@ namespace WebAPIWithCoreMvc.Areas.Admin.Controllers
             var user = await _authApiService.LoginAsync(loginDto);
             if (user != null && user.Success)
             {
-                _httpContextAccessor.HttpContext.Session.SetString("token", user.Data.Token);
+                //Todo: Token Eklenecek
+                _httpContextAccessor.HttpContext.Session.SetString("token", user.Data.UserName);
                 var userClaims = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme);
                 userClaims.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Data.Id.ToString()));
                 userClaims.AddClaim(new Claim(ClaimTypes.Name, user.Data.UserName));

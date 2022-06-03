@@ -16,8 +16,8 @@ namespace Business.Mappings
             CreateMap<AppUser, UserDetailDto>();
             CreateMap<UserDetailDto, AppUser>();
 
-            CreateMap<AppUser, UserDto>();
-            CreateMap<UserDto, AppUser>();
+            CreateMap<AppUser, AppUserDto>();
+            CreateMap<AppUserDto, AppUser>();
 
             CreateMap<AppUser, UserAddDto>();
             CreateMap<UserAddDto, AppUser>();
@@ -25,8 +25,8 @@ namespace Business.Mappings
             CreateMap<AppUser, UserUpdateDto>();
             CreateMap<UserUpdateDto, AppUser>();
 
-            CreateMap<UserDto, UserUpdateDto>();
-            CreateMap<UserUpdateDto, UserDto>();
+            CreateMap<AppUserDto, UserUpdateDto>();
+            CreateMap<UserUpdateDto, AppUserDto>();
         }
     }
 }

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Core.Entities.Concrete
 {
-    public class UserOperationClaim:BaseEntity,IUpdatedEntity
+    public class UserTypeOperationClaim:BaseEntity,IUpdatedEntity
     {
         public int UserTypeId { get; set; }
         public int OperationClaimId { get; set; }
