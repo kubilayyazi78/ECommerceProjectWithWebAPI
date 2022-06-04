@@ -10,18 +10,18 @@ using Core.Utilities.Responses;
 using Core.Utilities.Security.Token;
 using Entities.Concrete;
 using Entities.Dtos.AppOperationClaimDto;
+using Entities.Dtos.AppUser;
 using Entities.Dtos.Auth;
-using Entities.Dtos.User;
 
 namespace Business.Abstract
 {
     public interface IAppUserService
     {
-        Task<ApiDataResponse<IEnumerable<UserDetailDto>>> GetListAsync();
+        Task<ApiDataResponse<IEnumerable<AppUserDetailDto>>> GetListAsync();
         Task<ApiDataResponse<AppUserDto>> GetByIdAsync(int id);
         Task<ApiDataResponse<AppUserDto>> GetAsync(Expression<Func<AppUser, bool>> filter);
-        Task<ApiDataResponse<AppUserDto>> AddAsync(UserAddDto userAddDto);
-        Task<ApiDataResponse<UserUpdateDto>> UpdateAsync(UserUpdateDto userUpdateDto);
+        Task<ApiDataResponse<AppUserDto>> AddAsync(AppUserAddDto userAddDto);
+        Task<ApiDataResponse<AppUserUpdateDto>> UpdateAsync(AppUserUpdateDto userUpdateDto);
         Task<ApiDataResponse<bool>> DeleteAsync(int id);
 
         Task<List<OperationClaimDto>> GetRolesAsync(User user);

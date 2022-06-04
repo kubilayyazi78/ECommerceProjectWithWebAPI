@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Core.Entities;
 
-namespace Entities.Dtos
+namespace Entities.Dtos.AppUserType
 {
     public class AppUserTypeDto:IDto
     {

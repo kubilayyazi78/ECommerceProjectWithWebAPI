@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using Entities.Concrete;
-using Entities.Dtos.User;
+using Entities.Dtos.AppUser;
 
 namespace Business.Mappings
 {
@@ -13,20 +13,20 @@ namespace Business.Mappings
     {
         public MappingProfile()
         {
-            CreateMap<AppUser, UserDetailDto>();
-            CreateMap<UserDetailDto, AppUser>();
+            CreateMap<AppUser, AppUserDetailDto>();
+            CreateMap<AppUserDetailDto, AppUser>();
 
             CreateMap<AppUser, AppUserDto>();
             CreateMap<AppUserDto, AppUser>();
 
-            CreateMap<AppUser, UserAddDto>();
-            CreateMap<UserAddDto, AppUser>();
+            CreateMap<AppUser, AppUserAddDto>();
+            CreateMap<AppUserAddDto, AppUser>();
 
-            CreateMap<AppUser, UserUpdateDto>();
-            CreateMap<UserUpdateDto, AppUser>();
+            CreateMap<AppUser, AppUserUpdateDto>();
+            CreateMap<AppUserUpdateDto, AppUser>();
 
-            CreateMap<AppUserDto, UserUpdateDto>();
-            CreateMap<UserUpdateDto, AppUserDto>();
+            CreateMap<AppUserDto, AppUserUpdateDto>();
+            CreateMap<AppUserUpdateDto, AppUserDto>();
         }
     }
 }

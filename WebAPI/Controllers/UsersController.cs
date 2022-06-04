@@ -5,8 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Business.Abstract;
+using Entities.Dtos.AppUser;
 using Entities.Dtos.Auth;
-using Entities.Dtos.User;
 using Microsoft.AspNetCore.Authorization;
 
 namespace WebAPI.Controllers
@@ -49,7 +49,7 @@ namespace WebAPI.Controllers
 
         [HttpPost]
         [Route("[action]")]
-        public async Task<IActionResult> Add([FromBody] UserAddDto userAddDto)
+        public async Task<IActionResult> Add([FromBody] AppUserAddDto userAddDto)
         {
             var result = await _userService.AddAsync(userAddDto);
             if (result != null)
@@ -61,7 +61,7 @@ namespace WebAPI.Controllers
         }
         [HttpPut]
         [Route("[action]")]
-        public async Task<IActionResult> Update([FromBody] UserUpdateDto userUpdateDto)
+        public async Task<IActionResult> Update([FromBody] AppUserUpdateDto userUpdateDto)
         {
             var result = await _userService.UpdateAsync(userUpdateDto);
             if (result != null)

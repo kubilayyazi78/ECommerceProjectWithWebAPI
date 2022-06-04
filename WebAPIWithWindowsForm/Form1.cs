@@ -4,7 +4,7 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Entities.Dtos.User;
+using Entities.Dtos.AppUser;
 
 namespace WebAPIWithWindowsForm
 {
@@ -37,7 +37,7 @@ namespace WebAPIWithWindowsForm
         {
             using (HttpClient httpClient = new HttpClient())
             {
-                UserAddDto userAddDto = new UserAddDto()
+                AppUserAddDto userAddDto = new AppUserAddDto()
                 {
                     FirstName = txtFirstName.Text,
                     Address = txtAddress.Text,

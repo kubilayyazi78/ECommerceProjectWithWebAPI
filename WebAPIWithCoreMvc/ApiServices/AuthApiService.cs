@@ -5,8 +5,8 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 using Core.Utilities.Responses;
+using Entities.Dtos.AppUser;
 using Entities.Dtos.Auth;
-using Entities.Dtos.User;
 using Newtonsoft.Json;
 using WebAPIWithCoreMvc.ApiServices.Interfaces;
 
