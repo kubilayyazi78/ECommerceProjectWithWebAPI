@@ -33,7 +33,7 @@ namespace DataAccess.Concrete.EntityFramework.Configurations
 
             builder.HasData(new AppUserTypeAppOperationClaim()
             {
-                Id = -1,
+                Id = 1,
                 UserTypeId = (int)AppUserTypes.Admin,
                 OperationClaimId = 1,
                 Status = "1111"

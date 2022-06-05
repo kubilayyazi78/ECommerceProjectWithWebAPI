@@ -11,22 +11,22 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace WebAPI.Controllers
 {
-    [Authorize]
+   
     [Route("api/[controller]")]
     [ApiController]
-    public class UsersController : ControllerBase
+    public class AppUsersController : ControllerBase
     {
-        private readonly IAppUserService _userService;
+        private readonly IAppUserService _appUserService;
 
-        public UsersController(IAppUserService userService)
+        public AppUsersController(IAppUserService appUserService)
         {
-            _userService = userService;
+            _appUserService = appUserService;
         }
         [HttpGet]
         [Route("[action]")]
         public async Task<IActionResult> GetList()
         {
-            var result = await _userService.GetListAsync();
+            var result = await _appUserService.GetListAsync();
             if (result != null)
             {
                 return Ok(result);
@@ -38,7 +38,7 @@ namespace WebAPI.Controllers
         [Route("[action]/{id:int}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var result = await _userService.GetByIdAsync(id);
+            var result = await _appUserService.GetByIdAsync(id);
             if (result != null)
             {
                 return Ok(result);
@@ -51,7 +51,7 @@ namespace WebAPI.Controllers
         [Route("[action]")]
         public async Task<IActionResult> Add([FromBody] AppUserAddDto userAddDto)
         {
-            var result = await _userService.AddAsync(userAddDto);
+            var result = await _appUserService.AddAsync(userAddDto);
             if (result != null)
             {
                 return Ok(result);
@@ -63,7 +63,7 @@ namespace WebAPI.Controllers
         [Route("[action]")]
         public async Task<IActionResult> Update([FromBody] AppUserUpdateDto userUpdateDto)
         {
-            var result = await _userService.UpdateAsync(userUpdateDto);
+            var result = await _appUserService.UpdateAsync(userUpdateDto);
             if (result != null)
             {
                 return Ok(result);
@@ -75,7 +75,7 @@ namespace WebAPI.Controllers
         [Route("[action]/{id:int}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var result = await _userService.DeleteAsync(id);
+            var result = await _appUserService.DeleteAsync(id);
             if (result.Data)
             {
                 return Ok(true);

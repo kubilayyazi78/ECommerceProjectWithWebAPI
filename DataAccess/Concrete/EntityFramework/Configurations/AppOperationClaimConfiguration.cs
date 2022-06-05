@@ -20,6 +20,11 @@ namespace DataAccess.Concrete.EntityFramework.Configurations
                 .HasMaxLength(50)
                 .IsRequired();
 
+            builder.HasData(new AppOperationClaim
+            {
+                Id = 1,
+                Name = "Crud"
+            });
 
         }
     }

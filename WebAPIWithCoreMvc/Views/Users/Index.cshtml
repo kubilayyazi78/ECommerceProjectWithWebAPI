@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Entities.Dtos.User.UserDetailDto>
+﻿@model IEnumerable<Entities.Dtos.AppUser.AppUserDetailDto>
 @{
     ViewData["Title"] = "Index";
 }
@@ -29,10 +29,10 @@
                 <td>@item.UserName</td>
                 <td>@item.FirstName</td>
                 <td>@item.LastName</td>
-                <td>@item.Gender</td>
-                <td>@item.DateOfBirth.ToString("dd/MM/yyyy")</td>
+               @* <td>@item.Gender</td>*@
+               @* <td>@item.DateOfBirth.ToString("dd/MM/yyyy")</td>*@
                 <td>@item.Email</td>
-                <td>@item.Address</td>
+               @* <td>@item.Address</td>*@
                 <td>
                     <a asp-action="Update" asp-route-id="@item.Id" class="badge badge-info">Düzenle</a>
                     <a asp-action="Delete" asp-route-id="@item.Id" class="badge badge-danger">Sil</a>
