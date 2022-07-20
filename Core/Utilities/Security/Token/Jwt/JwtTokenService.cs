@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Core.Entities.Concrete;
 using Core.Entities.Dtos;
+using Core.Utilities.Messages;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
@@ -18,31 +19,42 @@ namespace Core.Utilities.Security.Token.Jwt
         {
             _appSettings = appSettings.Value;
         }
-        public AccessToken CreateToken(User user, List<OperationClaimDto> operationClaimDtos)
+        public AccessToken CreateToken(User user, List<OperationClaimDto> roles)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_appSettings.SecurityKey);
+
+            ClaimsIdentity identity = null;
+            identity = new ClaimsIdentity(new[]
+            {
+                new Claim(ClaimTypes.NameIdentifier,user.Id.ToString()),
+                new Claim(ClaimTypes.Name,user.FirstName + " " +user.LastName),
+                new Claim(ClaimTypes.Email,user.Email),
+            });
+            foreach (var item in roles)
+            {
+                identity.AddClaim(new Claim(ClaimTypes.Role, item.Name));
+            }
+
             var tokenDescriptor = new SecurityTokenDescriptor()
             {
-                Subject = new ClaimsIdentity(new[]
-                {
-                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                    new Claim(ClaimTypes.Name,user.UserName)
-                }),
+                Subject = identity,
                 Expires = DateTime.UtcNow.AddDays(7),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key),
-                    SecurityAlgorithms.HmacSha256Signature)
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
+
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return new AccessToken()
             {
                 Token = tokenHandler.WriteToken(token),
-                UserName = user.UserName,
                 Expiration = (DateTime)tokenDescriptor.Expires,
-                UserId = user.Id
+                UserName = user.UserName,
+                UserId = user.Id,
+                FullName = user.FirstName + " " + user.LastName,
+                ImageUrl = user.ProfileImageUrl,
+                UserTypeId = user.UserTypeId,
+                UserTypeName = user.UserTypeId == 1 ? Constants.SystemAdmin : Constants.Admin,
             };
-
-
         }
     }
 }

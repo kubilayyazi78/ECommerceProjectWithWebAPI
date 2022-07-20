@@ -31,13 +31,16 @@ namespace DataAccess.Concrete.EntityFramework.Configurations
                 .HasMaxLength(4)
                 .IsRequired();
 
-            builder.HasData(new AppUserTypeAppOperationClaim()
-            {
-                Id = 1,
-                UserTypeId = (int)AppUserTypes.Admin,
-                OperationClaimId = 1,
-                Status = "1111"
-            });
+            /*
+            * Category sayfası
+           * CRUD
+           * 1111
+           * 0111
+           */
+            builder.HasData(
+                new AppUserTypeAppOperationClaim() { Id = -1, UserTypeId = (int)AppUserTypes.SystemAdmin, OperationClaimId = 1, Status = "1111" },
+                new AppUserTypeAppOperationClaim() { Id = -2, UserTypeId = (int)AppUserTypes.SystemAdmin, OperationClaimId = 2, Status = "1111" },
+                new AppUserTypeAppOperationClaim() { Id = -3, UserTypeId = (int)AppUserTypes.SystemAdmin, OperationClaimId = 3, Status = "1111" });
         }
     }
 }
