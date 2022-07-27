@@ -17,6 +17,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using Core.Aspects.Autofac.Caching;
+using Core.Aspects.Autofac.SecuredOperation;
 using Core.Entities.Concrete;
 using Core.Entities.Dtos;
 using Entities.Dtos.AppOperationClaimDto;
@@ -38,7 +39,8 @@ namespace Business.Concrete
         }
         #endregion
 
-        [CacheAspect(10)]
+       // [CacheAspect(10)]
+       [SecuredOperationAspect("AppUser.List")]
         public async Task<ApiDataResponse<IEnumerable<AppUserDetailDto>>> GetListAsync()
         {
             var response = await _appUserDal.GetListAsync();

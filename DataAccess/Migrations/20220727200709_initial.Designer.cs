@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(ECommerceDbContext))]
-    [Migration("20220605134743_newDb")]
-    partial class newDb
+    [Migration("20220727200709_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -42,7 +42,17 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "Crud"
+                            Name = "AppUser"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "AppUserTypeAppOperationClaim"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "AppUserType"
                         });
                 });
 
@@ -136,20 +146,37 @@ namespace DataAccess.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 1,
-                            CreatedDate = new DateTime(2022, 6, 5, 16, 47, 43, 370, DateTimeKind.Local).AddTicks(8621),
+                            Id = -1,
+                            CreatedDate = new DateTime(2022, 7, 27, 23, 7, 9, 160, DateTimeKind.Local).AddTicks(9789),
                             CreatedUserId = 1,
                             Email = "kubi@hot.com",
                             FirstName = "Kubilay",
                             GsmNumber = "",
                             IsDeleted = false,
                             LastName = "Yazı",
-                            PasswordHash = new byte[] { 76, 198, 244, 70, 152, 75, 169, 185, 47, 103, 53, 68, 73, 195, 52, 36, 93, 249, 36, 255, 134, 19, 185, 90, 207, 34, 139, 90, 208, 179, 190, 3, 226, 110, 140, 76, 108, 201, 8, 61, 17, 59, 90, 235, 73, 255, 203, 174, 179, 169, 251, 30, 150, 131, 180, 47, 237, 44, 236, 177, 193, 129, 63, 208 },
-                            PasswordSalt = new byte[] { 51, 190, 166, 25, 100, 241, 152, 74, 19, 211, 226, 26, 98, 214, 231, 39, 5, 16, 35, 244, 44, 183, 147, 103, 7, 140, 241, 167, 81, 20, 65, 3, 95, 162, 126, 225, 85, 198, 204, 25, 150, 207, 87, 108, 147, 153, 40, 37, 158, 144, 109, 85, 114, 151, 87, 79, 68, 4, 152, 89, 136, 164, 139, 35, 14, 100, 8, 13, 136, 179, 135, 118, 36, 106, 220, 22, 22, 83, 216, 37, 90, 56, 231, 230, 47, 183, 226, 12, 17, 222, 5, 198, 76, 5, 183, 31, 82, 206, 108, 160, 67, 141, 236, 232, 51, 126, 51, 12, 215, 248, 235, 149, 123, 148, 82, 207, 253, 18, 197, 153, 17, 190, 231, 65, 6, 159, 28, 46 },
+                            PasswordHash = new byte[] { 80, 208, 214, 94, 233, 28, 227, 183, 190, 129, 53, 243, 48, 46, 59, 89, 134, 0, 100, 245, 157, 112, 208, 212, 30, 5, 44, 213, 88, 164, 174, 185, 135, 162, 120, 255, 14, 44, 126, 8, 146, 93, 46, 177, 72, 162, 177, 79, 18, 19, 171, 35, 59, 204, 59, 251, 192, 58, 38, 24, 152, 64, 76, 40 },
+                            PasswordSalt = new byte[] { 180, 168, 21, 194, 44, 24, 25, 233, 184, 11, 10, 172, 4, 203, 146, 95, 40, 179, 144, 51, 153, 67, 138, 222, 95, 29, 198, 60, 44, 232, 76, 218, 25, 253, 56, 101, 107, 122, 9, 74, 144, 44, 2, 42, 239, 27, 85, 83, 210, 42, 35, 236, 215, 66, 202, 42, 235, 121, 17, 119, 27, 81, 12, 98, 41, 75, 189, 11, 202, 238, 194, 122, 193, 25, 248, 146, 134, 57, 255, 31, 245, 55, 48, 36, 168, 128, 198, 104, 176, 55, 16, 189, 31, 192, 128, 244, 197, 34, 2, 112, 156, 195, 38, 245, 194, 125, 154, 141, 231, 8, 52, 156, 17, 12, 135, 216, 188, 139, 49, 76, 109, 105, 114, 216, 165, 56, 27, 66 },
                             ProfileImageUrl = "",
-                            RefreshToken = new Guid("27db00fc-25be-48b1-b0fc-bb62702cff72"),
+                            RefreshToken = new Guid("7e1ce3a4-0e0d-40ef-9d81-1395914d0787"),
                             UserName = "kubilayyazi",
-                            UserTypeId = 1
+                            UserTypeId = -1
+                        },
+                        new
+                        {
+                            Id = -2,
+                            CreatedDate = new DateTime(2022, 7, 27, 23, 7, 9, 162, DateTimeKind.Local).AddTicks(375),
+                            CreatedUserId = 1,
+                            Email = "admin@gmail.com",
+                            FirstName = "Admin",
+                            GsmNumber = "",
+                            IsDeleted = false,
+                            LastName = "ADMIN",
+                            PasswordHash = new byte[] { 80, 208, 214, 94, 233, 28, 227, 183, 190, 129, 53, 243, 48, 46, 59, 89, 134, 0, 100, 245, 157, 112, 208, 212, 30, 5, 44, 213, 88, 164, 174, 185, 135, 162, 120, 255, 14, 44, 126, 8, 146, 93, 46, 177, 72, 162, 177, 79, 18, 19, 171, 35, 59, 204, 59, 251, 192, 58, 38, 24, 152, 64, 76, 40 },
+                            PasswordSalt = new byte[] { 180, 168, 21, 194, 44, 24, 25, 233, 184, 11, 10, 172, 4, 203, 146, 95, 40, 179, 144, 51, 153, 67, 138, 222, 95, 29, 198, 60, 44, 232, 76, 218, 25, 253, 56, 101, 107, 122, 9, 74, 144, 44, 2, 42, 239, 27, 85, 83, 210, 42, 35, 236, 215, 66, 202, 42, 235, 121, 17, 119, 27, 81, 12, 98, 41, 75, 189, 11, 202, 238, 194, 122, 193, 25, 248, 146, 134, 57, 255, 31, 245, 55, 48, 36, 168, 128, 198, 104, 176, 55, 16, 189, 31, 192, 128, 244, 197, 34, 2, 112, 156, 195, 38, 245, 194, 125, 154, 141, 231, 8, 52, 156, 17, 12, 135, 216, 188, 139, 49, 76, 109, 105, 114, 216, 165, 56, 27, 66 },
+                            ProfileImageUrl = "",
+                            RefreshToken = new Guid("d4f2c0c1-d0d8-4e52-b588-91b0729c2da1"),
+                            UserName = "admin",
+                            UserTypeId = -2
                         });
                 });
 
@@ -173,12 +200,12 @@ namespace DataAccess.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 1,
+                            Id = -1,
                             UserTypeName = "System Admin"
                         },
                         new
                         {
-                            Id = 2,
+                            Id = -2,
                             UserTypeName = "Admin"
                         });
                 });
@@ -189,9 +216,6 @@ namespace DataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("AppUserId")
-                        .HasColumnType("int");
 
                     b.Property<int>("OperationClaimId")
                         .HasColumnType("int")
@@ -215,8 +239,6 @@ namespace DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AppUserId");
-
                     b.HasIndex("OperationClaimId");
 
                     b.HasIndex("UserTypeId");
@@ -226,19 +248,29 @@ namespace DataAccess.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 1,
+                            Id = -1,
                             OperationClaimId = 1,
+                            Status = "1011",
+                            UserTypeId = -2
+                        },
+                        new
+                        {
+                            Id = -2,
+                            OperationClaimId = 2,
                             Status = "1111",
-                            UserTypeId = 2
+                            UserTypeId = -2
+                        },
+                        new
+                        {
+                            Id = -3,
+                            OperationClaimId = 3,
+                            Status = "1111",
+                            UserTypeId = -2
                         });
                 });
 
             modelBuilder.Entity("Entities.Concrete.AppUserTypeAppOperationClaim", b =>
                 {
-                    b.HasOne("Entities.Concrete.AppUser", null)
-                        .WithMany("AppUserTypeAppOperationClaims")
-                        .HasForeignKey("AppUserId");
-
                     b.HasOne("Entities.Concrete.AppOperationClaim", "AppOperationClaim")
                         .WithMany("AppUserTypeAppOperationClaims")
                         .HasForeignKey("OperationClaimId")
@@ -257,11 +289,6 @@ namespace DataAccess.Migrations
                 });
 
             modelBuilder.Entity("Entities.Concrete.AppOperationClaim", b =>
-                {
-                    b.Navigation("AppUserTypeAppOperationClaims");
-                });
-
-            modelBuilder.Entity("Entities.Concrete.AppUser", b =>
                 {
                     b.Navigation("AppUserTypeAppOperationClaims");
                 });

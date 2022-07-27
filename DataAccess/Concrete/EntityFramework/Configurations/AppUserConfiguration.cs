@@ -68,7 +68,7 @@ namespace DataAccess.Concrete.EntityFramework.Configurations
 
             builder.HasData(new AppUser
             {
-                Id = 1,
+                Id = -1,
                 FirstName = "Kubilay",
                 LastName = "Yazı",
                 CreatedDate = DateTime.Now,
@@ -81,6 +81,21 @@ namespace DataAccess.Concrete.EntityFramework.Configurations
                 ProfileImageUrl =String.Empty,
                 UserTypeId = (int)AppUserTypes.SystemAdmin,
                 RefreshToken = Guid.NewGuid()
+            }, new AppUser
+            {
+                Id = -2,
+                FirstName = "Admin",
+                LastName = "ADMIN",
+                CreatedDate = DateTime.Now,
+                CreatedUserId = 1,
+                Email = "admin@gmail.com",
+                UserName = "admin",
+                PasswordHash = passwordHash,
+                PasswordSalt = passwordSalt,
+                GsmNumber = String.Empty,
+                ProfileImageUrl = String.Empty,
+                UserTypeId = (int)AppUserTypes.Admin,
+                RefreshToken = Guid.NewGuid(),
             });
         }
     }
