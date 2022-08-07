@@ -17,7 +17,9 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using Core.Aspects.Autofac.Caching;
+using Core.Aspects.Autofac.Logging;
 using Core.Aspects.Autofac.SecuredOperation;
+using Core.CrossCuttingConcerns.Logging.Serilog.Loggers;
 using Core.Entities.Concrete;
 using Core.Entities.Dtos;
 using Entities.Dtos.AppOperationClaimDto;
@@ -41,6 +43,7 @@ namespace Business.Concrete
 
        // [CacheAspect(10)]
        [SecuredOperationAspect("AppUser.List")]
+       [LogAspect(typeof(FileLogger))]
         public async Task<ApiDataResponse<IEnumerable<AppUserDetailDto>>> GetListAsync()
         {
             var response = await _appUserDal.GetListAsync();
