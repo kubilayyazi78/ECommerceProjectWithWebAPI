@@ -46,6 +46,9 @@ namespace Business.Concrete
        [LogAspect(typeof(FileLogger))]
         public async Task<ApiDataResponse<IEnumerable<AppUserDetailDto>>> GetListAsync()
         {
+
+            throw new UnauthorizedAccessException("Unauthorized");
+
             var response = await _appUserDal.GetListAsync();
             var userDetailDtos = _mapper.Map<IEnumerable<AppUserDetailDto>>(response);
             return new SuccessApiDataResponse<IEnumerable<AppUserDetailDto>>(userDetailDtos, Messages.Listed);

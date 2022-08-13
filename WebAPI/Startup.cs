@@ -73,6 +73,7 @@ namespace WebAPI
                 app.UseCustomSwagger();
             }
 
+            app.ConfigureCustomExceptionMiddleware();
             app.UseStaticHttpContext();
             app.UseRouting();
             app.UseAuthentication();

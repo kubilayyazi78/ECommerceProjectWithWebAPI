@@ -30,7 +30,7 @@ namespace Core.Aspects.Autofac.SecuredOperation
                 var userId = Convert.ToInt32(_httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
                 var roleClaims = _httpContextAccessor.HttpContext.User.ClaimRoles();
                 if (roleClaims.Count <= 0)
-                    throw new Exception("");
+                    throw new System.Exception("");
 
                 if (_attributeRoles != null)
                 {
@@ -66,10 +66,10 @@ namespace Core.Aspects.Autofac.SecuredOperation
                             }
                             else
                             {
-                                throw new Exception("");
+                                throw new System.Exception("");
                             }
                         }
-                        throw new Exception("Yetkiniz Yok");
+                        throw new System.Exception("Yetkiniz Yok");
                     }
                     else
                     {
@@ -83,9 +83,9 @@ namespace Core.Aspects.Autofac.SecuredOperation
             }
             else
             {
-                throw new Exception("");
+                throw new System.Exception("");
             }
-            throw new Exception("");
+            throw new System.Exception("");
         }
     }
 }
