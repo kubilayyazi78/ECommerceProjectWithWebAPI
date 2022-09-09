@@ -1,30 +1,21 @@
+using AutoMapper;
+using Business.Mappings;
+using Core.Extensions;
+using Core.Providers;
+using Core.Utilities.Messages;
+using Core.Utilities.Settings;
+using DataAccess.Concrete.Contexts;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.OpenApi.Models;
-using System;
+using Microsoft.Extensions.Options;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AutoMapper;
-using Business.Abstract;
-using Business.Concrete;
-using Business.Mappings;
-using Core.Extensions;
-using Core.Utilities.Security.Token;
-using Core.Utilities.Security.Token.Jwt;
-using DataAccess.Abstract;
-using DataAccess.Concrete.Contexts;
-using DataAccess.Concrete.EntityFramework;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Migrations;
-using Microsoft.IdentityModel.Tokens;
+using System.Globalization;
 
 namespace WebAPI
 {
@@ -40,7 +31,28 @@ namespace WebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            IServiceCollection serviceCollections = services.AddDbContext<ECommerceDbContext>(opts =>
+
+            #region Localization
+
+            services.AddLocalization(options => { options.ResourcesPath = "Resources"; });
+            services.Configure<RequestLocalizationOptions>(options =>
+            {
+                AppSettings settings = new AppSettings();
+                Configuration.GetSection("AppSettings").Bind(settings);
+                var cultures = new List<CultureInfo>
+                {
+                    new CultureInfo(Constants.LangTR),
+                    new CultureInfo(Constants.LangEN)
+                };
+                options.DefaultRequestCulture = new RequestCulture(Constants.LangTR, Constants.LangTR);
+                options.SupportedCultures = cultures;
+                options.SupportedUICultures = cultures;
+                options.RequestCultureProviders = new[] { new RequestHeaderCultureProvider(settings) };
+            });
+
+            #endregion Localization
+
+            services.AddDbContext<ECommerceDbContext>(opts =>
                 opts.UseSqlServer(
                     "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=ECommerceDb;Integrated Security=True;" +
                      "Connect Timeout=30;Encrypt=False;" +
@@ -67,6 +79,9 @@ namespace WebAPI
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+
+            var localizationOptions = app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>();
+            app.UseRequestLocalization(localizationOptions.Value);
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
