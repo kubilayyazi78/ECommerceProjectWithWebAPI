@@ -16,6 +16,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using System.Collections.Generic;
 using System.Globalization;
+using Core.Localize;
 
 namespace WebAPI
 {
@@ -37,8 +38,8 @@ namespace WebAPI
             services.AddLocalization(options => { options.ResourcesPath = "Resources"; });
             services.Configure<RequestLocalizationOptions>(options =>
             {
-                AppSettings settings = new AppSettings();
-                Configuration.GetSection("AppSettings").Bind(settings);
+                LocalizationAppSettings settings = new LocalizationAppSettings();
+                Configuration.GetSection("LocalizationAppSettings").Bind(settings);
                 var cultures = new List<CultureInfo>
                 {
                     new CultureInfo(Constants.LangTR),
@@ -59,7 +60,14 @@ namespace WebAPI
                      "TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False",
                     options => options.MigrationsAssembly("DataAccess")
                         .MigrationsHistoryTable(HistoryRepository.DefaultTableName, "dbo")));
-            services.AddControllers();
+            services.AddControllers()
+                .AddDataAnnotationsLocalization(options =>
+                {
+                    options.DataAnnotationLocalizerProvider = (type, factory) =>
+                    {
+                        return factory.Create(typeof(Resource));
+                    };
+                });
             services.AddCustomSwagger();
             services.AddCustomJwtToken(Configuration);
             services.AddCustomHttpContextAccessor();

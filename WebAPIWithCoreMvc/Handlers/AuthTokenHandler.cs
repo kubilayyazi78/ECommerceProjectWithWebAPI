@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Runtime.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
+using Core.Utilities.Messages;
 using Microsoft.AspNetCore.Http;
 using WebAPIWithCoreMvc.Exceptions;
 
@@ -25,10 +26,12 @@ namespace WebAPIWithCoreMvc.Handlers
         {
             if (_httpContextAccessor.HttpContext.User.Identity.IsAuthenticated)
             {
-                string _token = _httpContextAccessor.HttpContext.Session.GetString("token");
-                if (!String.IsNullOrEmpty(_token))
+                string _language = _httpContextAccessor.HttpContext.User.FindFirst("language").Value;
+                string _token = _httpContextAccessor.HttpContext.User.FindFirst("token").Value;
+                if (!string.IsNullOrEmpty(_token))
                 {
-                    request.Headers.Add("Authorization",$"Bearer {_token}");
+                    request.Headers.Add(Constants.AcceptLangauge, _language);
+                    request.Headers.Add("Authorization", $"Bearer {_token}");
                 }
             }
 

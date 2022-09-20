@@ -12,10 +12,12 @@ using Core.CrossCuttingConcerns.Caching;
 using Core.CrossCuttingConcerns.Caching.Microsoft;
 using Core.CrossCuttingConcerns.Logging.Serilog.Loggers;
 using Core.Utilities.Interceptors;
+using Core.Utilities.Localization;
 using Core.Utilities.Security.Token;
 using Core.Utilities.Security.Token.Jwt;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
+using Microsoft.Extensions.Localization;
 
 namespace Business.DependencyResolvers
 {
@@ -29,6 +31,8 @@ namespace Business.DependencyResolvers
             builder.RegisterType<AuthService>().As<IAuthService>();
             builder.RegisterType<MemoryCacheService>().As<ICacheService>();
             builder.RegisterType<FileLogger>();
+            builder.RegisterType<LocalizationService>().As<ILocalizationService>();
+            builder.RegisterGeneric(typeof(StringLocalizer<>)).As(typeof(IStringLocalizer<>)).SingleInstance();
 
             var assembly = System.Reflection.Assembly.GetExecutingAssembly();
             builder.RegisterAssemblyTypes(assembly).AsImplementedInterfaces()

@@ -47,7 +47,7 @@ namespace Business.Concrete
         public async Task<ApiDataResponse<IEnumerable<AppUserDetailDto>>> GetListAsync()
         {
 
-            throw new UnauthorizedAccessException("Unauthorized");
+            //throw new UnauthorizedAccessException("Unauthorized");
 
             var response = await _appUserDal.GetListAsync();
             var userDetailDtos = _mapper.Map<IEnumerable<AppUserDetailDto>>(response);

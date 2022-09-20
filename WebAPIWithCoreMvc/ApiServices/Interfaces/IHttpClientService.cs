@@ -4,13 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using Core.Utilities.Responses;
 using Core.Utilities.Security.Token;
-using Entities.Dtos.AppUser;
 using Entities.Dtos.Auth;
 
 namespace WebAPIWithCoreMvc.ApiServices.Interfaces
 {
-    public interface IAuthApiService
+    public interface IHttpClientService
     {
         Task<ApiDataResponse<AccessToken>> LoginAsync(LoginDto loginDto);
+        Task<ApiDataResponse<List<T>>> GetListAsync<T>(string url);
     }
 }

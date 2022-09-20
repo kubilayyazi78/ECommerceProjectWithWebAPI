@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 using Core.Utilities.Responses;
+using Core.Utilities.Security.Token;
 using Entities.Dtos.AppUser;
 using Entities.Dtos.Auth;
 using Newtonsoft.Json;
@@ -14,24 +15,16 @@ namespace WebAPIWithCoreMvc.ApiServices
 {
     public class AuthApiService : IAuthApiService
     {
-        private readonly HttpClient _httpClient;
+        private readonly IHttpClientService _httpClientService;
 
-        public AuthApiService(HttpClient httpClient)
+        public AuthApiService(IHttpClientService httpClientService)
         {
-            _httpClient = httpClient;
+            _httpClientService = httpClientService;
         }
 
-        public async Task<ApiDataResponse<AppUserDto>> LoginAsync(LoginDto loginDto)
+        public async Task<ApiDataResponse<AccessToken>> LoginAsync(LoginDto loginDto)
         {
-            HttpResponseMessage httpResponseMessage = await _httpClient.PostAsJsonAsync("Auths/Login", loginDto);
-            if (httpResponseMessage.IsSuccessStatusCode)
-            {
-                var data = await httpResponseMessage.Content.ReadAsStringAsync();
-                var result = JsonConvert.DeserializeObject<ApiDataResponse<AppUserDto>>(data);
-                return await Task.FromResult(result);
-            }
-
-            return null;
+            return await _httpClientService.LoginAsync(loginDto);
         }
     }
 }
