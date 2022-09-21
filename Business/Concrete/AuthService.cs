@@ -10,9 +10,9 @@ using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Core.Utilities.Security.Hash.Sha512;
-using Entities.Concrete;
 using Entities.Dtos.AppUser;
 using Microsoft.AspNetCore.Http;
+using Core.Entities.Concrete;
 
 namespace Business.Concrete
 {

@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Core.Entities.Concrete;
+using Core.Entities.BaseEntities;
 
-namespace Entities.Concrete
+namespace Core.Entities.Concrete
 {
-    public class AppOperationClaim : OperationClaim
+    public class AppOperationClaim : BaseEntity
     {
+        public string Name { get; set; }
         public AppOperationClaim()
         {
             AppUserTypeAppOperationClaims = new HashSet<AppUserTypeAppOperationClaim>();

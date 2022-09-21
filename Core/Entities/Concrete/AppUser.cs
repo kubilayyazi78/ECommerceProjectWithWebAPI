@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,7 +8,7 @@ using Core.Entities.BaseEntities;
 
 namespace Core.Entities.Concrete
 {
-   public class User:CreatedUpdatedDeletedEntity
+    public class AppUser : CreatedUpdatedDeletedEntity
     {
         public string UserName { get; set; }
         public string FirstName { get; set; }
@@ -17,6 +18,10 @@ namespace Core.Entities.Concrete
         public string Email { get; set; }
         public string ProfileImageUrl { get; set; }
         public string GsmNumber { get; set; }
-        public int UserTypeId { get; set; }
+
+        public Guid RefreshToken { get; set; }
+        public int AppUserTypeId { get; set; }
+        [ForeignKey("AppUserTypeId")]
+        public virtual AppUserType AppUserType { get; set; }
     }
 }

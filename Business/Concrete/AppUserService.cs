@@ -5,7 +5,6 @@ using Core.Aspects.Autofac.Transaction;
 using Core.Utilities.Responses;
 using Core.Utilities.Security.Token;
 using DataAccess.Abstract;
-using Entities.Concrete;
 using Entities.Dtos.Auth;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -112,7 +111,7 @@ namespace Business.Concrete
             return new SuccessApiDataResponse<bool>(await _appUserDal.DeleteAsync(id), Messages.Deleted);
         }
 
-        public async Task<List<OperationClaimDto>> GetRolesAsync(User user)
+        public async Task<List<OperationClaimDto>> GetRolesAsync(Core.Entities.Concrete.AppUser user)
         {
             return await _appUserDal.GetRolesAsync(user);
         }

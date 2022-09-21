@@ -4,8 +4,9 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Core.Entities.Concrete;
 using DataAccess.Concrete.EntityFramework.Configurations;
-using Entities.Concrete;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess.Concrete.Contexts

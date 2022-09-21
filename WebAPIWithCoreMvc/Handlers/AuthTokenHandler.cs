@@ -8,7 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Core.Utilities.Messages;
 using Microsoft.AspNetCore.Http;
-using WebAPIWithCoreMvc.Exceptions;
+using Core.Utilities.Exceptions;
 
 namespace WebAPIWithCoreMvc.Handlers
 {

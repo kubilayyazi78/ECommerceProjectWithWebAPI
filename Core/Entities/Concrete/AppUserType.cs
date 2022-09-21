@@ -8,9 +8,14 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Core.Entities.Concrete
 {
-    public class UserType : BaseEntity
+    public class AppUserType : BaseEntity
     {
-        public string UserTypeName { get; set; }
+        public AppUserType()
+        {
+            AppUsers = new HashSet<AppUser>();
+        }
+        public string AppUserTypeName { get; set; }
+        private ICollection<AppUser> AppUsers { get; set; }
     }
 }
 

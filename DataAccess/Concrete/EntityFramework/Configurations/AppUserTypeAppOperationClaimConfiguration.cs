@@ -1,5 +1,4 @@
 ﻿using Core.Entities.Concrete;
-using Entities.Concrete;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -15,13 +14,13 @@ namespace DataAccess.Concrete.EntityFramework.Configurations
             builder.ToTable("AppUserTypeAppOperationClaims", @"dbo");
             builder.HasKey(x => x.Id);
 
-            builder.Property(x => x.OperationClaimId)
-                .HasColumnName("OperationClaimId")
+            builder.Property(x => x.AppOperationClaimId)
+                .HasColumnName("AppOperationClaimId")
                 .IsRequired();
 
 
-            builder.Property(x => x.UserTypeId)
-                .HasColumnName("UserTypeId")
+            builder.Property(x => x.AppUserTypeId)
+                .HasColumnName("AppUserTypeId")
                 .IsRequired();
 
 
@@ -38,9 +37,9 @@ namespace DataAccess.Concrete.EntityFramework.Configurations
            * 0111
            */
             builder.HasData(
-                new AppUserTypeAppOperationClaim() { Id = -1, UserTypeId = (int)AppUserTypes.Admin, OperationClaimId = 1, Status = "1011" },
-                new AppUserTypeAppOperationClaim() { Id = -2, UserTypeId = (int)AppUserTypes.Admin, OperationClaimId = 2, Status = "1111" },
-                new AppUserTypeAppOperationClaim() { Id = -3, UserTypeId = (int)AppUserTypes.Admin, OperationClaimId = 3, Status = "1111" });
+                new AppUserTypeAppOperationClaim() { Id = -1, AppUserTypeId = (int)AppUserTypes.Admin, AppOperationClaimId = 1, Status = "1011" },
+                new AppUserTypeAppOperationClaim() { Id = -2, AppUserTypeId = (int)AppUserTypes.Admin, AppOperationClaimId = 2, Status = "1111" },
+                new AppUserTypeAppOperationClaim() { Id = -3, AppUserTypeId = (int)AppUserTypes.Admin, AppOperationClaimId = 3, Status = "1111" });
         }
     }
 }

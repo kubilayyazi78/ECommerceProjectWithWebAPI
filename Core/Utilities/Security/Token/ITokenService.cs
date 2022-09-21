@@ -6,6 +6,6 @@ namespace Core.Utilities.Security.Token
 {
     public interface ITokenService
     {
-        AccessToken CreateToken(User user, List<OperationClaimDto> operationClaimDtos);
+        AccessToken CreateToken(AppUser user, List<OperationClaimDto> operationClaimDtos);
     }
 }

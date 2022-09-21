@@ -1,5 +1,4 @@
 ﻿using Core.Entities.Concrete;
-using Entities.Concrete;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -53,8 +52,8 @@ namespace DataAccess.Concrete.EntityFramework.Configurations
                 .HasColumnName("GsmNumber")
                 .HasMaxLength(11);
 
-            builder.Property(x => x.UserTypeId)
-                .HasColumnName("UserTypeId")
+            builder.Property(x => x.AppUserTypeId)
+                .HasColumnName("AppUserTypeId")
                 .HasMaxLength(11)
                 .IsRequired();
 
@@ -79,7 +78,7 @@ namespace DataAccess.Concrete.EntityFramework.Configurations
                 PasswordSalt = passwordSalt,
                 GsmNumber = String.Empty,
                 ProfileImageUrl =String.Empty,
-                UserTypeId = (int)AppUserTypes.SystemAdmin,
+                AppUserTypeId = (int)AppUserTypes.SystemAdmin,
                 RefreshToken = Guid.NewGuid()
             }, new AppUser
             {
@@ -94,7 +93,7 @@ namespace DataAccess.Concrete.EntityFramework.Configurations
                 PasswordSalt = passwordSalt,
                 GsmNumber = String.Empty,
                 ProfileImageUrl = String.Empty,
-                UserTypeId = (int)AppUserTypes.Admin,
+                AppUserTypeId = (int)AppUserTypes.Admin,
                 RefreshToken = Guid.NewGuid(),
             });
         }
