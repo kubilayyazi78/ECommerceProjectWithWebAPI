@@ -1,5 +1,5 @@
 ﻿@using Core.Utilities.Messages
-@model List<Entities.Dtos.AppUser.AppUserDetailDto>
+@model List<Entities.Dtos.AppUser.AppUserDto>
 @inject Core.Utilities.Localization.ILocalizationService _localizationService
 <div class="col-12">
     <div class="card card-secondary">
@@ -20,6 +20,7 @@
                     <tr>
                         <th>ID</th>
                         <th>@_localizationService[ResultCodes.LABEL_UserName]</th>
+                        <th>@_localizationService[ResultCodes.LABEL_AppUserTypeName]</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -28,6 +29,7 @@
                         <tr>
                             <td>@item.Id</td>
                             <td>@item.FirstName</td>
+                            <td>@item.AppUserTypeName</td>
                         </tr>
                     }
                 </tbody>

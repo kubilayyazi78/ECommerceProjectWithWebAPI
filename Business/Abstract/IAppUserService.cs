@@ -16,7 +16,7 @@ namespace Business.Abstract
 {
     public interface IAppUserService
     {
-        Task<ApiDataResponse<IEnumerable<AppUserDetailDto>>> GetListAsync();
+        Task<ApiDataResponse<IEnumerable<AppUserDto>>> GetListAsync();
         Task<ApiDataResponse<AppUserDto>> GetByIdAsync(int id);
         Task<ApiDataResponse<AppUser>> GetAsync(Expression<Func<AppUser, bool>> filter);
         Task<ApiDataResponse<AppUserDto>> AddAsync(AppUserAddDto userAddDto);

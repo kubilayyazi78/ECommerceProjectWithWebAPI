@@ -120,6 +120,9 @@
   <data name="ERROR_UserNotFound" xml:space="preserve">
     <value>Kullanıcı Bulunamadı!</value>
   </data>
+  <data name="LABEL_AppUserTypeName" xml:space="preserve">
+    <value>Kullanıcı Tipi</value>
+  </data>
   <data name="LABEL_UserName" xml:space="preserve">
     <value>Kullanıcı Adı</value>
   </data>
