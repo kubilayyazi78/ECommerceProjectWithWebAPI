@@ -65,6 +65,13 @@ namespace WebAPIWithCoreMvc.Areas.Admin.Controllers
             return RedirectToAction("Index", "User", new { area = "Admin" });
         }
 
+        public async Task<IActionResult> LogOut()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+            return RedirectToAction("Login");
+        }
+
         private void GetLanguages()
         {
             List<SelectListItem> languageList = new()

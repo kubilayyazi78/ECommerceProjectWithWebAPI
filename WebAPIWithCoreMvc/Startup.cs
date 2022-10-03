@@ -53,7 +53,7 @@ namespace WebAPIWithCoreMvc
                 options.AddInitialRequestCultureProvider(new CookieRequestCultureProvider(settings));
             });
 
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddHttpContextAccessor();
             services.AddSession();
             services.AddScoped<AuthTokenHandler>();
