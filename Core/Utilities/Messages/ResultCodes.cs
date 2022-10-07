@@ -57,19 +57,27 @@ namespace Core.Utilities.Messages
         /// <summary>
         /// Kullanıcı Listesi
         /// </summary>
-        LABEL_AppUserList = 7006,
-        
-        LABEL_AppUserAdd=7007,
 
-        LABEL_AppUserDelete=7008,
+        #endregion
 
-        LABEL_AppUserUpdate=7009,
+        #region Button
+        BUTTON_Add = 9000,
+        BUTTON_Update = 9001,
+        BUTTON_Delete = 9002,
+        BUTTON_Detail = 9003,
+        BUTTON_SignOut = 9004,
+        #endregion
 
-        LABEL_AppUserDetail=7010,
+        #region Title
+        PAGETITLE_AppUserList = 8000,
 
-        LABEL_SignOut=7011
+        PAGETITLE_AppUserAdd = 8001,
 
+        PAGETITLE_AppUserDelete = 8002,
 
+        PAGETITLE_AppUserUpdate = 8003,
+
+        PAGETITLE_AppUserDetail = 8004,
         #endregion
 
     }

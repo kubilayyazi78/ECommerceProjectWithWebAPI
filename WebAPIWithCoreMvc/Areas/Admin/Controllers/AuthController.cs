@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Core.Utilities.Messages;
 using Entities.Abstract.Enums;
 using Entities.Dtos.Auth;
 using Microsoft.AspNetCore.Authentication;
@@ -38,7 +39,7 @@ namespace WebAPIWithCoreMvc.Areas.Admin.Controllers
         {
             GetLanguages();
 
-            string _language = loginDto.LanguageId == (int)Languages.Turkish ? "tr-TR" : "en-US";
+            string _language = loginDto.LanguageId == (int)Languages.Turkish ? Constants.LangTR : Constants.LangEN;
 
             Response.Cookies.Append(
                 CookieRequestCultureProvider.DefaultCookieName,
@@ -62,14 +63,14 @@ namespace WebAPIWithCoreMvc.Areas.Admin.Controllers
             var claimPrincipal = new ClaimsPrincipal(userClaims);
             var authProperties = new AuthenticationProperties() { IsPersistent = loginDto.IsRememberMe };
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimPrincipal, authProperties);
-            return RedirectToAction("Index", "User", new { area = "Admin" });
+            return RedirectToAction(Constants.Index, Constants.AppUser, new { area = Constants.Admin });
         }
 
         public async Task<IActionResult> LogOut()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
-            return RedirectToAction("Login");
+            return RedirectToAction(Constants.Login);
         }
 
         private void GetLanguages()
