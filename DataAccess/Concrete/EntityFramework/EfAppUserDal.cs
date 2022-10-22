@@ -9,6 +9,7 @@ using Core.Entities.Dtos;
 using DataAccess.Abstract;
 using DataAccess.Concrete.Contexts;
 using Entities.Dtos.AppOperationClaimDto;
+using Entities.Dtos.AppUser;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 
@@ -29,7 +30,30 @@ namespace DataAccess.Concrete.EntityFramework
                              select new OperationClaimDto
                              {
                                  Id = appOperationClaim.Id,
-                                 Name = appOperationClaim.Name+"."+appUserTypeAppOperationClaim.Status
+                                 Name = appOperationClaim.Name + "." + appUserTypeAppOperationClaim.Status
+                             };
+                return await result.ToListAsync();
+            }
+
+        }
+
+        public async Task<List<AppUserDto>> GetListDetailAsync()
+        {
+            using (var context = new ECommerceDbContext())
+            {
+                var result = from appUser in context.AppUsers
+                             join appUserType in context.AppUserTypes on appUser.AppUserTypeId equals appUserType.Id
+                             select new AppUserDto
+                             {
+                                 Id = appUser.Id,
+                                 AppUserTypeName = appUserType.AppUserTypeName,
+                                 AppUserTypeId = appUser.AppUserTypeId,
+                                 Email = appUser.Email,
+                                 FirstName = appUser.FirstName,
+                                 GsmNumber = appUser.GsmNumber,
+                                 LastName = appUser.LastName,
+                                 UserName = appUser.UserName,
+                                 ProfileImageUrl = appUser.ProfileImageUrl
                              };
                 return await result.ToListAsync();
             }

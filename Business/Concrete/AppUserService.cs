@@ -40,19 +40,28 @@ namespace Business.Concrete
         }
         #endregion
 
-       // [CacheAspect(10)]
-       [SecuredOperationAspect("AppUser.List")]
-       [LogAspect(typeof(FileLogger))]
+        // [CacheAspect(10)]
+        [SecuredOperationAspect("AppUser.List")]
+        [LogAspect(typeof(FileLogger))]
         public async Task<ApiDataResponse<IEnumerable<AppUserDto>>> GetListAsync()
         {
 
             //throw new UnauthorizedAccessException("Unauthorized");
 
-            var response = await _appUserDal.Include(x=>x.AppUserType);
+            var response = await _appUserDal.GetListAsync();
             var userDtos = _mapper.Map<List<AppUserDto>>(response);
             return new SuccessApiDataResponse<IEnumerable<AppUserDto>>(userDtos, Messages.Listed);
         }
+        // [CacheAspect(10)]
+        [SecuredOperationAspect("AppUser.List")]
+        [LogAspect(typeof(FileLogger))]
+        public async Task<ApiDataResponse<IEnumerable<AppUserDto>>> GetListDetailAsync()
+        {
 
+            var response = await _appUserDal.GetListDetailAsync();
+            var userDtos = _mapper.Map<List<AppUserDto>>(response);
+            return new SuccessApiDataResponse<IEnumerable<AppUserDto>>(userDtos, Messages.Listed);
+        }
         public async Task<ApiDataResponse<AppUser>> GetAsync(Expression<Func<AppUser, bool>> filter)
         {
             var user = await _appUserDal.GetAsync(filter);

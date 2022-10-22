@@ -15,7 +15,7 @@ namespace Business.Mappings
         {
 
 
-            CreateMap<AppUser, AppUserDto>().AfterMap((au,aud)=>aud.AppUserTypeName=au.AppUserType.AppUserTypeName).ReverseMap();
+            CreateMap<AppUser, AppUserDto>().ReverseMap();
             
             CreateMap<AppUser, AppUserAddDto>().ReverseMap();
 
