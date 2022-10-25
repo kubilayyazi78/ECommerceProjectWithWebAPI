@@ -12,5 +12,7 @@ namespace WebAPIWithCoreMvc.ApiServices.Interfaces
         Task<ApiDataResponse<List<AppUserDto>>> GetListAsync();
 
         Task<ApiDataResponse<List<AppUserDto>>> GetListDetailAsync();
+
+        Task<ApiDataResponse<AppUserDto>> AddAsync(AppUserAddDto appUserAddDto);
     }
 }

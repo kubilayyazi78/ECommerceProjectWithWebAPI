@@ -23,6 +23,9 @@ using Core.Entities.Concrete;
 using Core.Entities.Dtos;
 using Entities.Dtos.AppOperationClaimDto;
 using Entities.Dtos.AppUser;
+using Core.Aspects.Autofac.Validation;
+using Business.Validations.FluentValidation;
+using Core.Utilities.Security.Hash.Sha512;
 
 namespace Business.Concrete
 {
@@ -87,12 +90,14 @@ namespace Business.Concrete
         }
         [TransactionScopeAspect]
         [CacheRemoveAspect("IUserService.GetListAsync")]
+        [ValidationAspect(typeof(AppUserAddDtoValidator))]
         public async Task<ApiDataResponse<AppUserDto>> AddAsync(AppUserAddDto userAddDto)
         {
+            byte[] passwordHash, passwordSalt;
             var user = _mapper.Map<AppUser>(userAddDto);
-            //todo:created date ve createduserid düzenlenecek
-            user.CreatedDate = DateTime.Now;
-            user.CreatedUserId = 1;
+            Sha512Helper.CreatePasswordHash(userAddDto.Password, out passwordHash, out passwordSalt);
+            user.PasswordHash = passwordHash;
+            user.PasswordSalt = passwordSalt;
             var userAdd = await _appUserDal.AddAsync(user);
             var userDto = _mapper.Map<AppUserDto>(userAdd);
             return new SuccessApiDataResponse<AppUserDto>(userDto, Messages.Added);
