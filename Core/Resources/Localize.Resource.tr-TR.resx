@@ -171,4 +171,28 @@
   <data name="PAGETITLE_AppUserUpdate" xml:space="preserve">
     <value>Kullanıcı Güncelle</value>
   </data>
+  <data name="VALIDATION_AppUserTypeFieldCannotBeEmpty" xml:space="preserve">
+    <value>Kullanıcı Tipi Alanı Boş Geçilemez!</value>
+  </data>
+  <data name="VALIDATION_EmailFieldCannotBeEmpty" xml:space="preserve">
+    <value>Kullanıcı Mail Alanı Boş Geçilemez!</value>
+  </data>
+  <data name="VALIDATION_FirstNameFieldCannotBeEmpty" xml:space="preserve">
+    <value>Kullanıcı İsim Alanı Boş Geçilemez!</value>
+  </data>
+  <data name="VALIDATION_GsmNumberFieldCannotBeEmpty" xml:space="preserve">
+    <value>Kullanıcı Telefon Numarası Alanı Boş Geçilemez!</value>
+  </data>
+  <data name="VALIDATION_LastNameFieldCannotBeEmpty" xml:space="preserve">
+    <value>Kullanıcı Soyad Alanı Boş Geçilemez!</value>
+  </data>
+  <data name="VALIDATION_PasswordFieldCannotBeEmpty" xml:space="preserve">
+    <value>Kullanıcı Şifre Alanı Boş Geçilemez!</value>
+  </data>
+  <data name="VALIDATION_RefreshTokenFieldCannotBeEmpty" xml:space="preserve">
+    <value>Refresh Token  Boş Olamaz!</value>
+  </data>
+  <data name="VALIDATION_UserNameFieldCannotBeEmpty" xml:space="preserve">
+    <value>Kullanıcı Adı Alanı Boş Geçilemez!</value>
+  </data>
 </root>

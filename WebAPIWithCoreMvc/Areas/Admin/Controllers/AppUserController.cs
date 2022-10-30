@@ -44,7 +44,14 @@ namespace WebAPIWithCoreMvc.Areas.Admin.Controllers
             var result = await _userApiService.AddAsync(appUserAddDto);
             if (!result.Success)
             {
-                ModelState.AddModelError("", result.Message);
+                string[] errors = result.Message.Split(";");
+                List<string> errorsList = new List<string>();
+                foreach (string error in errors)
+                {
+                    if (!string.IsNullOrEmpty(error))
+                        errorsList.Add(error);
+                }
+                ViewBag.Errors = errorsList;
                 return View(appUserAddDto);
             }
             return RedirectToAction("Index");

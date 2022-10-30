@@ -171,4 +171,28 @@
   <data name="PAGETITLE_AppUserUpdate" xml:space="preserve">
     <value>App User Update</value>
   </data>
+  <data name="VALIDATION_AppUserTypeFieldCannotBeEmpty" xml:space="preserve">
+    <value>AppUserType Field Cannot Be Empty</value>
+  </data>
+  <data name="VALIDATION_EmailFieldCannotBeEmpty" xml:space="preserve">
+    <value>Email Field Cannot Be Empty</value>
+  </data>
+  <data name="VALIDATION_FirstNameFieldCannotBeEmpty" xml:space="preserve">
+    <value>First Name Field Cannot Be Empty</value>
+  </data>
+  <data name="VALIDATION_GsmNumberFieldCannotBeEmpty" xml:space="preserve">
+    <value>Gsm Number Field Cannot Be Empty</value>
+  </data>
+  <data name="VALIDATION_LastNameFieldCannotBeEmpty" xml:space="preserve">
+    <value>Last Name Field Cannot Be Empty</value>
+  </data>
+  <data name="VALIDATION_PasswordFieldCannotBeEmpty" xml:space="preserve">
+    <value>Password Field Cannot Be Empty</value>
+  </data>
+  <data name="VALIDATION_RefreshTokenFieldCannotBeEmpty" xml:space="preserve">
+    <value>Refresh Token Field Cannot Be Empty</value>
+  </data>
+  <data name="VALIDATION_UserNameFieldCannotBeEmpty" xml:space="preserve">
+    <value>User Name Field Cannot Be Empty</value>
+  </data>
 </root>
