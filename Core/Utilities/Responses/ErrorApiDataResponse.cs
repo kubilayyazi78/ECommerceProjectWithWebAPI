@@ -1,19 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿
+using Core.Utilities.Messages;
 
 namespace Core.Utilities.Responses
 {
     public class ErrorApiDataResponse<T> : ApiDataResponse<T>
     {
-        public ErrorApiDataResponse(T data) : base(success: false)
+        public ErrorApiDataResponse(T data, string message, bool success = false, ResultCodes resultCodes = ResultCodes.HTTP_InternalServerError, int resultCount = 0)
+            : base(data, message, success, resultCodes, resultCount)
         {
-            Data = data;
-        }
-
-        public ErrorApiDataResponse(T data, string message) : base(success: false, message: message)
-        {
-            Data = data;
         }
     }
 }

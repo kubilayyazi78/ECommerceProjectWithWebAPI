@@ -1,31 +1,27 @@
 ﻿using AutoMapper;
 using Business.Abstract;
 using Business.Constants;
-using Core.Aspects.Autofac.Transaction;
-using Core.Utilities.Responses;
-using Core.Utilities.Security.Token;
-using DataAccess.Abstract;
-using Entities.Dtos.Auth;
-using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq.Expressions;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
+using Business.Validations.FluentValidation;
 using Core.Aspects.Autofac.Caching;
 using Core.Aspects.Autofac.Logging;
 using Core.Aspects.Autofac.SecuredOperation;
+using Core.Aspects.Autofac.Transaction;
+using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Logging.Serilog.Loggers;
 using Core.Entities.Concrete;
 using Core.Entities.Dtos;
-using Entities.Dtos.AppOperationClaimDto;
-using Entities.Dtos.AppUser;
-using Core.Aspects.Autofac.Validation;
-using Business.Validations.FluentValidation;
+using Core.Utilities.Localization;
+using Core.Utilities.Messages;
+using Core.Utilities.Responses;
 using Core.Utilities.Security.Hash.Sha512;
+using Core.Utilities.Security.Token;
+using DataAccess.Abstract;
+using Entities.Dtos.AppUser;
+using Microsoft.Extensions.Options;
+using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace Business.Concrete
 {
@@ -35,11 +31,13 @@ namespace Business.Concrete
         private readonly IAppUserDal _appUserDal;
         private AppSettings _appSettings;
         private IMapper _mapper;
-        public AppUserService(IAppUserDal appUserDal, IOptions<AppSettings> appSettings, IMapper mapper)
+        private readonly ILocalizationService _localizationService;
+        public AppUserService(IAppUserDal appUserDal, IOptions<AppSettings> appSettings, IMapper mapper, ILocalizationService localizationService)
         {
             _appUserDal = appUserDal;
             _mapper = mapper;
             _appSettings = appSettings.Value;
+            _localizationService = localizationService;
         }
         #endregion
 
@@ -53,7 +51,7 @@ namespace Business.Concrete
 
             var response = await _appUserDal.GetListAsync();
             var userDtos = _mapper.Map<List<AppUserDto>>(response);
-            return new SuccessApiDataResponse<IEnumerable<AppUserDto>>(userDtos, Messages.Listed);
+            return new SuccessApiDataResponse<IEnumerable<AppUserDto>>(data:userDtos,message: _localizationService[ResultCodes.HTTP_OK],resultCount:userDtos.Count);
         }
         // [CacheAspect(10)]
         [SecuredOperationAspect("AppUser.List")]
@@ -63,29 +61,21 @@ namespace Business.Concrete
 
             var response = await _appUserDal.GetListDetailAsync();
             var userDtos = _mapper.Map<List<AppUserDto>>(response);
-            return new SuccessApiDataResponse<IEnumerable<AppUserDto>>(userDtos, Messages.Listed);
+            return new SuccessApiDataResponse<IEnumerable<AppUserDto>>(userDtos, message: _localizationService[ResultCodes.HTTP_OK],resultCount: userDtos.Count);
         }
         public async Task<ApiDataResponse<AppUser>> GetAsync(Expression<Func<AppUser, bool>> filter)
         {
             var user = await _appUserDal.GetAsync(filter);
 
-            if (user != null)
-            {
-                return new SuccessApiDataResponse<AppUser>(user, Messages.Listed);
-            }
-            return new ErrorApiDataResponse<AppUser>(null, Messages.NotListed);
+                return new SuccessApiDataResponse<AppUser>(data:user,user is null ? _localizationService[ResultCodes.ERROR_UserNotFound]:_localizationService[ResultCodes.HTTP_OK], resultCount: user ==null ? 0 : 1 );
         }
 
         public async Task<ApiDataResponse<AppUserDto>> GetByIdAsync(int id)
         {
             var user = await _appUserDal.GetAsync(x => x.Id == id);
-            if (user != null)
-            {
-                var userDto = _mapper.Map<AppUserDto>(user);
-                return new SuccessApiDataResponse<AppUserDto>(userDto, Messages.Listed);
-            }
 
-            return new ErrorApiDataResponse<AppUserDto>(null, Messages.NotListed);
+            var userDto = _mapper.Map<AppUserDto>(user);
+            return new SuccessApiDataResponse<AppUserDto>(data: userDto, userDto is null ? _localizationService[ResultCodes.ERROR_UserNotFound] : _localizationService[ResultCodes.HTTP_OK], resultCount: userDto == null ? 0 : 1);
 
         }
         [TransactionScopeAspect]
@@ -100,29 +90,25 @@ namespace Business.Concrete
             user.PasswordSalt = passwordSalt;
             var userAdd = await _appUserDal.AddAsync(user);
             var userDto = _mapper.Map<AppUserDto>(userAdd);
-            return new SuccessApiDataResponse<AppUserDto>(userDto, Messages.Added);
+            return new SuccessApiDataResponse<AppUserDto>(userDto, _localizationService[ResultCodes.HTTP_OK]);
         }
 
         public async Task<ApiDataResponse<AppUserUpdateDto>> UpdateAsync(AppUserUpdateDto userUpdateDto)
         {
             var getUser = await _appUserDal.GetAsync(x => x.Id == userUpdateDto.Id);
             var user = _mapper.Map<AppUser>(userUpdateDto);
-            //Todo: createddate ve createdid düzenlenecek
-            //user.Password = getUser.Password;
             user.CreatedDate = getUser.CreatedDate;
             user.CreatedUserId = getUser.CreatedUserId;
             user.UpdatedDate = DateTime.Now;
             user.UpdatedUserId = 1;
-            // user.Token = userUpdateDto.Token;
-            // user.TokenExpireDate = userUpdateDto.TokenExpireDate;
             var resultUpdate = await _appUserDal.UpdateAsync(user);
             var userUpdateMap = _mapper.Map<AppUserUpdateDto>(resultUpdate);
-            return new SuccessApiDataResponse<AppUserUpdateDto>(userUpdateMap, Messages.Updated);
+            return new SuccessApiDataResponse<AppUserUpdateDto>(userUpdateMap, _localizationService[ResultCodes.HTTP_OK]);
         }
 
         public async Task<ApiDataResponse<bool>> DeleteAsync(int id)
         {
-            return new SuccessApiDataResponse<bool>(await _appUserDal.DeleteAsync(id), Messages.Deleted);
+            return new SuccessApiDataResponse<bool>(await _appUserDal.DeleteAsync(id), _localizationService[ResultCodes.HTTP_OK]);
         }
 
         public async Task<List<OperationClaimDto>> GetRolesAsync(Core.Entities.Concrete.AppUser user)

@@ -1,24 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Core.Utilities.Messages;
 
 namespace Core.Utilities.Responses
 {
     public class ApiDataResponse<T> : ApiResponse
     {
-        public ApiDataResponse()
+        public ApiDataResponse(T data, string message, bool success, ResultCodes resultCodes, int resultCount) : base(message, success, resultCodes, resultCount)
         {
-
-        }
-
-        public ApiDataResponse(bool success) : base(success)
-        {
-
-        }
-
-        public ApiDataResponse(bool success, string message) : base(success, message)
-        {
-
+            Data = data;
         }
 
         public T Data { get; set; }
