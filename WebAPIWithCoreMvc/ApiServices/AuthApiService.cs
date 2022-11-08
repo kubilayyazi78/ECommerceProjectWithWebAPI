@@ -6,8 +6,8 @@ using System.Net.Http.Json;
 using System.Threading.Tasks;
 using Core.Utilities.Responses;
 using Core.Utilities.Security.Token;
-using Entities.Dtos.AppUser;
-using Entities.Dtos.Auth;
+using Entities.Dtos.AppUsers;
+using Entities.Dtos.Auths;
 using Newtonsoft.Json;
 using WebAPIWithCoreMvc.ApiServices.Interfaces;
 

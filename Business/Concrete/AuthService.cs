@@ -5,12 +5,12 @@ using Business.Validations.FluentValidation;
 using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Responses;
 using Core.Utilities.Security.Token;
-using Entities.Dtos.Auth;
+using Entities.Dtos.Auths;
 using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Core.Utilities.Security.Hash.Sha512;
-using Entities.Dtos.AppUser;
+using Entities.Dtos.AppUsers;
 using Microsoft.AspNetCore.Http;
 using Core.Entities.Concrete;
 

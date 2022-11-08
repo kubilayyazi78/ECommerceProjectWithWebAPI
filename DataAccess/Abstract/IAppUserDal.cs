@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 using Core.DataAccess;
 using Core.Entities.Concrete;
 using Core.Entities.Dtos;
-using Entities.Dtos.AppOperationClaimDto;
-using Entities.Dtos.AppUser;
+using Entities.Dtos.AppOperationClaimDtos;
+using Entities.Dtos.AppUsers;
 
 namespace DataAccess.Abstract
 {

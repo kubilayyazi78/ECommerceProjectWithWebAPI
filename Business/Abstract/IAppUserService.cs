@@ -8,9 +8,9 @@ using Core.Entities.Concrete;
 using Core.Entities.Dtos;
 using Core.Utilities.Responses;
 using Core.Utilities.Security.Token;
-using Entities.Dtos.AppOperationClaimDto;
-using Entities.Dtos.AppUser;
-using Entities.Dtos.Auth;
+using Entities.Dtos.AppOperationClaimDtos;
+using Entities.Dtos.AppUsers;
+using Entities.Dtos.Auths;
 
 namespace Business.Abstract
 {

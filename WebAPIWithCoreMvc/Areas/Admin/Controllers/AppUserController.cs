@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using WebAPIWithCoreMvc.ApiServices.Interfaces;
-using Entities.Dtos.AppUser;
+using Entities.Dtos.AppUsers;
 using Core.Entities.Enums;
 
 namespace WebAPIWithCoreMvc.Areas.Admin.Controllers

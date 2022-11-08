@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Entities.Dtos.Auth;
+using Entities.Dtos.Auths;
 using FluentValidation;
 
 namespace Business.Validations.FluentValidation

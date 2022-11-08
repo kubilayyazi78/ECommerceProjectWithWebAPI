@@ -13,6 +13,8 @@ namespace Core.Utilities.Messages
         /// Kullanıcı Bulunamadı! 
         /// </summary>
         ERROR_UserNotFound = -20_001,
+        ERROR_ImageNotFound = -20_002,
+
         #endregion
         #region INFO
         /// <summary>

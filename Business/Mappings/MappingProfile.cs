@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using Core.Entities.Concrete;
-using Entities.Dtos.AppUser;
+using Entities.Dtos.AppUsers;
 
 namespace Business.Mappings
 {

@@ -5,7 +5,7 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 using Core.Utilities.Responses;
-using Entities.Dtos.AppUser;
+using Entities.Dtos.AppUsers;
 using WebAPIWithCoreMvc.ApiServices.Interfaces;
 
 namespace WebAPIWithCoreMvc.ApiServices
