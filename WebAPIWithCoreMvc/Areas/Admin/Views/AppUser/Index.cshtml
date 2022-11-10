@@ -21,7 +21,7 @@
             <table class="table table-hover text-nowrap">
                 <thead>
                     <tr>
-                        @*<th>@_localizationService[ResultCodes.LABEL_ProfileImageUrl]</th>*@
+                        <th>@_localizationService[ResultCodes.LABEL_ProfileImageUrl]</th>
                         <th>@_localizationService[ResultCodes.LABEL_UserName]</th>
                         <th>@_localizationService[ResultCodes.LABEL_FirstName]</th>
                         <th>@_localizationService[ResultCodes.LABEL_LastName]</th>
@@ -32,18 +32,18 @@
                 <tbody>
                     @foreach (var item in Model)
                     {
-                        <tr>
-                            @*  <td>@item.ProfileImageUrl</td>*@
-                            <td>@item.UserName</td>
-                            <td>@item.FirstName</td>
-                            <td>@item.LastName</td>
-                            <td>@item.AppUserTypeName</td>
-                            <td>
-                                <a class="btn btn-secondary btn-sm" asp-action="Update" asp-route-id="@item.Id">@_localizationService[ResultCodes.BUTTON_Update]</a>
-                                <a class="btn btn-secondary btn-sm" asp-action="Detail" asp-route-id="@item.Id">@_localizationService[ResultCodes.BUTTON_Detail]</a>
-                                <a class="btn btn-secondary btn-sm" asp-action="Delete" asp-route-id="@item.Id">@_localizationService[ResultCodes.BUTTON_Delete]</a>
-                            </td>
-                        </tr>
+                    <tr>
+                        <td> <img src="@item.ProfileImageUrl" alt="Photo 1" height="30"></td>
+                        <td>@item.UserName</td>
+                        <td>@item.FirstName</td>
+                        <td>@item.LastName</td>
+                        <td>@item.AppUserTypeName</td>
+                        <td>
+                            <a class="btn btn-secondary btn-sm" asp-action="Update" asp-route-id="@item.Id">@_localizationService[ResultCodes.BUTTON_Update]</a>
+                            <a class="btn btn-secondary btn-sm" asp-action="Detail" asp-route-id="@item.Id">@_localizationService[ResultCodes.BUTTON_Detail]</a>
+                            <a class="btn btn-secondary btn-sm" asp-action="Delete" asp-route-id="@item.Id">@_localizationService[ResultCodes.BUTTON_Delete]</a>
+                        </td>
+                    </tr>
                     }
                 </tbody>
             </table>

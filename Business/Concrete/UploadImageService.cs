@@ -37,7 +37,7 @@ namespace Business.Concrete
                 fileUploadAPIDto.Files.CopyTo(fileStream);
                 fileStream.Flush();
                 UploadImageDto uploadImageDto = new UploadImageDto();
-                uploadImageDto.FullPath = await Task.FromResult(fileUploadAPIDto.ApiIPAddress + "/Upload" + newFileName);
+                uploadImageDto.FullPath = await Task.FromResult(fileUploadAPIDto.ApiIPAddress + "/Upload/" + newFileName);
                 return new SuccessApiDataResponse<UploadImageDto>(uploadImageDto, _localizationService[ResultCodes.HTTP_OK]);
             }
         }
