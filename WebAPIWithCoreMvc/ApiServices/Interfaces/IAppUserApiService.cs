@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Core.Utilities.Responses;
+﻿using Core.Utilities.Responses;
 using Entities.Dtos.AppUsers;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace WebAPIWithCoreMvc.ApiServices.Interfaces
 {
@@ -14,5 +12,10 @@ namespace WebAPIWithCoreMvc.ApiServices.Interfaces
         Task<ApiDataResponse<List<AppUserDto>>> GetListDetailAsync();
 
         Task<ApiDataResponse<AppUserDto>> AddAsync(AppUserAddDto appUserAddDto);
+
+        Task<ApiDataResponse<AppUserDto>> GetByIdAsync(int id);
+
+        Task<ApiDataResponse<AppUserUpdateDto>> UpdateAsync(AppUserUpdateDto  appUserUpdateDto);
+
     }
 }

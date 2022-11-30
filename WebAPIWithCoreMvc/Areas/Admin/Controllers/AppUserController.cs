@@ -65,5 +65,30 @@ namespace WebAPIWithCoreMvc.Areas.Admin.Controllers
             }
             return RedirectToAction("Index");
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Update()
+        {
+            return View();
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> Update(AppUserUpdateDto appUserUpdateDto , IFormFile file)
+        {
+            if (file!=null)
+            {
+                HelperMethods helperMethods = new HelperMethods(_webHostEnvironment);
+                string filePath = await helperMethods.FileUpload(file);
+                var profileImageUrl = await _uploadImageApiService.UploadImageAsync(new FileInfo(filePath));
+                appUserUpdateDto.ProfileImageUrl = profileImageUrl.Data.FullPath;
+            }
+            else
+            {
+                var appUserDto = await _userApiService.GetByIdAsync(appUserUpdateDto.Id);
+
+
+            }
+            return View();
+        }
     }
 }

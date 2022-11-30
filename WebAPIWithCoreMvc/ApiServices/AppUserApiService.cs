@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
+using Core.Utilities.Messages;
 using Core.Utilities.Responses;
 using Entities.Dtos.AppUsers;
 using WebAPIWithCoreMvc.ApiServices.Interfaces;
@@ -19,19 +20,29 @@ namespace WebAPIWithCoreMvc.ApiServices
             _httpClientService = httpClientService;
         }
 
-        public async Task<ApiDataResponse<AppUserDto>> AddAsync(AppUserAddDto  appUserAddDto)
-        {
-            return await _httpClientService.PostAsync("AppUsers/Add", appUserAddDto, new AppUserDto());
-        }
-
         public async Task<ApiDataResponse<List<AppUserDto>>> GetListAsync()
         {
-            return await _httpClientService.GetListAsync<AppUserDto>("AppUsers/GetList");
+            return await _httpClientService.GetListAsync<AppUserDto>($"{Constants.AppUsers}/{Constants.GetList}");
         }
 
         public async Task<ApiDataResponse<List<AppUserDto>>> GetListDetailAsync()
         {
-            return await _httpClientService.GetListAsync<AppUserDto>("AppUsers/GetListDetail");
+            return await _httpClientService.GetListAsync<AppUserDto>($"{Constants.AppUsers}/{Constants.GetListDetail}");
         }
+        public async Task<ApiDataResponse<AppUserDto>> AddAsync(AppUserAddDto userAddDto)
+        {
+            return await _httpClientService.PostAsync($"{Constants.AppUsers}/{Constants.Add}", userAddDto, new AppUserDto());
+        }
+
+        public async Task<ApiDataResponse<AppUserDto>> GetByIdAsync(int id)
+        {
+            return await _httpClientService.GetAsync<AppUserDto>($"{Constants.AppUsers}/{Constants.GetById}/", id);
+        }
+
+        public async Task<ApiDataResponse<AppUserUpdateDto>> UpdateAsync(AppUserUpdateDto appUserUpdateDto)
+        {
+            return await _httpClientService.PutAsync($"{Constants.AppUsers}/{Constants.Update}", appUserUpdateDto);
+        }
+
     }
 }
