@@ -1,4 +1,5 @@
-﻿using Core.Entities.Enums;
+﻿using AutoMapper;
+using Core.Entities.Enums;
 using Entities.Dtos.AppUsers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
@@ -17,15 +18,17 @@ namespace WebAPIWithCoreMvc.Areas.Admin.Controllers
     [Area("Admin")]
     public class AppUserController : Controller
     {
-        private IAppUserApiService _userApiService;
-        private IUploadImageApiService _uploadImageApiService;
-        private IWebHostEnvironment _webHostEnvironment;
+        private readonly IAppUserApiService _userApiService;
+        private readonly IUploadImageApiService _uploadImageApiService;
+        private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly IMapper _mapper;
 
-        public AppUserController(IAppUserApiService userApiService, IUploadImageApiService uploadImageApiService, IWebHostEnvironment webHostEnvironment)
+        public AppUserController(IAppUserApiService userApiService, IUploadImageApiService uploadImageApiService, IWebHostEnvironment webHostEnvironment, IMapper mapper)
         {
             _userApiService = userApiService;
             _uploadImageApiService = uploadImageApiService;
             _webHostEnvironment = webHostEnvironment;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -41,7 +44,7 @@ namespace WebAPIWithCoreMvc.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(AppUserAddDto appUserAddDto,IFormFile file)
+        public async Task<IActionResult> Add(AppUserAddDto appUserAddDto, IFormFile file)
         {
             HelperMethods helperMethods = new HelperMethods(_webHostEnvironment);
             string filePath = await helperMethods.FileUpload(file);
@@ -53,29 +56,29 @@ namespace WebAPIWithCoreMvc.Areas.Admin.Controllers
             var result = await _userApiService.AddAsync(appUserAddDto);
             if (!result.Success)
             {
-                string[] errors = result.Message.Split(";");
-                List<string> errorsList = new List<string>();
-                foreach (string error in errors)
+                if (!result.Success)
                 {
-                    if (!string.IsNullOrEmpty(error))
-                        errorsList.Add(error);
+                    var errorList = HelperMethods.ErrorList(result);
+                    ViewBag.Errors = errorList;
+                    return View(appUserAddDto);
                 }
-                ViewBag.Errors = errorsList;
-                return View(appUserAddDto);
             }
             return RedirectToAction("Index");
         }
 
         [HttpGet]
-        public async Task<IActionResult> Update()
+        public async Task<IActionResult> Update(int id)
         {
-            return View();
+            var appUserDto = await _userApiService.GetByIdAsync(id);
+            var appUserUpdateDto = _mapper.Map<AppUserUpdateDto>(appUserDto.Data);
+
+            return View(appUserUpdateDto);
         }
 
-        [HttpPut]
-        public async Task<IActionResult> Update(AppUserUpdateDto appUserUpdateDto , IFormFile file)
+        [HttpPost]
+        public async Task<IActionResult> Update(AppUserUpdateDto appUserUpdateDto, IFormFile file)
         {
-            if (file!=null)
+            if (file != null)
             {
                 HelperMethods helperMethods = new HelperMethods(_webHostEnvironment);
                 string filePath = await helperMethods.FileUpload(file);
@@ -85,10 +88,16 @@ namespace WebAPIWithCoreMvc.Areas.Admin.Controllers
             else
             {
                 var appUserDto = await _userApiService.GetByIdAsync(appUserUpdateDto.Id);
-
-
+                appUserUpdateDto.ProfileImageUrl = appUserDto.Data.ProfileImageUrl;
             }
-            return View();
+            var result = await _userApiService.UpdateAsync(appUserUpdateDto);
+            if (!result.Success)
+            {
+                var errorList = HelperMethods.ErrorList(result);
+                ViewBag.Errors = errorList;
+                return View(appUserUpdateDto);
+            }
+            return RedirectToAction("Index");
         }
     }
 }

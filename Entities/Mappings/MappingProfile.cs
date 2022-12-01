@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using Core.Entities.Concrete;
 using Entities.Dtos.AppUsers;
 
-namespace Business.Mappings
+namespace Entities.Mappings
 {
     public class MappingProfile : Profile
     {

@@ -1,5 +1,5 @@
 using AutoMapper;
-using Business.Mappings;
+using Entities.Mappings;
 using Core.Extensions;
 using Core.Providers;
 using Core.Utilities.Messages;

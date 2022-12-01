@@ -1,7 +1,9 @@
 ﻿using Core.Utilities.Messages;
+using Core.Utilities.Responses;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -56,6 +58,17 @@ namespace WebAPIWithCoreMvc.Helpers
 
 
             return filePath;
+        }
+        public static List<string> ErrorList<T>(ApiDataResponse<T> result)
+        {
+            string[] errors = result.Message.Split(";");
+            List<string> errorList = new List<string>();
+            foreach (string error in errors)
+            {
+                if (!String.IsNullOrEmpty(error))
+                    errorList.Add(error);
+            }
+            return errorList;
         }
 
     }

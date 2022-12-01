@@ -5,11 +5,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Concrete\**" />
+    <EmbeddedResource Remove="Concrete\**" />
+    <None Remove="Concrete\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Concrete\" />
+    <PackageReference Include="AutoMapper" Version="11.0.1" />
   </ItemGroup>
 
 </Project>
