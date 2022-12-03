@@ -16,5 +16,8 @@ namespace WebAPIWithCoreMvc.ApiServices.Interfaces
         Task<ApiDataResponse<UploadImageDto>> UploadImageAsync<T>(FileInfo fileInfo);
         Task<ApiDataResponse<T>> GetAsync<T>(string url, int id);
         Task<ApiDataResponse<T>> PutAsync<T>(string url, T entity);
+
+        Task<ApiDataResponse<bool>> DeleteAsync(string url, int id);
+
     }
 }

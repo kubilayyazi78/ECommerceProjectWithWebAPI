@@ -17,5 +17,7 @@ namespace WebAPIWithCoreMvc.ApiServices.Interfaces
 
         Task<ApiDataResponse<AppUserUpdateDto>> UpdateAsync(AppUserUpdateDto  appUserUpdateDto);
 
+        Task<ApiDataResponse<bool>> DeleteAsync(int id);
+
     }
 }
