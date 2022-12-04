@@ -1,0 +1,90 @@
+﻿@using Core.Utilities.Localization
+@using Core.Utilities.Messages
+@using Entities.Dtos.AppUsers
+@model AppUserDetailDto
+@inject ILocalizationService _localizationService
+@{
+    ViewData["Title"] = "Detail";
+}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card card-secondary">
+                    <div class="card-header">
+                        <h3 class="card-title">@_localizationService[ResultCodes.PAGETITLE_AppUserDetail]</h3>
+                    </div>
+                    <form asp-action="Detail" method="post" enctype="multipart/form-data">
+                        <div class="card-body">
+                            @if (ViewBag.Errors != null)
+                            {
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="alert alert-danger alert-dismissible">
+                                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                            <h5><i class="icon fas fa-ban"></i>  @_localizationService[ResultCodes.ERROR_Error]</h5>
+                                            <ul>
+                                                @foreach (var item in ViewBag.Errors)
+                                                {
+                                                    <li>@item</li>
+                                                }
+                                            </ul>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            }
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    <div class="position-relative">
+                                        <img src="@Model?.ProfileImageUrl" alt="Photo 1" class="img-fluid">
+                                    </div>
+                                </div>
+                                <div class="col-sm-5">
+                                    <div class="form-group">
+                                        <label>@_localizationService[ResultCodes.LABEL_FirstName]</label>
+                                        <input asp-for="FirstName" class="form-control" disabled="disabled" />
+                                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>@_localizationService[ResultCodes.LABEL_UserName]</label>
+                                        <input asp-for="UserName" class="form-control" disabled="disabled" />
+                                        <span asp-validation-for="UserName" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>@_localizationService[ResultCodes.LABEL_GsmNumber]</label>
+                                        <input asp-for="GsmNumber" class="form-control" disabled="disabled" />
+                                        <span asp-validation-for="GsmNumber" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-5">
+
+                                    <div class="form-group">
+                                        <label>@_localizationService[ResultCodes.LABEL_LastName]</label>
+                                        <input asp-for="LastName" class="form-control" disabled="disabled" />
+                                        <span asp-validation-for="LastName" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>@_localizationService[ResultCodes.LABEL_Email]</label>
+                                        <input asp-for="Email" class="form-control" disabled="disabled" />
+                                        <span asp-validation-for="Email" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>@_localizationService[ResultCodes.LABEL_Password]</label>
+                                        <input asp-for="Password" class="form-control" disabled="disabled" />
+                                        <span asp-validation-for="Password" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <a asp-action="Index" class="btn btn-info">@_localizationService[ResultCodes.BUTTON_AppUserList]</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

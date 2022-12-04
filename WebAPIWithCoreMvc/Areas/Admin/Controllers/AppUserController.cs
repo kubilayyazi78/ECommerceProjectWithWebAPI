@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using WebAPIWithCoreMvc.ApiServices.Interfaces;
 using WebAPIWithCoreMvc.Helpers;
@@ -35,7 +36,15 @@ namespace WebAPIWithCoreMvc.Areas.Admin.Controllers
         public async Task<IActionResult> Index()
         {
             var result = await _userApiService.GetListDetailAsync();
-            return View(result.Data);
+
+            List<int> ids = new List<int>();
+            ids.Add((int)AppUserTypes.SystemAdmin);
+            ids.Add((int)AppUserTypes.Admin);
+
+            var users = result.Data.Where(x => ids.Contains(x.Id) == false);
+
+
+            return View(users.ToList());
         }
         [HttpGet]
         public async Task<IActionResult> Add()
@@ -120,6 +129,14 @@ namespace WebAPIWithCoreMvc.Areas.Admin.Controllers
             }
 
             return RedirectToAction("Index");
+        }
+        [HttpGet]
+        public async Task<IActionResult> Detail (int id)
+        {
+            var appUserDto = await _userApiService.GetByIdAsync(id);
+            var appUserDetailDto = _mapper.Map<AppUserDetailDto>(appUserDto.Data);
+
+            return View(appUserDetailDto);
         }
     }
 }

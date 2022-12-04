@@ -18,6 +18,8 @@ namespace Entities.Mappings
 
             CreateMap<AppUserDto, AppUserUpdateDto>().ReverseMap();
             CreateMap<AppUserDto, AppUserDeleteDto>().ReverseMap();
+            CreateMap<AppUserDto, AppUserDetailDto>().ReverseMap();
+
 
         }
     }
