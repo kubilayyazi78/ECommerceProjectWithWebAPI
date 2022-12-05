@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Autofac;
+﻿using Autofac;
 using Autofac.Extras.DynamicProxy;
 using Business.Abstract;
 using Business.Concrete;
@@ -27,6 +22,7 @@ namespace Business.DependencyResolvers
         {
             builder.RegisterType<EfAppUserDal>().As<IAppUserDal>();
             builder.RegisterType<AppUserService>().As<IAppUserService>();
+            builder.RegisterType<AppUserTypeService>().As<IAppUserTypeService>();
             builder.RegisterType<JwtTokenService>().As<ITokenService>();
             builder.RegisterType<AuthService>().As<IAuthService>();
             builder.RegisterType<MemoryCacheService>().As<ICacheService>();

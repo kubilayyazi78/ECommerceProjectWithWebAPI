@@ -68,33 +68,18 @@ namespace DataAccess.Concrete.EntityFramework.Configurations
             builder.HasData(new AppUser
             {
                 Id = -1,
-                FirstName = "Kubilay",
-                LastName = "Yazı",
+                FirstName = "System",
+                LastName = "Admin",
                 CreatedDate = DateTime.Now,
                 CreatedUserId = 1,
-                Email = "kubi@hot.com",
-                UserName = "kubilayyazi",
-                PasswordHash = passwordHash,
-                PasswordSalt = passwordSalt,
-                GsmNumber = String.Empty,
-                ProfileImageUrl =String.Empty,
-                AppUserTypeId = (int)AppUserTypes.SystemAdmin,
-                RefreshToken = Guid.NewGuid()
-            }, new AppUser
-            {
-                Id = -2,
-                FirstName = "Admin",
-                LastName = "ADMIN",
-                CreatedDate = DateTime.Now,
-                CreatedUserId = 1,
-                Email = "admin@gmail.com",
-                UserName = "admin",
+                Email = "sys@hotmail.com",
+                UserName = "sysadmin",
                 PasswordHash = passwordHash,
                 PasswordSalt = passwordSalt,
                 GsmNumber = String.Empty,
                 ProfileImageUrl = String.Empty,
-                AppUserTypeId = (int)AppUserTypes.Admin,
-                RefreshToken = Guid.NewGuid(),
+                AppUserTypeId = (int)AppUserTypes.SystemAdmin,
+                RefreshToken = Guid.NewGuid()
             });
         }
     }

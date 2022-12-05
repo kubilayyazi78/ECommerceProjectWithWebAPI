@@ -3,9 +3,9 @@ using FluentValidation;
 
 namespace Business.Validations.FluentValidation
 {
-    public class AppUserAddDtoValidator : AbstractValidator<AppUserAddDto>
+    public class AppUserUpdateDtoValidator : AbstractValidator<AppUserUpdateDto>
     {
-        public AppUserAddDtoValidator()
+        public AppUserUpdateDtoValidator()
         {
             RuleFor(x => x.UserName).NotEmpty().
                 WithErrorCode("VALIDATION_UserNameFieldCannotBeEmpty");
@@ -24,9 +24,6 @@ namespace Business.Validations.FluentValidation
 
             RuleFor(x => x.GsmNumber).NotEmpty().
                WithErrorCode("VALIDATION_GsmNumberFieldCannotBeEmpty");
-
-            RuleFor(x => x.RefreshToken).NotEmpty().
-               WithErrorCode("VALIDATION_RefreshTokenFieldCannotBeEmpty");
 
             RuleFor(x => x.AppUserTypeId).NotEmpty().
                 WithErrorCode("VALIDATION_AppUserTypeFieldCannotBeEmpty");

@@ -39,7 +39,6 @@ namespace WebAPIWithCoreMvc.Areas.Admin.Controllers
 
             List<int> ids = new List<int>();
             ids.Add((int)AppUserTypes.SystemAdmin);
-            ids.Add((int)AppUserTypes.Admin);
 
             var users = result.Data.Where(x => ids.Contains(x.Id) == false);
 
@@ -59,8 +58,6 @@ namespace WebAPIWithCoreMvc.Areas.Admin.Controllers
             string filePath = await helperMethods.FileUpload(file);
             var profileImageUrl = await _uploadImageApiService.UploadImageAsync(new FileInfo(filePath));
             appUserAddDto.ProfileImageUrl = profileImageUrl.Data.FullPath;
-
-            appUserAddDto.AppUserTypeID = (int)AppUserTypes.Admin;
             appUserAddDto.RefreshToken = Guid.NewGuid();
             var result = await _userApiService.AddAsync(appUserAddDto);
             if (!result.Success)

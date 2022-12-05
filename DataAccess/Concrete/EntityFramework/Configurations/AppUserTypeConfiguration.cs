@@ -1,9 +1,6 @@
 ﻿using Core.Entities.Concrete;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using Core.Entities.Enums;
-using Core.Utilities.Security.Hash.Sha512;
 
 namespace DataAccess.Concrete.EntityFramework.Configurations
 {
@@ -21,8 +18,7 @@ namespace DataAccess.Concrete.EntityFramework.Configurations
                 .IsRequired();
 
             builder.HasData(
-                new AppUserType() { Id = -1, AppUserTypeName = "System Admin" },
-                new AppUserType() { Id = -2, AppUserTypeName = "Admin" }
+                new AppUserType() { Id = 1, AppUserTypeName = "System Admin" }
             );
 
         }
