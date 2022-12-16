@@ -1,17 +1,18 @@
 ﻿using Core.Entities.Concrete;
+using Core.Entities.Enums;
+using Core.Utilities.Security.Hash.Sha512;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
-using Core.Entities.Enums;
-using Core.Utilities.Security.Hash.Sha512;
 
 namespace DataAccess.Concrete.EntityFramework.Configurations
 {
-    public class AppUserConfiguration:IEntityTypeConfiguration<AppUser>
+    public class AppUserConfiguration : IEntityTypeConfiguration<AppUser>
     {
         public void Configure(EntityTypeBuilder<AppUser> builder)
         {
             builder.ToTable("AppUsers", @"dbo");
+
             builder.HasKey(x => x.Id);
 
             builder.Property(x => x.UserName)
@@ -29,15 +30,13 @@ namespace DataAccess.Concrete.EntityFramework.Configurations
                 .HasMaxLength(50)
                 .IsRequired();
 
-
             builder.Property(x => x.PasswordSalt)
                 .HasColumnName("PasswordSalt")
                 .IsRequired();
 
-
             builder.Property(x => x.PasswordHash)
-                .HasColumnName("PasswordHash")
-                .IsRequired();
+              .HasColumnName("PasswordHash")
+              .IsRequired();
 
             builder.Property(x => x.Email)
                 .HasColumnName("Email")
@@ -46,16 +45,16 @@ namespace DataAccess.Concrete.EntityFramework.Configurations
 
             builder.Property(x => x.ProfileImageUrl)
                 .HasColumnName("ProfileImageUrl")
+                .HasMaxLength(1000)
                 .IsRequired();
 
             builder.Property(x => x.GsmNumber)
-                .HasColumnName("GsmNumber")
-                .HasMaxLength(11);
+              .HasColumnName("GsmNumber")
+              .HasMaxLength(11);
 
             builder.Property(x => x.AppUserTypeId)
-                .HasColumnName("AppUserTypeId")
-                .HasMaxLength(11)
-                .IsRequired();
+           .HasColumnName("AppUserTypeId")
+           .IsRequired();
 
             builder.Property(x => x.CreatedDate)
                 .HasColumnName("CreatedDate")
@@ -63,8 +62,7 @@ namespace DataAccess.Concrete.EntityFramework.Configurations
                 .IsRequired();
 
             byte[] passwordHash, passwordSalt;
-            Sha512Helper.CreatePasswordHash("12345",out passwordHash,out passwordSalt);
-
+            Sha512Helper.CreatePasswordHash("12345", out passwordHash, out passwordSalt);
             builder.HasData(new AppUser
             {
                 Id = -1,
@@ -72,14 +70,14 @@ namespace DataAccess.Concrete.EntityFramework.Configurations
                 LastName = "Admin",
                 CreatedDate = DateTime.Now,
                 CreatedUserId = 1,
-                Email = "sys@hotmail.com",
-                UserName = "sysadmin",
+                Email = "sadmin@gmail.com",
+                UserName = "sadmin",
                 PasswordHash = passwordHash,
                 PasswordSalt = passwordSalt,
                 GsmNumber = String.Empty,
                 ProfileImageUrl = String.Empty,
                 AppUserTypeId = (int)AppUserTypes.SystemAdmin,
-                RefreshToken = Guid.NewGuid()
+                RefreshToken = Guid.NewGuid(),
             });
         }
     }

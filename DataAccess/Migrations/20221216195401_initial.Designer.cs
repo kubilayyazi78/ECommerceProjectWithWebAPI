@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(ECommerceDbContext))]
-    [Migration("20220727200709_initial")]
+    [Migration("20221216195401_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,12 +21,15 @@ namespace DataAccess.Migrations
                 .HasAnnotation("ProductVersion", "5.0.14")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Entities.Concrete.AppOperationClaim", b =>
+            modelBuilder.Entity("Core.Entities.Concrete.AppOperationClaim", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -42,26 +45,33 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 1,
+                            IsActive = false,
                             Name = "AppUser"
                         },
                         new
                         {
                             Id = 2,
+                            IsActive = false,
                             Name = "AppUserTypeAppOperationClaim"
                         },
                         new
                         {
                             Id = 3,
+                            IsActive = false,
                             Name = "AppUserType"
                         });
                 });
 
-            modelBuilder.Entity("Entities.Concrete.AppUser", b =>
+            modelBuilder.Entity("Core.Entities.Concrete.AppUser", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AppUserTypeId")
+                        .HasColumnType("int")
+                        .HasColumnName("AppUserTypeId");
 
                     b.Property<DateTime>("CreatedDate")
                         .ValueGeneratedOnAdd()
@@ -95,6 +105,9 @@ namespace DataAccess.Migrations
                         .HasColumnType("nvarchar(11)")
                         .HasColumnName("GsmNumber");
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -116,7 +129,8 @@ namespace DataAccess.Migrations
 
                     b.Property<string>("ProfileImageUrl")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)")
                         .HasColumnName("ProfileImageUrl");
 
                     b.Property<Guid>("RefreshToken")
@@ -134,12 +148,9 @@ namespace DataAccess.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasColumnName("UserName");
 
-                    b.Property<int>("UserTypeId")
-                        .HasMaxLength(11)
-                        .HasColumnType("int")
-                        .HasColumnName("UserTypeId");
-
                     b.HasKey("Id");
+
+                    b.HasIndex("AppUserTypeId");
 
                     b.ToTable("AppUsers", "dbo");
 
@@ -147,51 +158,59 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = -1,
-                            CreatedDate = new DateTime(2022, 7, 27, 23, 7, 9, 160, DateTimeKind.Local).AddTicks(9789),
+                            AppUserTypeId = -1,
+                            CreatedDate = new DateTime(2022, 12, 16, 22, 54, 0, 750, DateTimeKind.Local).AddTicks(3084),
                             CreatedUserId = 1,
-                            Email = "kubi@hot.com",
-                            FirstName = "Kubilay",
+                            Email = "sadmin@gmail.com",
+                            FirstName = "System",
                             GsmNumber = "",
+                            IsActive = false,
                             IsDeleted = false,
-                            LastName = "Yazı",
-                            PasswordHash = new byte[] { 80, 208, 214, 94, 233, 28, 227, 183, 190, 129, 53, 243, 48, 46, 59, 89, 134, 0, 100, 245, 157, 112, 208, 212, 30, 5, 44, 213, 88, 164, 174, 185, 135, 162, 120, 255, 14, 44, 126, 8, 146, 93, 46, 177, 72, 162, 177, 79, 18, 19, 171, 35, 59, 204, 59, 251, 192, 58, 38, 24, 152, 64, 76, 40 },
-                            PasswordSalt = new byte[] { 180, 168, 21, 194, 44, 24, 25, 233, 184, 11, 10, 172, 4, 203, 146, 95, 40, 179, 144, 51, 153, 67, 138, 222, 95, 29, 198, 60, 44, 232, 76, 218, 25, 253, 56, 101, 107, 122, 9, 74, 144, 44, 2, 42, 239, 27, 85, 83, 210, 42, 35, 236, 215, 66, 202, 42, 235, 121, 17, 119, 27, 81, 12, 98, 41, 75, 189, 11, 202, 238, 194, 122, 193, 25, 248, 146, 134, 57, 255, 31, 245, 55, 48, 36, 168, 128, 198, 104, 176, 55, 16, 189, 31, 192, 128, 244, 197, 34, 2, 112, 156, 195, 38, 245, 194, 125, 154, 141, 231, 8, 52, 156, 17, 12, 135, 216, 188, 139, 49, 76, 109, 105, 114, 216, 165, 56, 27, 66 },
+                            LastName = "Admin",
+                            PasswordHash = new byte[] { 222, 105, 224, 85, 191, 216, 48, 219, 197, 90, 174, 209, 61, 19, 108, 207, 204, 223, 41, 176, 139, 65, 32, 220, 15, 181, 230, 126, 204, 42, 67, 219, 254, 6, 238, 156, 114, 127, 31, 174, 180, 249, 51, 102, 136, 217, 52, 185, 37, 149, 100, 29, 220, 3, 61, 100, 185, 8, 201, 195, 29, 149, 109, 101 },
+                            PasswordSalt = new byte[] { 13, 114, 52, 184, 70, 89, 18, 10, 114, 76, 5, 55, 96, 143, 16, 154, 159, 227, 150, 16, 70, 221, 138, 254, 8, 168, 242, 54, 14, 151, 134, 47, 107, 136, 155, 83, 69, 155, 4, 241, 21, 211, 245, 105, 160, 28, 217, 65, 123, 202, 245, 211, 199, 102, 245, 102, 149, 31, 104, 207, 69, 203, 197, 80, 150, 236, 141, 253, 97, 48, 18, 83, 28, 96, 206, 108, 197, 164, 144, 77, 108, 179, 236, 159, 51, 2, 117, 99, 16, 130, 216, 120, 210, 253, 142, 139, 46, 31, 161, 111, 253, 203, 5, 36, 144, 251, 198, 209, 37, 252, 145, 229, 104, 32, 73, 139, 48, 231, 134, 194, 190, 148, 52, 125, 166, 1, 94, 228 },
                             ProfileImageUrl = "",
-                            RefreshToken = new Guid("7e1ce3a4-0e0d-40ef-9d81-1395914d0787"),
-                            UserName = "kubilayyazi",
-                            UserTypeId = -1
-                        },
-                        new
-                        {
-                            Id = -2,
-                            CreatedDate = new DateTime(2022, 7, 27, 23, 7, 9, 162, DateTimeKind.Local).AddTicks(375),
-                            CreatedUserId = 1,
-                            Email = "admin@gmail.com",
-                            FirstName = "Admin",
-                            GsmNumber = "",
-                            IsDeleted = false,
-                            LastName = "ADMIN",
-                            PasswordHash = new byte[] { 80, 208, 214, 94, 233, 28, 227, 183, 190, 129, 53, 243, 48, 46, 59, 89, 134, 0, 100, 245, 157, 112, 208, 212, 30, 5, 44, 213, 88, 164, 174, 185, 135, 162, 120, 255, 14, 44, 126, 8, 146, 93, 46, 177, 72, 162, 177, 79, 18, 19, 171, 35, 59, 204, 59, 251, 192, 58, 38, 24, 152, 64, 76, 40 },
-                            PasswordSalt = new byte[] { 180, 168, 21, 194, 44, 24, 25, 233, 184, 11, 10, 172, 4, 203, 146, 95, 40, 179, 144, 51, 153, 67, 138, 222, 95, 29, 198, 60, 44, 232, 76, 218, 25, 253, 56, 101, 107, 122, 9, 74, 144, 44, 2, 42, 239, 27, 85, 83, 210, 42, 35, 236, 215, 66, 202, 42, 235, 121, 17, 119, 27, 81, 12, 98, 41, 75, 189, 11, 202, 238, 194, 122, 193, 25, 248, 146, 134, 57, 255, 31, 245, 55, 48, 36, 168, 128, 198, 104, 176, 55, 16, 189, 31, 192, 128, 244, 197, 34, 2, 112, 156, 195, 38, 245, 194, 125, 154, 141, 231, 8, 52, 156, 17, 12, 135, 216, 188, 139, 49, 76, 109, 105, 114, 216, 165, 56, 27, 66 },
-                            ProfileImageUrl = "",
-                            RefreshToken = new Guid("d4f2c0c1-d0d8-4e52-b588-91b0729c2da1"),
-                            UserName = "admin",
-                            UserTypeId = -2
+                            RefreshToken = new Guid("f16488ca-cb66-49f3-9c54-91b6cc04afd7"),
+                            UserName = "sadmin"
                         });
                 });
 
-            modelBuilder.Entity("Entities.Concrete.AppUserType", b =>
+            modelBuilder.Entity("Core.Entities.Concrete.AppUserType", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("UserTypeName")
+                    b.Property<string>("AppUserTypeName")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
-                        .HasColumnName("UserTypeName");
+                        .HasColumnName("AppUserTypeName");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("CreatedUserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("DeletedUserId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("UpdatedUserId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -201,25 +220,46 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = -1,
-                            UserTypeName = "System Admin"
-                        },
-                        new
-                        {
-                            Id = -2,
-                            UserTypeName = "Admin"
+                            AppUserTypeName = "System Admin",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedUserId = 0,
+                            IsActive = false,
+                            IsDeleted = false
                         });
                 });
 
-            modelBuilder.Entity("Entities.Concrete.AppUserTypeAppOperationClaim", b =>
+            modelBuilder.Entity("Core.Entities.Concrete.AppUserTypeAppOperationClaim", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("OperationClaimId")
+                    b.Property<int>("AppOperationClaimId")
                         .HasColumnType("int")
                         .HasColumnName("OperationClaimId");
+
+                    b.Property<int>("AppUserTypeId")
+                        .HasColumnType("int")
+                        .HasColumnName("UserTypeId");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("CreatedUserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("DeletedUserId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Status")
                         .IsRequired()
@@ -233,53 +273,37 @@ namespace DataAccess.Migrations
                     b.Property<int?>("UpdatedUserId")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserTypeId")
-                        .HasColumnType("int")
-                        .HasColumnName("UserTypeId");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("OperationClaimId");
+                    b.HasIndex("AppOperationClaimId");
 
-                    b.HasIndex("UserTypeId");
+                    b.HasIndex("AppUserTypeId");
 
                     b.ToTable("AppUserTypeAppOperationClaims", "dbo");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = -1,
-                            OperationClaimId = 1,
-                            Status = "1011",
-                            UserTypeId = -2
-                        },
-                        new
-                        {
-                            Id = -2,
-                            OperationClaimId = 2,
-                            Status = "1111",
-                            UserTypeId = -2
-                        },
-                        new
-                        {
-                            Id = -3,
-                            OperationClaimId = 3,
-                            Status = "1111",
-                            UserTypeId = -2
-                        });
                 });
 
-            modelBuilder.Entity("Entities.Concrete.AppUserTypeAppOperationClaim", b =>
+            modelBuilder.Entity("Core.Entities.Concrete.AppUser", b =>
                 {
-                    b.HasOne("Entities.Concrete.AppOperationClaim", "AppOperationClaim")
-                        .WithMany("AppUserTypeAppOperationClaims")
-                        .HasForeignKey("OperationClaimId")
+                    b.HasOne("Core.Entities.Concrete.AppUserType", "AppUserType")
+                        .WithMany("AppUsers")
+                        .HasForeignKey("AppUserTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Entities.Concrete.AppUserType", "AppUserType")
-                        .WithMany()
-                        .HasForeignKey("UserTypeId")
+                    b.Navigation("AppUserType");
+                });
+
+            modelBuilder.Entity("Core.Entities.Concrete.AppUserTypeAppOperationClaim", b =>
+                {
+                    b.HasOne("Core.Entities.Concrete.AppOperationClaim", "AppOperationClaim")
+                        .WithMany("AppUserTypeAppOperationClaims")
+                        .HasForeignKey("AppOperationClaimId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Core.Entities.Concrete.AppUserType", "AppUserType")
+                        .WithMany("AppUserTypeAppOperationClaims")
+                        .HasForeignKey("AppUserTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -288,8 +312,15 @@ namespace DataAccess.Migrations
                     b.Navigation("AppUserType");
                 });
 
-            modelBuilder.Entity("Entities.Concrete.AppOperationClaim", b =>
+            modelBuilder.Entity("Core.Entities.Concrete.AppOperationClaim", b =>
                 {
+                    b.Navigation("AppUserTypeAppOperationClaims");
+                });
+
+            modelBuilder.Entity("Core.Entities.Concrete.AppUserType", b =>
+                {
+                    b.Navigation("AppUsers");
+
                     b.Navigation("AppUserTypeAppOperationClaims");
                 });
 #pragma warning restore 612, 618

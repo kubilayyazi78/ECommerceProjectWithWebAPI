@@ -26,6 +26,9 @@ namespace DataAccess.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -40,16 +43,19 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 1,
+                            IsActive = false,
                             Name = "AppUser"
                         },
                         new
                         {
                             Id = 2,
+                            IsActive = false,
                             Name = "AppUserTypeAppOperationClaim"
                         },
                         new
                         {
                             Id = 3,
+                            IsActive = false,
                             Name = "AppUserType"
                         });
                 });
@@ -62,7 +68,6 @@ namespace DataAccess.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("AppUserTypeId")
-                        .HasMaxLength(11)
                         .HasColumnType("int")
                         .HasColumnName("AppUserTypeId");
 
@@ -98,6 +103,9 @@ namespace DataAccess.Migrations
                         .HasColumnType("nvarchar(11)")
                         .HasColumnName("GsmNumber");
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -119,7 +127,8 @@ namespace DataAccess.Migrations
 
                     b.Property<string>("ProfileImageUrl")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)")
                         .HasColumnName("ProfileImageUrl");
 
                     b.Property<Guid>("RefreshToken")
@@ -148,35 +157,19 @@ namespace DataAccess.Migrations
                         {
                             Id = -1,
                             AppUserTypeId = -1,
-                            CreatedDate = new DateTime(2022, 9, 25, 15, 27, 22, 821, DateTimeKind.Local).AddTicks(5735),
+                            CreatedDate = new DateTime(2022, 12, 16, 22, 54, 0, 750, DateTimeKind.Local).AddTicks(3084),
                             CreatedUserId = 1,
-                            Email = "kubi@hot.com",
-                            FirstName = "Kubilay",
+                            Email = "sadmin@gmail.com",
+                            FirstName = "System",
                             GsmNumber = "",
+                            IsActive = false,
                             IsDeleted = false,
-                            LastName = "Yazı",
-                            PasswordHash = new byte[] { 142, 80, 15, 162, 209, 5, 94, 157, 159, 17, 223, 227, 144, 146, 187, 177, 149, 186, 150, 247, 181, 48, 69, 79, 160, 69, 166, 42, 237, 78, 179, 2, 82, 214, 35, 15, 120, 200, 214, 15, 243, 55, 20, 97, 155, 154, 106, 55, 240, 40, 90, 119, 62, 69, 228, 34, 48, 10, 255, 163, 6, 48, 123, 37 },
-                            PasswordSalt = new byte[] { 214, 188, 141, 238, 207, 168, 40, 146, 228, 190, 206, 235, 16, 210, 243, 96, 58, 147, 254, 186, 26, 151, 93, 25, 85, 130, 191, 121, 83, 225, 0, 33, 147, 200, 111, 213, 129, 20, 237, 172, 15, 87, 45, 76, 248, 82, 30, 186, 162, 59, 137, 180, 46, 2, 133, 18, 50, 15, 25, 2, 183, 108, 150, 87, 48, 118, 0, 113, 68, 43, 24, 156, 233, 237, 136, 95, 37, 41, 98, 215, 154, 46, 217, 139, 181, 36, 172, 244, 178, 252, 229, 186, 38, 232, 189, 216, 99, 181, 211, 195, 128, 243, 199, 31, 112, 8, 189, 209, 210, 187, 84, 222, 137, 215, 57, 100, 128, 140, 152, 105, 17, 151, 141, 153, 238, 141, 161, 204 },
+                            LastName = "Admin",
+                            PasswordHash = new byte[] { 222, 105, 224, 85, 191, 216, 48, 219, 197, 90, 174, 209, 61, 19, 108, 207, 204, 223, 41, 176, 139, 65, 32, 220, 15, 181, 230, 126, 204, 42, 67, 219, 254, 6, 238, 156, 114, 127, 31, 174, 180, 249, 51, 102, 136, 217, 52, 185, 37, 149, 100, 29, 220, 3, 61, 100, 185, 8, 201, 195, 29, 149, 109, 101 },
+                            PasswordSalt = new byte[] { 13, 114, 52, 184, 70, 89, 18, 10, 114, 76, 5, 55, 96, 143, 16, 154, 159, 227, 150, 16, 70, 221, 138, 254, 8, 168, 242, 54, 14, 151, 134, 47, 107, 136, 155, 83, 69, 155, 4, 241, 21, 211, 245, 105, 160, 28, 217, 65, 123, 202, 245, 211, 199, 102, 245, 102, 149, 31, 104, 207, 69, 203, 197, 80, 150, 236, 141, 253, 97, 48, 18, 83, 28, 96, 206, 108, 197, 164, 144, 77, 108, 179, 236, 159, 51, 2, 117, 99, 16, 130, 216, 120, 210, 253, 142, 139, 46, 31, 161, 111, 253, 203, 5, 36, 144, 251, 198, 209, 37, 252, 145, 229, 104, 32, 73, 139, 48, 231, 134, 194, 190, 148, 52, 125, 166, 1, 94, 228 },
                             ProfileImageUrl = "",
-                            RefreshToken = new Guid("dfdc6b15-b360-46c7-ae73-251f36b01f7b"),
-                            UserName = "kubilayyazi"
-                        },
-                        new
-                        {
-                            Id = -2,
-                            AppUserTypeId = -2,
-                            CreatedDate = new DateTime(2022, 9, 25, 15, 27, 22, 822, DateTimeKind.Local).AddTicks(6014),
-                            CreatedUserId = 1,
-                            Email = "admin@gmail.com",
-                            FirstName = "Admin",
-                            GsmNumber = "",
-                            IsDeleted = false,
-                            LastName = "ADMIN",
-                            PasswordHash = new byte[] { 142, 80, 15, 162, 209, 5, 94, 157, 159, 17, 223, 227, 144, 146, 187, 177, 149, 186, 150, 247, 181, 48, 69, 79, 160, 69, 166, 42, 237, 78, 179, 2, 82, 214, 35, 15, 120, 200, 214, 15, 243, 55, 20, 97, 155, 154, 106, 55, 240, 40, 90, 119, 62, 69, 228, 34, 48, 10, 255, 163, 6, 48, 123, 37 },
-                            PasswordSalt = new byte[] { 214, 188, 141, 238, 207, 168, 40, 146, 228, 190, 206, 235, 16, 210, 243, 96, 58, 147, 254, 186, 26, 151, 93, 25, 85, 130, 191, 121, 83, 225, 0, 33, 147, 200, 111, 213, 129, 20, 237, 172, 15, 87, 45, 76, 248, 82, 30, 186, 162, 59, 137, 180, 46, 2, 133, 18, 50, 15, 25, 2, 183, 108, 150, 87, 48, 118, 0, 113, 68, 43, 24, 156, 233, 237, 136, 95, 37, 41, 98, 215, 154, 46, 217, 139, 181, 36, 172, 244, 178, 252, 229, 186, 38, 232, 189, 216, 99, 181, 211, 195, 128, 243, 199, 31, 112, 8, 189, 209, 210, 187, 84, 222, 137, 215, 57, 100, 128, 140, 152, 105, 17, 151, 141, 153, 238, 141, 161, 204 },
-                            ProfileImageUrl = "",
-                            RefreshToken = new Guid("a83cd83c-4e0b-4095-9f03-4240ec52000d"),
-                            UserName = "admin"
+                            RefreshToken = new Guid("f16488ca-cb66-49f3-9c54-91b6cc04afd7"),
+                            UserName = "sadmin"
                         });
                 });
 
@@ -193,6 +186,30 @@ namespace DataAccess.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasColumnName("AppUserTypeName");
 
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("CreatedUserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("DeletedUserId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("UpdatedUserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.ToTable("AppUserTypes", "dbo");
@@ -201,12 +218,11 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = -1,
-                            AppUserTypeName = "System Admin"
-                        },
-                        new
-                        {
-                            Id = -2,
-                            AppUserTypeName = "Admin"
+                            AppUserTypeName = "System Admin",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedUserId = 0,
+                            IsActive = false,
+                            IsDeleted = false
                         });
                 });
 
@@ -219,11 +235,29 @@ namespace DataAccess.Migrations
 
                     b.Property<int>("AppOperationClaimId")
                         .HasColumnType("int")
-                        .HasColumnName("AppOperationClaimId");
+                        .HasColumnName("OperationClaimId");
 
                     b.Property<int>("AppUserTypeId")
                         .HasColumnType("int")
-                        .HasColumnName("AppUserTypeId");
+                        .HasColumnName("UserTypeId");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("CreatedUserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("DeletedUserId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Status")
                         .IsRequired()
@@ -244,35 +278,12 @@ namespace DataAccess.Migrations
                     b.HasIndex("AppUserTypeId");
 
                     b.ToTable("AppUserTypeAppOperationClaims", "dbo");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = -1,
-                            AppOperationClaimId = 1,
-                            AppUserTypeId = -2,
-                            Status = "1011"
-                        },
-                        new
-                        {
-                            Id = -2,
-                            AppOperationClaimId = 2,
-                            AppUserTypeId = -2,
-                            Status = "1111"
-                        },
-                        new
-                        {
-                            Id = -3,
-                            AppOperationClaimId = 3,
-                            AppUserTypeId = -2,
-                            Status = "1111"
-                        });
                 });
 
             modelBuilder.Entity("Core.Entities.Concrete.AppUser", b =>
                 {
                     b.HasOne("Core.Entities.Concrete.AppUserType", "AppUserType")
-                        .WithMany()
+                        .WithMany("AppUsers")
                         .HasForeignKey("AppUserTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -289,7 +300,7 @@ namespace DataAccess.Migrations
                         .IsRequired();
 
                     b.HasOne("Core.Entities.Concrete.AppUserType", "AppUserType")
-                        .WithMany()
+                        .WithMany("AppUserTypeAppOperationClaims")
                         .HasForeignKey("AppUserTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -301,6 +312,13 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Core.Entities.Concrete.AppOperationClaim", b =>
                 {
+                    b.Navigation("AppUserTypeAppOperationClaims");
+                });
+
+            modelBuilder.Entity("Core.Entities.Concrete.AppUserType", b =>
+                {
+                    b.Navigation("AppUsers");
+
                     b.Navigation("AppUserTypeAppOperationClaims");
                 });
 #pragma warning restore 612, 618

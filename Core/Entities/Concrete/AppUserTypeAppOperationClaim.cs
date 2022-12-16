@@ -1,28 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Core.Entities.BaseEntities;
+﻿using Core.Entities.BaseEntities;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Core.Entities.Concrete
 {
-    public class AppUserTypeAppOperationClaim : BaseEntity,IUpdatedEntity
+    public class AppUserTypeAppOperationClaim : AuditEntity
     {
         #region Properties
         public int AppUserTypeId { get; set; }
         public int AppOperationClaimId { get; set; }
-        public int? UpdatedUserId { get; set; }
-        public DateTime? UpdatedDate { get; set; } 
+        public string Status { get; set; }
         #endregion
 
-        public string Status { get; set; }
+        #region Relationships
         [ForeignKey("AppOperationClaimId")]
         public virtual AppOperationClaim AppOperationClaim { get; set; }
 
         [ForeignKey("AppUserTypeId")]
         public virtual AppUserType AppUserType { get; set; }
+        #endregion
     }
 }

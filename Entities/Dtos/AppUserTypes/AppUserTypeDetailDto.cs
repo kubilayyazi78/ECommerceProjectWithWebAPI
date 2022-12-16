@@ -2,9 +2,9 @@
 
 namespace Entities.Dtos.AppUserTypes
 {
-    class AppUserTypeDetailDto:IDto
+  public  class AppUserTypeDetailDto:IDto
     {
         public int Id { get; set; }
-        public string UserTypeName { get; set; }
+        public string AppUserTypeName { get; set; }
     }
 }

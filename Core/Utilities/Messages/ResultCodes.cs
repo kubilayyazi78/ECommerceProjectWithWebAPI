@@ -30,7 +30,7 @@ namespace Core.Utilities.Messages
         /// <summary>
         /// Ekleme işlemi başarısız
         /// </summary>
-        ERROR_NotAdded = -20003,
+        ERROR_NoAdded = -20003,
 
         /// <summary>
         /// Silme işlemi başarısız
@@ -97,6 +97,11 @@ namespace Core.Utilities.Messages
         PAGETITLE_AppUserUpdate = 8002,
         PAGETITLE_AppUserDelete = 8003,
         PAGETITLE_AppUserDetail = 8004,
+        PAGETITLE_AppUserTypeList = 8005,
+        PAGETITLE_AppUserTypeAdd = 8006,
+        PAGETITLE_AppUserTypeUpdate = 8007,
+        PAGETITLE_AppUserTypeDelete = 8008,
+        PAGETITLE_AppUserTypeDetail = 8009,
         #endregion
     }
 }
