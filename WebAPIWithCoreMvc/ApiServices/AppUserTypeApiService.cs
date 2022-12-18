@@ -28,7 +28,7 @@ namespace WebAPIWithCoreMvc.ApiServices
 
         public async Task<ApiDataResponse<List<AppUserTypeDto>>> GetListDetailAsync()
         {
-            return await _httpClientService.GetListAsync<AppUserTypeDto>($"{Constants.AppUserTypes}/{Constants.GetList}");
+            return await _httpClientService.GetListAsync<AppUserTypeDto>($"{Constants.AppUserTypes}/{Constants.GetListDetail}");
         }
         public async Task<ApiDataResponse<AppUserTypeDto>> AddAsync(AppUserTypeAddDto userAddDto)
         {
