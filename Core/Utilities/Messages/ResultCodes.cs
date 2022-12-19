@@ -77,7 +77,8 @@ namespace Core.Utilities.Messages
         LABEL_Email = 7007,
         LABEL_Password = 7008,
         LABEL_AreYouSureYouWantToDelete = 7009,
-
+        LABEL_AppUserType = 7010,
+        LABEL_Choose = 7011,
         #endregion
 
         #region BUTTON
@@ -88,7 +89,7 @@ namespace Core.Utilities.Messages
         BUTTON_SignOut = 9004,
         BUTTON_AppUserList = 9005,
         BUTTON_Save = 90006,
-
+        BUTTON_AppUserTypeList = 90007,
         #endregion
 
         #region PAGETITLE

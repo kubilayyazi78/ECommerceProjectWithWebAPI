@@ -21,9 +21,9 @@ namespace Business.DependencyResolvers
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<EfAppUserDal>().As<IAppUserDal>();
-            builder.RegisterType<EfAppUserTypeDal>().As<IAppUserTypeDal>();
             builder.RegisterType<AppUserService>().As<IAppUserService>();
             builder.RegisterType<AppUserTypeService>().As<IAppUserTypeService>();
+            builder.RegisterType<EfAppUserTypeDal>().As<IAppUserTypeDal>();
             builder.RegisterType<JwtTokenService>().As<ITokenService>();
             builder.RegisterType<AuthService>().As<IAuthService>();
             builder.RegisterType<MemoryCacheService>().As<ICacheService>();
