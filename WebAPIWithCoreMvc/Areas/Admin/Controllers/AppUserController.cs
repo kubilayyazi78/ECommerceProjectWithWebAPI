@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -19,36 +20,42 @@ namespace WebAPIWithCoreMvc.Areas.Admin.Controllers
     [Area("Admin")]
     public class AppUserController : Controller
     {
-        private readonly IAppUserApiService _userApiService;
+        private readonly IAppUserApiService _appUserApiService;
+        private readonly IAppUserTypeApiService _appUserTypeApiService;
         private readonly IUploadImageApiService _uploadImageApiService;
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly IMapper _mapper;
-
-        public AppUserController(IAppUserApiService userApiService, IUploadImageApiService uploadImageApiService, IWebHostEnvironment webHostEnvironment, IMapper mapper)
+        public AppUserController(IAppUserApiService userApiService, IUploadImageApiService uploadImageApiService, IWebHostEnvironment webHostEnvironment, IMapper mapper, IAppUserTypeApiService appUserTypeApiService)
         {
-            _userApiService = userApiService;
+            _appUserApiService = userApiService;
             _uploadImageApiService = uploadImageApiService;
             _webHostEnvironment = webHostEnvironment;
             _mapper = mapper;
+            _appUserTypeApiService = appUserTypeApiService;
         }
 
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var result = await _userApiService.GetListDetailAsync();
-
+            var result = await _appUserApiService.GetListDetailAsync();
             List<int> ids = new List<int>();
-            ids.Add((int)AppUserTypes.SystemAdmin);
-
+            ids.Add((int)AppUserTypes.SystemAdmin);//SystemAdmin
             var users = result.Data.Where(x => ids.Contains(x.Id) == false);
-
-
             return View(users.ToList());
         }
+
+
         [HttpGet]
         public async Task<IActionResult> Add()
         {
+            await DropDownListFill();
             return View();
+        }
+
+        private async Task DropDownListFill()
+        {
+            var appUserTypes = await _appUserTypeApiService.GetListAsync();
+            ViewBag.AppUserTypes = new SelectList(appUserTypes.Data.Where(x => x.Id > 0).ToList(), "Id", "AppUserTypeName");
         }
 
         [HttpPost]
@@ -59,25 +66,23 @@ namespace WebAPIWithCoreMvc.Areas.Admin.Controllers
             var profileImageUrl = await _uploadImageApiService.UploadImageAsync(new FileInfo(filePath));
             appUserAddDto.ProfileImageUrl = profileImageUrl.Data.FullPath;
             appUserAddDto.RefreshToken = Guid.NewGuid();
-            var result = await _userApiService.AddAsync(appUserAddDto);
+            var result = await _appUserApiService.AddAsync(appUserAddDto);
             if (!result.Success)
             {
-                if (!result.Success)
-                {
-                    var errorList = HelperMethods.ErrorList(result);
-                    ViewBag.Errors = errorList;
-                    return View(appUserAddDto);
-                }
+                var errorList = HelperMethods.ErrorList(result);
+                ViewBag.Errors = errorList;
+                return View(appUserAddDto);
             }
             return RedirectToAction("Index");
         }
 
+
         [HttpGet]
         public async Task<IActionResult> Update(int id)
         {
-            var appUserDto = await _userApiService.GetByIdAsync(id);
+            await DropDownListFill();
+            var appUserDto = await _appUserApiService.GetByIdAsync(id);
             var appUserUpdateDto = _mapper.Map<AppUserUpdateDto>(appUserDto.Data);
-
             return View(appUserUpdateDto);
         }
 
@@ -86,53 +91,54 @@ namespace WebAPIWithCoreMvc.Areas.Admin.Controllers
         {
             if (file != null)
             {
-                HelperMethods helperMethods = new HelperMethods(_webHostEnvironment);
-                string filePath = await helperMethods.FileUpload(file);
+                HelperMethods helpers = new HelperMethods(_webHostEnvironment);
+                string filePath = await helpers.FileUpload(file);
                 var profileImageUrl = await _uploadImageApiService.UploadImageAsync(new FileInfo(filePath));
                 appUserUpdateDto.ProfileImageUrl = profileImageUrl.Data.FullPath;
             }
             else
             {
-                var appUserDto = await _userApiService.GetByIdAsync(appUserUpdateDto.Id);
+                var appUserDto = await _appUserApiService.GetByIdAsync(appUserUpdateDto.Id);
                 appUserUpdateDto.ProfileImageUrl = appUserDto.Data.ProfileImageUrl;
             }
-            var result = await _userApiService.UpdateAsync(appUserUpdateDto);
+            var result = await _appUserApiService.UpdateAsync(appUserUpdateDto);
             if (!result.Success)
             {
                 var errorList = HelperMethods.ErrorList(result);
                 ViewBag.Errors = errorList;
                 return View(appUserUpdateDto);
+
             }
             return RedirectToAction("Index");
         }
+
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-            var appUserDto = await _userApiService.GetByIdAsync(id);
+            var appUserDto = await _appUserApiService.GetByIdAsync(id);
             var appUserDeleteDto = _mapper.Map<AppUserDeleteDto>(appUserDto.Data);
-
             return View(appUserDeleteDto);
         }
 
         [HttpPost]
         public async Task<IActionResult> Delete(AppUserDeleteDto appUserDeleteDto)
         {
-            var result = await _userApiService.DeleteAsync(appUserDeleteDto.Id);
+            var result = await _appUserApiService.DeleteAsync(appUserDeleteDto.Id);
             if (!result.Success)
             {
                 var errorList = HelperMethods.ErrorList(result);
                 ViewBag.Errors = errorList;
                 return View(appUserDeleteDto);
-            }
 
+            }
             return RedirectToAction("Index");
         }
-        [HttpGet]
-        public async Task<IActionResult> Detail (int id)
-        {
-            var appUserDto = await _userApiService.GetByIdAsync(id);
-            var appUserDetailDto = _mapper.Map<AppUserDetailDto>(appUserDto.Data);
 
+        [HttpGet]
+        public async Task<IActionResult> Detail(int id)
+        {
+            var appUserDto = await _appUserApiService.GetByIdAsync(id);
+            var appUserDetailDto = _mapper.Map<AppUserDetailDto>(appUserDto.Data);
             return View(appUserDetailDto);
         }
     }

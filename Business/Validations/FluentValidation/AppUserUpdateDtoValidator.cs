@@ -8,10 +8,8 @@ namespace Business.Validations.FluentValidation
         public AppUserUpdateDtoValidator()
         {
             RuleFor(x => x.UserName).NotEmpty().
-                WithErrorCode("VALIDATION_UserNameFieldCannotBeEmpty");
+                 WithErrorCode("VALIDATION_UserNameFieldCannotBeEmpty");
 
-            RuleFor(x => x.Password).NotEmpty().
-                WithErrorCode("VALIDATION_PasswordFieldCannotBeEmpty");
 
             RuleFor(x => x.Email).NotEmpty().
                 WithErrorCode("VALIDATION_EmailFieldCannotBeEmpty");

@@ -52,12 +52,11 @@ namespace DataAccess.Concrete.EntityFramework
                                  FirstName = appUser.FirstName,
                                  GsmNumber = appUser.GsmNumber,
                                  LastName = appUser.LastName,
+                                 ProfileImageUrl = appUser.ProfileImageUrl,
                                  UserName = appUser.UserName,
-                                 ProfileImageUrl = appUser.ProfileImageUrl
                              };
                 return await result.ToListAsync();
             }
-
         }
     }
 }

@@ -180,11 +180,17 @@
   <data name="HTTP_Unauthorized" xml:space="preserve">
     <value>Yetkiniz Yok</value>
   </data>
+  <data name="LABEL_AppUserType" xml:space="preserve">
+    <value>Kullanıcı Tipi</value>
+  </data>
   <data name="LABEL_AppUserTypeName" xml:space="preserve">
     <value>Kullanıcı Tipi</value>
   </data>
   <data name="LABEL_AreYouSureYouWantToDelete" xml:space="preserve">
     <value>Silmek İstediğinizden Emin Misiniz ?</value>
+  </data>
+  <data name="LABEL_Choose" xml:space="preserve">
+    <value>Seçiniz</value>
   </data>
   <data name="LABEL_Email" xml:space="preserve">
     <value>Mail</value>

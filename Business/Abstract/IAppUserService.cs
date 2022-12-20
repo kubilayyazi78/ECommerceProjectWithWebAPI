@@ -16,14 +16,19 @@ namespace Business.Abstract
 {
     public interface IAppUserService
     {
-        Task<ApiDataResponse<IEnumerable<AppUserDto>>> GetListAsync();
-        Task<ApiDataResponse<IEnumerable<AppUserDto>>> GetListDetailAsync();
-        Task<ApiDataResponse<AppUserDto>> GetByIdAsync(int id);
+        Task<ApiDataResponse<List<AppUserDto>>> GetListAsync();
+        Task<ApiDataResponse<List<AppUserDto>>> GetListDetailAsync();
+
         Task<ApiDataResponse<AppUser>> GetAsync(Expression<Func<AppUser, bool>> filter);
+
+        Task<ApiDataResponse<AppUserDto>> GetByIdAsync(int id);
+
         Task<ApiDataResponse<AppUserDto>> AddAsync(AppUserAddDto userAddDto);
+
         Task<ApiDataResponse<AppUserUpdateDto>> UpdateAsync(AppUserUpdateDto userUpdateDto);
+
         Task<ApiDataResponse<bool>> DeleteAsync(int id);
 
-        Task<List<OperationClaimDto>> GetRolesAsync(Core.Entities.Concrete.AppUser user);
+        Task<List<OperationClaimDto>> GetRolesAsync(AppUser user);
     }
 }

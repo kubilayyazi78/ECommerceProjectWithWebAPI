@@ -36,7 +36,7 @@ namespace WebAPIWithCoreMvc
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            
+            #region Localization
 
             services.AddLocalization(options => { options.ResourcesPath = "Resources"; });
             LocalizationAppSettings settings = new LocalizationAppSettings();
@@ -55,7 +55,8 @@ namespace WebAPIWithCoreMvc
                 options.AddInitialRequestCultureProvider(new CookieRequestCultureProvider(settings));
             });
 
-            services.AddControllersWithViews().AddRazorRuntimeCompilation();
+            #endregion Localization
+            services.AddControllersWithViews().AddRazorRuntimeCompilation(); ;
             services.AddHttpContextAccessor();
             services.AddSession();
             services.AddScoped<AuthTokenHandler>();
@@ -67,33 +68,35 @@ namespace WebAPIWithCoreMvc
             services.AddSingleton(typeof(IStringLocalizer<>), typeof(StringLocalizer<>));
 
             #region HttpClient
-
             services.AddHttpClient<IHttpClientService, HttpClientService>(opt =>
             {
                 opt.BaseAddress = new Uri(settings.BaseUrl);
 
             }).AddHttpMessageHandler<AuthTokenHandler>();
             #endregion HttpClient
-   
 
             #region Cookie
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(
-                   CookieAuthenticationDefaults.AuthenticationScheme,
-                   opt =>
-                   {
-                       opt.LoginPath = "/Admin/Auth/Login";
-                       opt.ExpireTimeSpan = TimeSpan.FromDays(60);
-                       opt.SlidingExpiration = true;
-                       opt.Cookie.Name = "mvccookie";
-                   });
-            #endregion
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, opt =>
+            {
+                opt.LoginPath = "/Admin/Auth/Login";
+                opt.ExpireTimeSpan = TimeSpan.FromDays(60);
+                opt.SlidingExpiration = true;
+                opt.Cookie.Name = "mvccookie";
+            });
+
+            #endregion Cookie
+
+            #region AutoMapper
 
             var mapperConfig = new MapperConfiguration(mc =>
-             {
-                 mc.AddProfile(new MappingProfile());
-             });
+            {
+                mc.AddProfile(new MappingProfile());
+            });
             var mapper = mapperConfig.CreateMapper();
             services.AddSingleton(mapper);
+
+            #endregion AutoMapper
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

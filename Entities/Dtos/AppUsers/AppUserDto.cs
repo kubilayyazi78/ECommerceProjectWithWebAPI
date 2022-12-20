@@ -16,6 +16,6 @@ namespace Entities.Dtos.AppUsers
         public string GsmNumber { get; set; }
         public string AppUserTypeName { get; set; }
         public int AppUserTypeId { get; set; }
-        
+
     }
 }
