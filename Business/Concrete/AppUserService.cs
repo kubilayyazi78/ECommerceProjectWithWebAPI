@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Business.Abstract;
-using Business.Constants;
 using Business.Validations.FluentValidation;
 using Core.Aspects.Autofac.Caching;
 using Core.Aspects.Autofac.Logging;
@@ -10,7 +9,6 @@ using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Logging.Serilog.Loggers;
 using Core.Entities.Concrete;
 using Core.Entities.Dtos;
-using Core.Entities.Enums;
 using Core.Utilities.Localization;
 using Core.Utilities.Messages;
 using Core.Utilities.Responses;
@@ -95,10 +93,10 @@ namespace Business.Concrete
             var userDto = _mapper.Map<AppUserDto>(userAdd);
             return new SuccessApiDataResponse<AppUserDto>(userDto, message: _localizationService[ResultCodes.HTTP_OK]);
         }
-        //[TransactionScopeAspect]
-        [CacheRemoveAspect("IAppUserService.GetListAsync,IAppUserTypeService.GetListAsync")]
-        //[ValidationAspect(typeof(AppUserUpdateDtoValidator))]
-        //[LogAspect(typeof(FileLogger))]
+        [TransactionScopeAspect]
+        [CacheRemoveAspect("IAppUserService.GetListAsync,IAppUserService.GetListAsync")]
+        [ValidationAspect(typeof(AppUserUpdateDtoValidator))]
+        [LogAspect(typeof(FileLogger))]
         public async Task<ApiDataResponse<AppUserUpdateDto>> UpdateAsync(AppUserUpdateDto userUpdateDto)
         {
             var getUser = await _appUserDal.GetAsync(x => x.Id == userUpdateDto.Id);
