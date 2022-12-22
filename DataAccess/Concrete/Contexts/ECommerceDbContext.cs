@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Core.Entities.Concrete;
 using DataAccess.Concrete.EntityFramework.Configurations;
-
+using Entities.Concrete;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess.Concrete.Contexts
@@ -43,5 +43,9 @@ namespace DataAccess.Concrete.Contexts
         public virtual DbSet<AppUserTypeAppOperationClaim> AppUserTypeAppOperationClaims { get; set; }
         public virtual DbSet<AppOperationClaim> AppOperationClaims { get; set; }
         public virtual DbSet<AppUserType> AppUserTypes { get; set; }
+        public virtual DbSet<Page> Pages { get; set; }
+        public virtual DbSet<PageType> PageTypes { get; set; }
+        public virtual DbSet<PagePermission> PagePermissions { get; set; }
+
     }
 }
