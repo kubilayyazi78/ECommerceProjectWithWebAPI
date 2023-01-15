@@ -1,19 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Core.DataAccess;
-using Core.Entities.Concrete;
+﻿using Core.DataAccess;
 using Core.Entities.Dtos;
-using Entities.Dtos.AppOperationClaimDtos;
+using Entities.Concrete;
 using Entities.Dtos.AppUsers;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace DataAccess.Abstract
 {
     public interface IAppUserDal : IBaseRepository<AppUser>
     {
-        Task<List<OperationClaimDto>> GetRolesAsync(Core.Entities.Concrete.AppUser user);
+        Task<List<OperationClaimDto>> GetRolesAsync(AppUser user);
         Task<List<AppUserDto>> GetListDetailAsync();
     }
 }

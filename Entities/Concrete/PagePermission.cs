@@ -4,7 +4,11 @@ namespace Entities.Concrete
 {
     public class PagePermission : AuditEntity
     {
-        public int AppUserTypeId { get; set; }
-        public int PageId { get; set; }
+        public int UserTypeID { get; set; }
+        public int PageID { get; set; }
+        public int OperationClaimID { get; set; }
+        public Page Page { get; set; }
+        public AppUserType AppUserType { get; set; }
+        public AppOperationClaim AppOperationClaim { get; set; }
     }
 }

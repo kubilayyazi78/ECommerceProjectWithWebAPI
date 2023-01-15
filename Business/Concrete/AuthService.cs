@@ -13,6 +13,7 @@ using Core.Utilities.Security.Hash.Sha512;
 using Entities.Dtos.AppUsers;
 using Microsoft.AspNetCore.Http;
 using Core.Entities.Concrete;
+using Entities.Concrete;
 
 namespace Business.Concrete
 {
@@ -23,12 +24,11 @@ namespace Business.Concrete
         private readonly ITokenService _tokenService;
         private readonly IMapper _mapper;
         private readonly IHttpContextAccessor _httpContextAccessor;
-
-        public AuthService(IAppUserService appUserService, IMapper mapper, ITokenService tokenService, IHttpContextAccessor httpContextAccessor)
+        public AuthService(IAppUserService appUserService, ITokenService tokenService, IMapper mapper, IHttpContextAccessor httpContextAccessor)
         {
             _appUserService = appUserService;
-            _mapper = mapper;
             _tokenService = tokenService;
+            _mapper = mapper;
             _httpContextAccessor = httpContextAccessor;
         }
         #endregion
@@ -38,57 +38,24 @@ namespace Business.Concrete
         {
             var user = await _appUserService.GetAsync(x => x.UserName == loginDto.UserName);
             if (user.Data == null)
-            {
                 return new ErrorApiDataResponse<AccessToken>(null, Messages.UserNotFound);
-            }
-            else
-            {
-                if (!Sha512Helper.VerifyPasswordHash(loginDto.Password, user.Data.PasswordHash, user.Data.PasswordSalt))
-                {
-                    return new ErrorApiDataResponse<AccessToken>(null, Messages.UserNotFound);
-                }
 
-                var appUser = _mapper.Map<AppUser>(user.Data);
-                var accessToken = await CreateAccessTokenAsync(appUser);
-                return new SuccessApiDataResponse<AccessToken>(accessToken, Messages.SystemLoginSuccessful);
-            }
+            if (!Sha512Helper.VerifyPasswordHash(loginDto.Password, user.Data.PasswordHash, user.Data.PasswordSalt))
+                return new ErrorApiDataResponse<AccessToken>(null, Messages.UserNotFound);
 
-        }
-
-        //private async Task<ApiDataResponse<AppUserDto>> UpdateToken(ApiDataResponse<AppUserDto> user)
-        //{
-        //    var accessToken = _tokenService.CreateToken(user.Data.Id, user.Data.UserName);
-        //    var userUpdateDto = _mapper.Map<UserUpdateDto>(user.Data);
-        //    userUpdateDto.TokenExpireDate = accessToken.Expiration;
-        //    userUpdateDto.Token = accessToken.Token;
-        //    userUpdateDto.UpdatedUserId = user.Data.Id;
-        //    var resultUserUpdateDto = await _appUserService.UpdateAsync(userUpdateDto);
-        //    var userDto = _mapper.Map<AppUserDto>(resultUserUpdateDto.Data);
-        //    return new SuccessApiDataResponse<AppUserDto>(userDto, Messages.SystemLoginSuccessful);
-        //}
-
-        public async Task<AccessToken> CreateAccessTokenAsync(AppUser appUser)
-        {
-            var roles = await _appUserService.GetRolesAsync(appUser);
-
-            var accessToken = _tokenService.CreateToken(appUser, roles);
-
-            return accessToken;
+            var accessToken = await CreateAccessTokenAsync(_mapper.Map<User>(user.Data));
+            return new SuccessApiDataResponse<AccessToken>(accessToken, Messages.SystemLoginSuccessful);
         }
 
         public async Task<ApiDataResponse<AccessToken>> RegisterAsync(RegisterDto registerDto, string password)
         {
             var user = await _appUserService.GetAsync(x => x.UserName == registerDto.UserName);
             if (user.Data != null)
-            {
-                return new ErrorApiDataResponse<AccessToken>(null, Messages.UserNameAlreadyExsist);
-            }
+                return new ErrorApiDataResponse<AccessToken>(null, Messages.UserNameAlreadyExist);
 
             byte[] passwordHash, passwordSalt;
             Sha512Helper.CreatePasswordHash(password, out passwordHash, out passwordSalt);
-
             var appUser = _mapper.Map<AppUser>(registerDto);
-
             appUser.PasswordHash = passwordHash;
             appUser.PasswordSalt = passwordSalt;
             appUser.CreatedDate = DateTime.Now;
@@ -96,14 +63,18 @@ namespace Business.Concrete
             var appUserAddDto = _mapper.Map<AppUserAddDto>(appUser);
             var appUserAdd = _appUserService.AddAsync(appUserAddDto);
             if (appUserAdd == null)
-            {
                 return new ErrorApiDataResponse<AccessToken>(null, Messages.NotAdded);
-            }
-
             var appUserAccessToken = _mapper.Map<AppUser>(appUserAdd);
-            var newAccessToken = await CreateAccessTokenAsync(appUserAccessToken);
+            var _userMap = _mapper.Map<User>(appUserAccessToken);
+            var newAccessToken = await CreateAccessTokenAsync(_userMap);
             return new SuccessApiDataResponse<AccessToken>(newAccessToken, Messages.UserRegistered);
         }
-
+        public async Task<AccessToken> CreateAccessTokenAsync(User user)
+        {
+            var appUser = _mapper.Map<AppUser>(user);
+            var roles = await _appUserService.GetRolesAsync(appUser);
+            var accessToken = _tokenService.CreateToken(user, roles);
+            return accessToken;
+        }
     }
 }

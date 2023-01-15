@@ -1,17 +1,20 @@
-﻿using Core.Entities;
+﻿using Core.Entities.BaseEntities;
+using System;
 
-namespace Entities.Dtos.AppUsers
+namespace Core.Entities.Concrete
 {
-    public class AppUserDto : IDto
+    public class User : AuditEntity
     {
-        public int Id { get; set; }
+
         public string UserName { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public byte[] PasswordSalt { get; set; }
+        public byte[] PasswordHash { get; set; }
         public string Email { get; set; }
         public string ProfileImageUrl { get; set; }
         public string GsmNumber { get; set; }
-        public string UserTypeName { get; set; }
+        public Guid RefreshToken { get; set; }
         public int UserTypeID { get; set; }
     }
 }

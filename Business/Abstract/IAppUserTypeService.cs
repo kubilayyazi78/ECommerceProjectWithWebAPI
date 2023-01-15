@@ -1,5 +1,6 @@
 ﻿using Core.Entities.Concrete;
 using Core.Utilities.Responses;
+using Entities.Concrete;
 using Entities.Dtos.AppUserTypes;
 using System;
 using System.Collections.Generic;

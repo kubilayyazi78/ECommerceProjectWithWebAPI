@@ -1,32 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Core.DataAccess.EntityFramework;
-using Core.Entities.Concrete;
+﻿using Core.DataAccess.EntityFramework;
 using Core.Entities.Dtos;
 using DataAccess.Abstract;
 using DataAccess.Concrete.Contexts;
-using Entities.Dtos.AppOperationClaimDtos;
+using Entities.Concrete;
 using Entities.Dtos.AppUsers;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace DataAccess.Concrete.EntityFramework
 {
     public class EfAppUserDal : EfBaseRepository<AppUser, ECommerceDbContext>, IAppUserDal
     {
-        public async Task<List<OperationClaimDto>> GetRolesAsync(Core.Entities.Concrete.AppUser user)
+        public async Task<List<OperationClaimDto>> GetRolesAsync(AppUser user)
         {
             using (var context = new ECommerceDbContext())
             {
                 var result = from appUserTypeAppOperationClaim in context.AppUserTypeAppOperationClaims
-                             join appOperationClaim in context.AppOperationClaims on appUserTypeAppOperationClaim
-                                 .AppOperationClaimId equals appOperationClaim.Id
-                             join appUserType in context.AppUserTypes on appUserTypeAppOperationClaim.AppUserTypeId equals
-                                 appUserType.Id
-                             where appUserTypeAppOperationClaim.AppUserTypeId == user.AppUserTypeId
+                             join appOperationClaim in context.AppOperationClaims on appUserTypeAppOperationClaim.OperationClaimID equals appOperationClaim.Id
+                             join appUserType in context.AppUserTypes on appUserTypeAppOperationClaim.UserTypeID equals appUserType.Id
+                             where appUserTypeAppOperationClaim.UserTypeID == user.UserTypeID
                              select new OperationClaimDto
                              {
                                  Id = appOperationClaim.Id,
@@ -34,7 +28,6 @@ namespace DataAccess.Concrete.EntityFramework
                              };
                 return await result.ToListAsync();
             }
-
         }
 
         public async Task<List<AppUserDto>> GetListDetailAsync()
@@ -42,12 +35,12 @@ namespace DataAccess.Concrete.EntityFramework
             using (var context = new ECommerceDbContext())
             {
                 var result = from appUser in context.AppUsers
-                             join appUserType in context.AppUserTypes on appUser.AppUserTypeId equals appUserType.Id
+                             join appUserType in context.AppUserTypes on appUser.UserTypeID equals appUserType.Id
                              select new AppUserDto
                              {
                                  Id = appUser.Id,
-                                 AppUserTypeName = appUserType.AppUserTypeName,
-                                 AppUserTypeId = appUser.AppUserTypeId,
+                                 UserTypeName = appUserType.UserTypeName,
+                                 UserTypeID = appUser.UserTypeID,
                                  Email = appUser.Email,
                                  FirstName = appUser.FirstName,
                                  GsmNumber = appUser.GsmNumber,

@@ -19,5 +19,7 @@ namespace Business.Constants
         public static string SystemLoginFailed = "Sisteme Giriş Başarısız";
         public static string UserNameAlreadyExsist = "Bu kullanıcı mevcut";
         public static string UserRegistered = "Kullanıcı kaydedildi";
+        public static string UserNameAlreadyExist = "Kullanıcı Mevcut";
+
     }
 }

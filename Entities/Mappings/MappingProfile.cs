@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Core.Entities.Concrete;
+using Entities.Concrete;
 using Entities.Dtos.AppUsers;
 using Entities.Dtos.AppUserTypes;
 
@@ -18,6 +19,10 @@ namespace Entities.Mappings
             CreateMap<AppUserDto, AppUserDetailDto>().ReverseMap();
             #endregion
 
+            #region User
+            CreateMap<AppUser, User>().ReverseMap();
+            #endregion
+
             #region AppUserType
 
             CreateMap<AppUserType, AppUserTypeDto>().ReverseMap();
@@ -28,6 +33,14 @@ namespace Entities.Mappings
             CreateMap<AppUserTypeDto, AppUserTypeDetailDto>().ReverseMap();
             #endregion
 
+            #region Page
+            //CreateMap<Page, PageDto>().ReverseMap();
+            //CreateMap<Page, PageAddDto>().ReverseMap();
+            //CreateMap<Page, PageUpdateDto>().ReverseMap();
+            //CreateMap<PageDto, PageUpdateDto>().ReverseMap();
+            //CreateMap<PageDto, PageDeleteDto>().ReverseMap();
+            //CreateMap<PageDto, PageDetailDto>().ReverseMap();
+            #endregion
         }
     }
 }

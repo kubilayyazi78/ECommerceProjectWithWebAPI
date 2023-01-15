@@ -1,4 +1,5 @@
 ﻿using Core.Entities.Concrete;
+using Entities.Concrete;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -12,12 +13,12 @@ namespace DataAccess.Concrete.EntityFramework.Configurations
 
             builder.HasKey(x => x.Id);
 
-            builder.Property(x => x.AppUserTypeName)
-                .HasColumnName("AppUserTypeName")
+            builder.Property(x => x.UserTypeName)
+                .HasColumnName("UserTypeName")
                 .HasMaxLength(50)
                 .IsRequired();
 
-            builder.HasData(new AppUserType() { Id = -1, AppUserTypeName = "System Admin" });
+            builder.HasData(new AppUserType() { Id = -1, UserTypeName = "System Admin" });
         }
     }
 }

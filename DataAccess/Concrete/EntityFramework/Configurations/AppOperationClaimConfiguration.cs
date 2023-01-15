@@ -1,9 +1,6 @@
-﻿using Core.Entities.Concrete;
+﻿using Entities.Concrete;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using Core.Entities.Enums;
-using Core.Utilities.Security.Hash.Sha512;
 
 namespace DataAccess.Concrete.EntityFramework.Configurations
 {

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Business.Abstract;
+using Business.Constants;
 using Business.Validations.FluentValidation;
 using Core.Aspects.Autofac.Caching;
 using Core.Aspects.Autofac.Logging;
@@ -7,14 +8,16 @@ using Core.Aspects.Autofac.SecuredOperation;
 using Core.Aspects.Autofac.Transaction;
 using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Logging.Serilog.Loggers;
-using Core.Entities.Concrete;
 using Core.Entities.Dtos;
+using Core.Entities.Enums;
 using Core.Utilities.Localization;
 using Core.Utilities.Messages;
 using Core.Utilities.Responses;
 using Core.Utilities.Security.Hash.Sha512;
 using Core.Utilities.Security.Token;
 using DataAccess.Abstract;
+using DataAccess.Concrete.EntityFramework;
+using Entities.Concrete;
 using Entities.Dtos.AppUsers;
 using Microsoft.Extensions.Options;
 using System;
@@ -79,7 +82,7 @@ namespace Business.Concrete
 
 
         [TransactionScopeAspect]
-        [CacheRemoveAspect("IAppUserService.GetListAsync,IAppUserService.GetListAsync")]
+        [CacheRemoveAspect("IAppUserService.GetListAsync,IAppUserService.GetListDetailAsync")]
         [ValidationAspect(typeof(AppUserAddDtoValidator))]
         [LogAspect(typeof(FileLogger))]
         public async Task<ApiDataResponse<AppUserDto>> AddAsync(AppUserAddDto userAddDto)
@@ -94,7 +97,7 @@ namespace Business.Concrete
             return new SuccessApiDataResponse<AppUserDto>(userDto, message: _localizationService[ResultCodes.HTTP_OK]);
         }
         [TransactionScopeAspect]
-        [CacheRemoveAspect("IAppUserService.GetListAsync,IAppUserService.GetListAsync")]
+        [CacheRemoveAspect("IAppUserService.GetListAsync,IAppUserService.GetListDetailAsync")]
         [ValidationAspect(typeof(AppUserUpdateDtoValidator))]
         [LogAspect(typeof(FileLogger))]
         public async Task<ApiDataResponse<AppUserUpdateDto>> UpdateAsync(AppUserUpdateDto userUpdateDto)
@@ -124,7 +127,7 @@ namespace Business.Concrete
             return new SuccessApiDataResponse<AppUserUpdateDto>(userUpdataMap, _localizationService[ResultCodes.HTTP_OK]);
         }
 
-        [CacheRemoveAspect("IAppUserService.GetListAsync,IAppUserService.GetListAsync")]
+        [CacheRemoveAspect("IAppUserService.GetListAsync,IAppUserService.GetListDetailAsync")]
         [LogAspect(typeof(FileLogger))]
         public async Task<ApiDataResponse<bool>> DeleteAsync(int id)
         {

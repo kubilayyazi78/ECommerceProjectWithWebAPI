@@ -12,6 +12,7 @@ using Core.Utilities.Localization;
 using Core.Utilities.Messages;
 using Core.Utilities.Responses;
 using DataAccess.Abstract;
+using Entities.Concrete;
 using Entities.Dtos.AppUserTypes;
 using System;
 using System.Collections.Generic;
