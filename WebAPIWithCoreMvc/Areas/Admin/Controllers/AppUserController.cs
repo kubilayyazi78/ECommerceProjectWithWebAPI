@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Core.Entities.Enums;
+using Core.Utilities.Messages;
 using Entities.Dtos.AppUsers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
@@ -35,7 +36,7 @@ namespace WebAPIWithCoreMvc.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> List()
         {
             var result = await _appUserApiService.GetListDetailAsync();
             List<int> ids = new List<int>();
@@ -73,7 +74,7 @@ namespace WebAPIWithCoreMvc.Areas.Admin.Controllers
                 ViewBag.Errors = errorList;
                 return View(appUserAddDto);
             }
-            return RedirectToAction("Index");
+            return RedirectToAction(Constants.List);
         }
 
 
@@ -109,7 +110,7 @@ namespace WebAPIWithCoreMvc.Areas.Admin.Controllers
                 return View(appUserUpdateDto);
 
             }
-            return RedirectToAction("Index");
+            return RedirectToAction(Constants.List);
         }
 
         [HttpGet]
@@ -131,7 +132,7 @@ namespace WebAPIWithCoreMvc.Areas.Admin.Controllers
                 return View(appUserDeleteDto);
 
             }
-            return RedirectToAction("Index");
+            return RedirectToAction(Constants.List);
         }
 
         [HttpGet]
