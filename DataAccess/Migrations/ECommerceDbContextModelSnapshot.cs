@@ -183,7 +183,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = -1,
-                            CreatedDate = new DateTime(2023, 1, 23, 23, 24, 43, 564, DateTimeKind.Local).AddTicks(7523),
+                            CreatedDate = new DateTime(2023, 1, 29, 21, 49, 58, 477, DateTimeKind.Local).AddTicks(7483),
                             CreatedUserId = 1,
                             Email = "sadmin@gmail.com",
                             FirstName = "System",
@@ -191,12 +191,12 @@ namespace DataAccess.Migrations
                             IsActive = true,
                             IsDeleted = false,
                             LastName = "Admin",
-                            PasswordHash = new byte[] { 182, 107, 233, 238, 86, 111, 67, 157, 45, 191, 4, 188, 228, 114, 64, 27, 174, 104, 20, 188, 194, 203, 222, 241, 93, 244, 43, 124, 95, 183, 128, 134, 17, 167, 158, 14, 10, 11, 114, 100, 254, 140, 45, 237, 195, 147, 84, 162, 126, 245, 197, 20, 109, 242, 202, 8, 174, 66, 111, 175, 234, 56, 14, 187 },
-                            PasswordSalt = new byte[] { 124, 216, 116, 31, 13, 247, 188, 159, 1, 103, 244, 17, 115, 177, 216, 7, 84, 221, 154, 255, 95, 48, 247, 71, 178, 200, 154, 143, 59, 68, 10, 79, 96, 175, 240, 136, 234, 201, 106, 249, 63, 41, 19, 10, 226, 183, 105, 247, 219, 255, 164, 163, 228, 238, 253, 117, 76, 41, 146, 57, 238, 32, 118, 195, 154, 50, 167, 189, 171, 208, 133, 220, 31, 86, 174, 226, 254, 65, 72, 225, 244, 145, 80, 174, 122, 60, 99, 137, 69, 254, 64, 121, 101, 73, 112, 198, 30, 20, 150, 38, 116, 86, 4, 41, 198, 37, 184, 145, 244, 194, 89, 152, 151, 169, 92, 44, 238, 253, 253, 89, 86, 183, 215, 11, 2, 91, 109, 190 },
+                            PasswordHash = new byte[] { 181, 128, 189, 22, 146, 126, 23, 136, 11, 231, 232, 191, 198, 211, 10, 242, 67, 32, 70, 158, 79, 231, 60, 34, 179, 234, 113, 28, 98, 171, 60, 109, 130, 199, 181, 67, 211, 162, 153, 202, 150, 12, 39, 233, 165, 184, 108, 60, 139, 50, 251, 82, 122, 50, 3, 113, 35, 42, 65, 176, 140, 123, 17, 14 },
+                            PasswordSalt = new byte[] { 211, 254, 196, 65, 2, 95, 229, 248, 116, 188, 166, 104, 207, 30, 81, 99, 76, 179, 160, 141, 174, 127, 225, 130, 137, 83, 234, 144, 174, 225, 237, 70, 189, 61, 185, 87, 234, 223, 234, 118, 22, 168, 18, 251, 143, 103, 227, 220, 222, 55, 32, 93, 187, 207, 127, 123, 238, 175, 176, 57, 12, 198, 18, 168, 244, 163, 53, 138, 9, 253, 223, 210, 45, 22, 23, 32, 55, 89, 5, 87, 113, 8, 54, 33, 245, 99, 196, 224, 103, 120, 45, 240, 131, 191, 85, 34, 165, 196, 92, 223, 245, 234, 198, 1, 173, 247, 94, 221, 43, 138, 62, 99, 180, 217, 41, 249, 179, 242, 45, 108, 120, 36, 16, 127, 134, 37, 176, 100 },
                             ProfileImageUrl = "",
-                            RefreshToken = new Guid("a803e03a-0e72-41a8-b001-099cd3e1ca63"),
+                            RefreshToken = new Guid("c6e7433d-ca86-4d34-9677-43ef691930ce"),
                             UserName = "sadmin",
-                            UserTypeID = -1
+                            UserTypeID = 1
                         });
                 });
 
@@ -225,31 +225,39 @@ namespace DataAccess.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
+                    b.Property<int>("ResourceID")
+                        .HasColumnType("int");
+
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int?>("UpdatedUserId")
                         .HasColumnType("int");
 
-                    b.Property<string>("UserTypeName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
-                        .HasColumnName("UserTypeName");
-
                     b.HasKey("Id");
+
+                    b.HasIndex("ResourceID");
 
                     b.ToTable("AppUserTypes", "dbo");
 
                     b.HasData(
                         new
                         {
-                            Id = -1,
+                            Id = 1,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CreatedUserId = 0,
                             IsActive = true,
                             IsDeleted = false,
-                            UserTypeName = "System Admin"
+                            ResourceID = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedUserId = 0,
+                            IsActive = true,
+                            IsDeleted = false,
+                            ResourceID = 2
                         });
                 });
 
@@ -311,6 +319,55 @@ namespace DataAccess.Migrations
                     b.HasIndex("AppUserTypeId");
 
                     b.ToTable("AppUserTypeAppOperationClaims", "dbo");
+                });
+
+            modelBuilder.Entity("Entities.Concrete.Language", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("DisplayOrder")
+                        .HasColumnType("int")
+                        .HasColumnName("DisplayOrder");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("LanguageCode")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)")
+                        .HasColumnName("LanguageCode");
+
+                    b.Property<string>("LanguageName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)")
+                        .HasColumnName("LanguageName");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Languages", "dbo");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            DisplayOrder = 1,
+                            IsActive = true,
+                            LanguageCode = "tr-TR",
+                            LanguageName = "Türkçe"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            DisplayOrder = 2,
+                            IsActive = true,
+                            LanguageCode = "en-EN",
+                            LanguageName = "English"
+                        });
                 });
 
             modelBuilder.Entity("Entities.Concrete.Page", b =>
@@ -944,6 +1001,84 @@ namespace DataAccess.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Entities.Concrete.Resource", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("CreatedUserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("DeletedUserId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("LanguageID")
+                        .HasColumnType("int")
+                        .HasColumnName("LanguageID");
+
+                    b.Property<string>("ResourceGroup")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)")
+                        .HasColumnName("ResourceGroup");
+
+                    b.Property<string>("ResourceValue")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)")
+                        .HasColumnName("ResourceValue");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("UpdatedUserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LanguageID");
+
+                    b.ToTable("Resources", "dbo");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedUserId = 0,
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageID = 1,
+                            ResourceGroup = "AppUserType",
+                            ResourceValue = "System Admin"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedUserId = 0,
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageID = 2,
+                            ResourceGroup = "AppUserType",
+                            ResourceValue = "System Admin"
+                        });
+                });
+
             modelBuilder.Entity("Entities.Concrete.AppUser", b =>
                 {
                     b.HasOne("Entities.Concrete.AppUserType", "AppUserType")
@@ -951,6 +1086,17 @@ namespace DataAccess.Migrations
                         .HasForeignKey("AppUserTypeId");
 
                     b.Navigation("AppUserType");
+                });
+
+            modelBuilder.Entity("Entities.Concrete.AppUserType", b =>
+                {
+                    b.HasOne("Entities.Concrete.Resource", "Resource")
+                        .WithMany("AppUserTypes")
+                        .HasForeignKey("ResourceID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Resource");
                 });
 
             modelBuilder.Entity("Entities.Concrete.AppUserTypeAppOperationClaim", b =>
@@ -1002,6 +1148,17 @@ namespace DataAccess.Migrations
                     b.Navigation("Page");
                 });
 
+            modelBuilder.Entity("Entities.Concrete.Resource", b =>
+                {
+                    b.HasOne("Entities.Concrete.Language", "Language")
+                        .WithMany("Resources")
+                        .HasForeignKey("LanguageID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Language");
+                });
+
             modelBuilder.Entity("Entities.Concrete.AppOperationClaim", b =>
                 {
                     b.Navigation("AppUserTypeAppOperationClaims");
@@ -1016,6 +1173,11 @@ namespace DataAccess.Migrations
                     b.Navigation("PagePermissions");
                 });
 
+            modelBuilder.Entity("Entities.Concrete.Language", b =>
+                {
+                    b.Navigation("Resources");
+                });
+
             modelBuilder.Entity("Entities.Concrete.Page", b =>
                 {
                     b.Navigation("PagePermissions");
@@ -1024,6 +1186,11 @@ namespace DataAccess.Migrations
             modelBuilder.Entity("Entities.Concrete.PageType", b =>
                 {
                     b.Navigation("Pages");
+                });
+
+            modelBuilder.Entity("Entities.Concrete.Resource", b =>
+                {
+                    b.Navigation("AppUserTypes");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Core.Entities.Enums
+﻿namespace Core.Entities.Enums
 {
+    //Çoklu dile göre SystemAdmin id düzenlenecek
+    //AppUserType eklendiğinde mevcut dillere göre foreach ile ekleme işlemi yapıulacak.
     public enum AppUserTypes
     {
-        SystemAdmin = -1
+        SystemAdmin = 1
     }
 }
