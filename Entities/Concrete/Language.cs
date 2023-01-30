@@ -1,9 +1,5 @@
 ﻿using Core.Entities.BaseEntities;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Entities.Concrete
 {
@@ -11,7 +7,7 @@ namespace Entities.Concrete
     {
         public Language()
         {
-            Resources = new HashSet<Resource>();
+            ResourceDetails = new HashSet<ResourceDetail>();
         }
         //Türkçe
         //English
@@ -22,6 +18,6 @@ namespace Entities.Concrete
         //1,2
         public int DisplayOrder { get; set; }
 
-        public ICollection<Resource> Resources { get; set; }
+        public ICollection<ResourceDetail> ResourceDetails { get; set; }
     }
 }

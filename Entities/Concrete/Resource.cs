@@ -9,11 +9,8 @@ namespace Entities.Concrete
         {
             AppUserTypes = new HashSet<AppUserType>();
         }
-        public string ResourceValue { get; set; }
-        public string ResourceGroup { get; set; }
+        public string ResourceName { get; set; }
 
-        public int LanguageID { get; set; }
-        public Language Language { get; set; }
         public ICollection<AppUserType> AppUserTypes { get; set; }
     }
 }
