@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Business.Abstract;
+using Business.Constants;
 using Business.Validations.FluentValidation;
 using Core.Aspects.Autofac.Caching;
 using Core.Aspects.Autofac.Logging;
@@ -7,13 +8,20 @@ using Core.Aspects.Autofac.SecuredOperation;
 using Core.Aspects.Autofac.Transaction;
 using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Logging.Serilog.Loggers;
-using Core.Entities.Concrete;
+using Core.Entities.Dtos;
+using Core.Entities.Enums;
 using Core.Utilities.Localization;
 using Core.Utilities.Messages;
 using Core.Utilities.Responses;
+using Core.Utilities.Security.Hash.Sha512;
+using Core.Utilities.Security.Token;
 using DataAccess.Abstract;
+using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
+using Entities.Dtos.AppUsers;
 using Entities.Dtos.AppUserTypes;
+using Entities.Dtos.Resources;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -26,13 +34,17 @@ namespace Business.Concrete
         #region DI
 
         private readonly IAppUserTypeDal _appUserTypeDal;
-        private IMapper _mapper;
+        private readonly IMapper _mapper;
         private readonly ILocalizationService _localizationService;
-        public AppUserTypeService(IAppUserTypeDal appUserTypeDal, IMapper mapper, ILocalizationService localizationService)
+        private readonly IResourceService _resourceService;
+        private readonly IResourceDetailService _resourceDetailService;
+        public AppUserTypeService(IAppUserTypeDal appUserTypeDal, IMapper mapper, ILocalizationService localizationService, IResourceService resourceService, IResourceDetailService resourceDetailService)
         {
             _appUserTypeDal = appUserTypeDal;
             _mapper = mapper;
             _localizationService = localizationService;
+            _resourceService = resourceService;
+            _resourceDetailService = resourceDetailService;
         }
 
         #endregion DI
@@ -69,7 +81,15 @@ namespace Business.Concrete
         [LogAspect(typeof(FileLogger))]
         public async Task<ApiDataResponse<AppUserTypeDto>> AddAsync(AppUserTypeAddDto userTypeAddDto)
         {
+            string resourceName = Core.Utilities.Messages.Constants.AppUserType + "_" + userTypeAddDto.UserTypeName.Replace(" ", "");
+            var getResource = await _resourceService.GetAsync(x => x.ResourceName == resourceName);
+            if (getResource.Success)
+                return new ErrorApiDataResponse<AppUserTypeDto>(null, message: _localizationService[ResultCodes.VALIDATION_ThisRecordAlreadyExists], resultCodes: ResultCodes.HTTP_Conflict);
+
+            ResourceAddDto resourceAddDto = new ResourceAddDto { ResourceName = resourceName };
+            var resource = await _resourceService.AddAsync(resourceAddDto);
             var userType = _mapper.Map<AppUserType>(userTypeAddDto);
+            userType.ResourceID = resource.Data.Id;
             var userTypeAdd = await _appUserTypeDal.AddAsync(userType);
             var userTypeDto = _mapper.Map<AppUserTypeDto>(userTypeAdd);
             return new SuccessApiDataResponse<AppUserTypeDto>(userTypeDto, message: _localizationService[ResultCodes.HTTP_OK]);

@@ -60,6 +60,10 @@ namespace Core.Utilities.Messages
         /// Kullanıcı adı alanı boş geçilemez!
         /// </summary>
         VALIDATION_UserNameFieldCannotBeEmpty = -3001,
+        /// <summary>
+        /// Bu kayıt zaten var!
+        /// </summary>
+        VALIDATION_ThisRecordAlreadyExists = -3002,
         #endregion
 
         #region LABEL
