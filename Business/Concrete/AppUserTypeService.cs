@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Business.Abstract;
-using Business.Constants;
 using Business.Validations.FluentValidation;
 using Core.Aspects.Autofac.Caching;
 using Core.Aspects.Autofac.Logging;
@@ -8,20 +7,12 @@ using Core.Aspects.Autofac.SecuredOperation;
 using Core.Aspects.Autofac.Transaction;
 using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Logging.Serilog.Loggers;
-using Core.Entities.Dtos;
-using Core.Entities.Enums;
 using Core.Utilities.Localization;
 using Core.Utilities.Messages;
 using Core.Utilities.Responses;
-using Core.Utilities.Security.Hash.Sha512;
-using Core.Utilities.Security.Token;
 using DataAccess.Abstract;
-using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
-using Entities.Dtos.AppUsers;
 using Entities.Dtos.AppUserTypes;
-using Entities.Dtos.Resources;
-using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -71,11 +62,11 @@ namespace Business.Concrete
         }
 
 
-        [TransactionScopeAspect]
-        [CacheRemoveAspect("IAppUserTypeService.GetListAsync")]
-        [ValidationAspect(typeof(AppUserTypeAddDtoValidator))]
-        [LogAspect(typeof(FileLogger))]
-        [SecuredOperationAspect()]
+        //[TransactionScopeAspect]
+        //[CacheRemoveAspect("IAppUserTypeService.GetListAsync")]
+        //[ValidationAspect(typeof(AppUserTypeAddDtoValidator))]
+        //[LogAspect(typeof(FileLogger))]
+        //[SecuredOperationAspect()]
         public async Task<ApiDataResponse<AppUserTypeDto>> AddAsync(AppUserTypeAddDto userTypeAddDto)
         {
             //Aynı UserTypeName var mı kontrolü yapılıyor
@@ -115,6 +106,7 @@ namespace Business.Concrete
         {
             return new SuccessApiDataResponse<bool>(await _appUserTypeDal.DeleteAsync(id), _localizationService[ResultCodes.HTTP_OK]);
         }
+
 
     }
 }

@@ -14,6 +14,7 @@ namespace WebAPIWithCoreMvc.ApiServices
 {
     public class AppUserTypeApiService : IAppUserTypeApiService
     {
+
         private readonly IHttpClientService _httpClientService;
 
         public AppUserTypeApiService(IHttpClientService httpClientService)
