@@ -72,6 +72,7 @@ namespace WebAPIWithCoreMvc.Areas.Admin.Controllers
             {
                 var errorList = HelperMethods.ErrorList(result);
                 ViewBag.Errors = errorList;
+                await DropDownListFill();
                 return View(appUserAddDto);
             }
             return RedirectToAction(Constants.List);

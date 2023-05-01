@@ -62,11 +62,11 @@ namespace Business.Concrete
         }
 
 
-        //[TransactionScopeAspect]
-        //[CacheRemoveAspect("IAppUserTypeService.GetListAsync")]
-        //[ValidationAspect(typeof(AppUserTypeAddDtoValidator))]
-        //[LogAspect(typeof(FileLogger))]
-        //[SecuredOperationAspect()]
+        [TransactionScopeAspect]
+        [CacheRemoveAspect("IAppUserTypeService.GetListAsync")]
+        [ValidationAspect(typeof(AppUserTypeAddDtoValidator))]
+        [LogAspect(typeof(FileLogger))]
+        [SecuredOperationAspect()]
         public async Task<ApiDataResponse<AppUserTypeDto>> AddAsync(AppUserTypeAddDto userTypeAddDto)
         {
             //Aynı UserTypeName var mı kontrolü yapılıyor
