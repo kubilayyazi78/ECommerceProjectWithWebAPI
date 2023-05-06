@@ -76,7 +76,7 @@ namespace DataAccess.Concrete.EntityFramework.Configurations
                 PasswordSalt = passwordSalt,
                 GsmNumber = String.Empty,
                 ProfileImageUrl = String.Empty,
-                UserTypeID = (int)AppUserTypes.SystemAdmin,
+                //UserTypeID = (int)EnumAppUserTypes.SystemAdmin,
                 RefreshToken = Guid.NewGuid(),
             });
         }
