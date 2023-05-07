@@ -1,4 +1,5 @@
 ﻿using Core.Utilities.Responses;
+using Entities.Dtos.PagePageLanguages;
 using Entities.Dtos.Pages;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -13,6 +14,6 @@ namespace WebAPIWithCoreMvc.ApiServices.Interfaces
         Task<ApiDataResponse<PageDto>> GetByIdAsync(int id);
         Task<ApiDataResponse<PageUpdateDto>> UpdateAsync(PageUpdateDto pageUpdateDto);
         Task<ApiDataResponse<bool>> DeleteAsync(int id);
-
+        Task<ApiDataResponse<List<PagePageLanguageDto>>> GetListAdminPanelLeftMenuAsync();
     }
 }

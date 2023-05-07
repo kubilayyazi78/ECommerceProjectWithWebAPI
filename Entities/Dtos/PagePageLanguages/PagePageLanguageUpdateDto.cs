@@ -2,7 +2,7 @@
 
 namespace Entities.Dtos.PagePageLanguages
 {
-    public class PageLanguageUpdateDto : IDto
+    public class PagePageLanguageUpdateDto : IDto
     {
         public int Id { get; set; }
         public int PageID { get; set; }

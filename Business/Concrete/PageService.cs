@@ -12,6 +12,7 @@ using Core.Utilities.Messages;
 using Core.Utilities.Responses;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.Dtos.PagePageLanguages;
 using Entities.Dtos.Pages;
 using System;
 using System.Collections.Generic;
@@ -102,6 +103,12 @@ namespace Business.Concrete
             return new SuccessApiDataResponse<bool>(await _pageDal.DeleteAsync(id), _localizationService[ResultCodes.HTTP_OK]);
         }
 
-
+        [CacheAspect(10)]
+        [SecuredOperationAspect("Page.List")]
+        public async Task<ApiDataResponse<List<PagePageLanguageDto>>> GetListAdminPanelLeftMenuAsync()
+        {
+            var pageDtos = await _pageDal.GetListAdminPanelLeftMenuAsync();
+            return new SuccessApiDataResponse<List<PagePageLanguageDto>>(pageDtos, message: _localizationService[ResultCodes.HTTP_OK], resultCount: pageDtos.Count);
+        }
     }
 }

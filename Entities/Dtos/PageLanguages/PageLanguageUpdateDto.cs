@@ -1,6 +1,6 @@
 ﻿using Core.Entities;
 
-namespace Entities.Dtos.PagePageLanguages
+namespace Entities.Dtos.PageLanguages
 {
     public class PageLanguageUpdateDto : IDto
     {

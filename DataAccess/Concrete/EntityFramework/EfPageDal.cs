@@ -1,8 +1,9 @@
 ﻿using Core.DataAccess.EntityFramework;
 using DataAccess.Abstract;
 using DataAccess.Concrete.Contexts;
+using Entities.Abstract.Enums;
 using Entities.Concrete;
-using Entities.Dtos.PageLanguages;
+using Entities.Dtos.PagePageLanguages;
 using Entities.Dtos.Pages;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace DataAccess.Concrete.EntityFramework
 {
     public class EfPageDal : EfBaseRepository<Page, ECommerceDbContext>, IPageDal
     {
-        public async Task<List<PageLanguageDto>> GetListAdminPanelLeftMenuAsync()
+        public async Task<List<PagePageLanguageDto>> GetListAdminPanelLeftMenuAsync()
         {
             using (var context = new ECommerceDbContext())
             {
@@ -21,7 +22,7 @@ namespace DataAccess.Concrete.EntityFramework
                               join pageType in context.PageTypes on page.PageTypeID equals pageType.Id
                               join pageLanguage in context.PageLanguages on page.Id equals pageLanguage.PageID
                               where page.IsActive == true
-                              select new PageLanguageDto
+                              select new PagePageLanguageDto
                               {
                                   Id = page.Id,
                                   DisplayOrder = page.DisplayOrder,

@@ -1,5 +1,6 @@
 ﻿using Core.Utilities.Responses;
 using Entities.Concrete;
+using Entities.Dtos.PagePageLanguages;
 using Entities.Dtos.Pages;
 using System;
 using System.Collections.Generic;
@@ -17,5 +18,6 @@ namespace Business.Abstract
         Task<ApiDataResponse<PageDto>> AddAsync(PageAddDto pageAddDto);
         Task<ApiDataResponse<PageUpdateDto>> UpdateAsync(PageUpdateDto pageUpdateDto);
         Task<ApiDataResponse<bool>> DeleteAsync(int id);
+        Task<ApiDataResponse<List<PagePageLanguageDto>>> GetListAdminPanelLeftMenuAsync();
     }
 }
