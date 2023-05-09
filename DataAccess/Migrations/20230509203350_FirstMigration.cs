@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DataAccess.Migrations
 {
-    public partial class first : Migration
+    public partial class FirstMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -164,15 +164,10 @@ namespace DataAccess.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    PageName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     PageURL = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     ParentID = table.Column<int>(type: "int", nullable: true),
-                    PageSeoURL = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
                     PageTypeID = table.Column<int>(type: "int", nullable: false),
                     DisplayOrder = table.Column<int>(type: "int", nullable: false),
-                    MetaTitle = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: true),
-                    MetaKeywords = table.Column<string>(type: "nvarchar(260)", maxLength: 260, nullable: true),
-                    MetaDescription = table.Column<string>(type: "nvarchar(160)", maxLength: 160, nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -188,7 +183,49 @@ namespace DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PagePermissions",
+                name: "PageLanguages",
+                schema: "dbo",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PageID = table.Column<int>(type: "int", nullable: false),
+                    PageName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    PageSeoURL = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
+                    MetaTitle = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: true),
+                    MetaKeywords = table.Column<string>(type: "nvarchar(260)", maxLength: 260, nullable: true),
+                    MetaDescription = table.Column<string>(type: "nvarchar(160)", maxLength: 160, nullable: true),
+                    LanguageID = table.Column<int>(type: "int", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedUserId = table.Column<int>(type: "int", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedUserId = table.Column<int>(type: "int", nullable: true),
+                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    DeletedUserId = table.Column<int>(type: "int", nullable: true),
+                    DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PageLanguages", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PageLanguages_Languages_LanguageID",
+                        column: x => x.LanguageID,
+                        principalSchema: "dbo",
+                        principalTable: "Languages",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PageLanguages_Pages_PageID",
+                        column: x => x.PageID,
+                        principalSchema: "dbo",
+                        principalTable: "Pages",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PagePermissons",
                 schema: "dbo",
                 columns: table => new
                 {
@@ -210,23 +247,23 @@ namespace DataAccess.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PagePermissions", x => x.Id);
+                    table.PrimaryKey("PK_PagePermissons", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_PagePermissions_AppOperationClaims_AppOperationClaimId",
+                        name: "FK_PagePermissons_AppOperationClaims_AppOperationClaimId",
                         column: x => x.AppOperationClaimId,
                         principalSchema: "dbo",
                         principalTable: "AppOperationClaims",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_PagePermissions_AppUserTypes_AppUserTypeId",
+                        name: "FK_PagePermissons_AppUserTypes_AppUserTypeId",
                         column: x => x.AppUserTypeId,
                         principalSchema: "dbo",
                         principalTable: "AppUserTypes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_PagePermissions_Pages_PageID",
+                        name: "FK_PagePermissons_Pages_PageID",
                         column: x => x.PageID,
                         principalSchema: "dbo",
                         principalTable: "Pages",
@@ -255,8 +292,8 @@ namespace DataAccess.Migrations
                 columns: new[] { "Id", "CreatedDate", "CreatedUserId", "DeletedDate", "DeletedUserId", "IsActive", "IsDeleted", "UpdatedDate", "UpdatedUserId", "UserTypeName" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2023, 4, 30, 16, 44, 32, 834, DateTimeKind.Local).AddTicks(4932), -1, null, null, true, false, null, null, "System Admin" },
-                    { 2, new DateTime(2023, 4, 30, 16, 44, 32, 834, DateTimeKind.Local).AddTicks(5101), -1, null, null, true, false, null, null, "Admin" }
+                    { -1, new DateTime(2023, 5, 9, 23, 33, 49, 733, DateTimeKind.Local).AddTicks(4474), -1, null, null, true, false, null, null, "System Admin" },
+                    { -2, new DateTime(2023, 5, 9, 23, 33, 49, 733, DateTimeKind.Local).AddTicks(4626), -1, null, null, true, false, null, null, "Admin" }
                 });
 
             migrationBuilder.InsertData(
@@ -283,49 +320,119 @@ namespace DataAccess.Migrations
                 schema: "dbo",
                 table: "AppUsers",
                 columns: new[] { "Id", "CreatedDate", "CreatedUserId", "DeletedDate", "DeletedUserId", "Email", "FirstName", "GsmNumber", "IsActive", "IsDeleted", "LastName", "PasswordHash", "PasswordSalt", "ProfileImageUrl", "RefreshToken", "UpdatedDate", "UpdatedUserId", "UserName", "UserTypeID" },
-                values: new object[] { -1, new DateTime(2023, 4, 30, 16, 44, 32, 829, DateTimeKind.Local).AddTicks(6822), 1, null, null, "sadmin@gmail.com", "System", "", true, false, "Admin", new byte[] { 211, 50, 190, 31, 215, 149, 51, 2, 50, 178, 145, 131, 69, 226, 90, 128, 78, 138, 144, 231, 158, 102, 236, 179, 190, 94, 43, 135, 22, 121, 113, 178, 244, 142, 252, 134, 156, 173, 153, 159, 254, 157, 248, 55, 36, 249, 5, 195, 245, 124, 232, 71, 63, 7, 96, 110, 229, 182, 185, 22, 228, 237, 205, 1 }, new byte[] { 182, 50, 132, 141, 225, 130, 35, 79, 133, 217, 162, 186, 87, 97, 252, 123, 181, 59, 162, 99, 100, 68, 253, 11, 138, 193, 104, 109, 128, 107, 26, 145, 17, 234, 148, 156, 13, 210, 254, 201, 58, 198, 185, 28, 53, 132, 173, 20, 203, 61, 48, 246, 178, 62, 160, 203, 81, 163, 248, 217, 148, 194, 186, 43, 179, 179, 184, 53, 92, 129, 59, 66, 95, 192, 190, 233, 140, 119, 188, 160, 241, 222, 34, 7, 215, 232, 194, 196, 164, 182, 135, 208, 27, 102, 39, 100, 228, 133, 178, 170, 30, 30, 169, 74, 26, 95, 37, 58, 69, 182, 89, 57, 157, 24, 158, 123, 139, 153, 112, 205, 192, 241, 53, 135, 120, 31, 100, 99 }, "", new Guid("a805f436-6ecb-4b6f-8648-316bd453fba6"), null, null, "sadmin", 1 });
+                values: new object[] { -1, new DateTime(2023, 5, 9, 23, 33, 49, 729, DateTimeKind.Local).AddTicks(8811), 1, null, null, "sadmin@gmail.com", "System", "", true, false, "Admin", new byte[] { 135, 61, 168, 89, 24, 40, 120, 22, 102, 147, 96, 230, 119, 226, 172, 71, 151, 18, 12, 83, 69, 62, 122, 240, 91, 28, 8, 151, 115, 166, 84, 132, 242, 195, 146, 250, 54, 10, 108, 128, 174, 136, 188, 255, 196, 107, 160, 169, 136, 135, 76, 235, 43, 50, 205, 191, 146, 124, 8, 241, 206, 115, 119, 235 }, new byte[] { 46, 218, 196, 22, 220, 119, 81, 48, 135, 233, 243, 34, 150, 244, 217, 189, 51, 127, 142, 19, 227, 34, 215, 204, 78, 216, 142, 51, 159, 68, 50, 97, 210, 244, 23, 109, 17, 144, 214, 236, 242, 113, 249, 23, 255, 218, 243, 188, 134, 168, 205, 78, 38, 10, 99, 198, 169, 19, 146, 60, 188, 208, 36, 124, 83, 121, 62, 210, 152, 245, 167, 216, 252, 234, 220, 114, 152, 133, 85, 140, 98, 183, 44, 96, 202, 155, 24, 214, 71, 113, 177, 40, 80, 176, 20, 155, 63, 1, 199, 19, 127, 128, 43, 229, 202, 30, 169, 191, 5, 75, 47, 254, 17, 21, 146, 99, 216, 94, 233, 159, 111, 228, 99, 229, 171, 41, 77, 65 }, "", new Guid("2d7cdd48-0709-402d-a148-f5432db48078"), null, null, "sadmin", -1 });
 
             migrationBuilder.InsertData(
                 schema: "dbo",
                 table: "Pages",
-                columns: new[] { "Id", "DisplayOrder", "IsActive", "MetaDescription", "MetaKeywords", "MetaTitle", "PageName", "PageSeoURL", "PageTypeID", "PageURL", "ParentID" },
+                columns: new[] { "Id", "DisplayOrder", "IsActive", "PageTypeID", "PageURL", "ParentID" },
                 values: new object[,]
                 {
-                    { 19, 1, true, "", "", "", "Ürünler", "", 1, "/Admin/Product/List", 18 },
-                    { 20, 1, false, "", "", "", "Ürünler", "", 1, "/Admin/Product/Add", 19 },
-                    { 21, 1, false, "", "", "", "Ürünler", "", 1, "/Admin/Product/Update", 19 },
-                    { 22, 1, false, "", "", "", "Ürünler", "", 1, "/Admin/Product/Delete", 19 },
-                    { 23, 1, false, "", "", "", "Ürünler", "", 1, "/Admin/Product/Detail", 19 },
-                    { 24, 1, true, "", "", "", "Ürün Tipleri", "", 1, "/Admin/ProductType/List", 18 },
-                    { 18, 1, true, "", "", "", "Ürün", "", 1, "#", null },
-                    { 25, 1, false, "", "", "", "Ürün Tipleri", "", 1, "/Admin/ProductType/Add", 24 },
-                    { 27, 1, false, "", "", "", "Ürün Tipleri", "", 1, "/Admin/ProductType/Delete", 24 },
-                    { 28, 1, false, "", "", "", "Ürün Tipleri", "", 1, "/Admin/ProductType/Detail", 24 },
-                    { 29, 2, true, "", "", "", "Genel Sayfalar", "", 1, "#", null },
-                    { 31, 1, true, "", "", "", "Hakkımızda", "", 1, "/Admin/Contact/List", 29 },
-                    { 32, 1, false, "", "", "", "Hakkımızda", "", 1, "/Admin/Contact/Add", 30 },
-                    { 33, 1, false, "", "", "", "Hakkımızda", "", 1, "/Admin/Contact/Update", 30 },
-                    { 26, 1, false, "", "", "", "Ürün Tipleri", "", 1, "/Admin/ProductType/Update", 24 },
-                    { 34, 1, false, "", "", "", "Hakkımızda", "", 1, "/Admin/Contact/Delete", 30 },
-                    { 17, 1, true, "", "", "", "Sayfa Yetkileri", "", 1, "/Admin/PagePermisson/List", 1 },
-                    { 15, 1, false, "", "", "", "Sayfalar", "", 1, "/Admin/Page/Delete", 12 },
-                    { 1, 3, true, "", "", "", "Sistem Ayarları", "", 1, "#", null },
-                    { 2, 1, true, "", "", "", "Kullanıcılar", "", 1, "/Admin/AppUser/List", 1 },
-                    { 3, 1, false, "", "", "", "Kullanıcılar", "", 1, "/Admin/AppUser/Add", 2 },
-                    { 4, 1, false, "", "", "", "Kullanıcılar", "", 1, "/Admin/AppUser/Update", 2 },
-                    { 5, 1, false, "", "", "", "Kullanıcılar", "", 1, "/Admin/AppUser/Delete", 2 },
-                    { 6, 1, false, "", "", "", "Kullanıcılar", "", 1, "/Admin/AppUser/Detail", 2 },
-                    { 16, 1, false, "", "", "", "Sayfalar", "", 1, "/Admin/Page/Detail", 12 },
-                    { 7, 1, true, "", "", "", "Kullanıcı Tipleri", "", 1, "/Admin/AppUserType/List", 1 },
-                    { 9, 1, false, "", "", "", "Kullanıcı Tipleri", "", 1, "/Admin/AppUserType/Update", 7 },
-                    { 10, 1, false, "", "", "", "Kullanıcı Tipleri", "", 1, "/Admin/AppUserType/Delete", 7 },
-                    { 11, 1, false, "", "", "", "Kullanıcı Tipleri", "", 1, "/Admin/AppUserType/Detail", 7 },
-                    { 12, 1, true, "", "", "", "Sayfalar", "", 1, "/Admin/Page/List", 1 },
-                    { 13, 1, false, "", "", "", "Sayfalar", "", 1, "/Admin/Page/Add", 12 },
-                    { 14, 1, false, "", "", "", "Sayfalar", "", 1, "/Admin/Page/Update", 12 },
-                    { 8, 1, false, "", "", "", "Kullanıcı Tipleri", "", 1, "/Admin/AppUserType/Add", 7 },
-                    { 35, 1, false, "", "", "", "Hakkımızda", "", 1, "/Admin/Contact/Detail", 30 }
+                    { 19, 1, true, 1, "/Admin/Product/List", 18 },
+                    { 20, 1, false, 1, "/Admin/Product/Add", 19 },
+                    { 21, 1, false, 1, "/Admin/Product/Update", 19 },
+                    { 22, 1, false, 1, "/Admin/Product/Delete", 19 },
+                    { 23, 1, false, 1, "/Admin/Product/Detail", 19 },
+                    { 24, 1, true, 1, "/Admin/ProductType/List", 18 },
+                    { 18, 1, true, 1, "#", null },
+                    { 25, 1, false, 1, "/Admin/ProductType/Add", 24 },
+                    { 27, 1, false, 1, "/Admin/ProductType/Delete", 24 },
+                    { 28, 1, false, 1, "/Admin/ProductType/Detail", 24 },
+                    { 29, 2, true, 1, "#", null },
+                    { 31, 1, true, 1, "/Admin/Contact/List", 29 },
+                    { 32, 1, false, 1, "/Admin/Contact/Add", 30 },
+                    { 33, 1, false, 1, "/Admin/Contact/Update", 30 },
+                    { 26, 1, false, 1, "/Admin/ProductType/Update", 24 },
+                    { 34, 1, false, 1, "/Admin/Contact/Delete", 30 },
+                    { 17, 1, true, 1, "/Admin/PagePermisson/List", 1 },
+                    { 15, 1, false, 1, "/Admin/Page/Delete", 12 },
+                    { 1, 3, true, 1, "#", null },
+                    { 2, 1, true, 1, "/Admin/AppUser/List", 1 },
+                    { 3, 1, false, 1, "/Admin/AppUser/Add", 2 },
+                    { 4, 1, false, 1, "/Admin/AppUser/Update", 2 },
+                    { 5, 1, false, 1, "/Admin/AppUser/Delete", 2 },
+                    { 6, 1, false, 1, "/Admin/AppUser/Detail", 2 },
+                    { 16, 1, false, 1, "/Admin/Page/Detail", 12 },
+                    { 7, 1, true, 1, "/Admin/AppUserType/List", 1 },
+                    { 9, 1, false, 1, "/Admin/AppUserType/Update", 7 },
+                    { 10, 1, false, 1, "/Admin/AppUserType/Delete", 7 },
+                    { 11, 1, false, 1, "/Admin/AppUserType/Detail", 7 },
+                    { 12, 1, true, 1, "/Admin/Page/List", 1 },
+                    { 13, 1, false, 1, "/Admin/Page/Add", 12 },
+                    { 14, 1, false, 1, "/Admin/Page/Update", 12 },
+                    { 8, 1, false, 1, "/Admin/AppUserType/Add", 7 },
+                    { 35, 1, false, 1, "/Admin/Contact/Detail", 30 }
                 });
+
+            migrationBuilder.InsertData(
+                schema: "dbo",
+                table: "PageLanguages",
+                columns: new[] { "Id", "CreatedDate", "CreatedUserId", "DeletedDate", "DeletedUserId", "IsActive", "IsDeleted", "LanguageID", "MetaDescription", "MetaKeywords", "MetaTitle", "PageID", "PageName", "PageSeoURL", "UpdatedDate", "UpdatedUserId" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, null, true, false, 1, "", "", "", 1, "Sistem Ayarları", "", null, null },
+                    { 15, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, null, false, false, 1, "", "", "", 15, "Sayfalar", "", null, null },
+                    { 16, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, null, false, false, 1, "", "", "", 16, "Sayfalar", "", null, null },
+                    { 17, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, null, true, false, 1, "", "", "", 17, "Sayfa Yetkileri", "", null, null },
+                    { 18, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, null, true, false, 1, "", "", "", 18, "Ürün", "", null, null },
+                    { 19, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, null, true, false, 1, "", "", "", 19, "Ürünler", "", null, null },
+                    { 20, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, null, false, false, 1, "", "", "", 20, "Ürünler", "", null, null },
+                    { 21, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, null, false, false, 1, "", "", "", 21, "Ürünler", "", null, null },
+                    { 22, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, null, false, false, 1, "", "", "", 22, "Ürünler", "", null, null },
+                    { 14, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, null, false, false, 1, "", "", "", 14, "Sayfalar", "", null, null },
+                    { 23, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, null, false, false, 1, "", "", "", 23, "Ürünler", "", null, null },
+                    { 25, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, null, false, false, 1, "", "", "", 25, "Ürün Tipleri", "", null, null },
+                    { 26, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, null, false, false, 1, "", "", "", 26, "Ürün Tipleri", "", null, null },
+                    { 27, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, null, false, false, 1, "", "", "", 27, "Ürün Tipleri", "", null, null },
+                    { 28, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, null, false, false, 1, "", "", "", 28, "Ürün Tipleri", "", null, null },
+                    { 29, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, null, true, false, 1, "", "", "", 29, "Genel Sayfalar", "", null, null },
+                    { 31, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, null, true, false, 1, "", "", "", 31, "Hakkımızda", "", null, null },
+                    { 32, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, null, false, false, 1, "", "", "", 32, "Hakkımızda", "", null, null },
+                    { 33, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, null, false, false, 1, "", "", "", 33, "Hakkımızda", "", null, null },
+                    { 24, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, null, true, false, 1, "", "", "", 24, "Ürün Tipleri", "", null, null },
+                    { 13, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, null, false, false, 1, "", "", "", 13, "Sayfalar", "", null, null },
+                    { 12, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, null, true, false, 1, "", "", "", 12, "Sayfalar", "", null, null },
+                    { 35, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, null, false, false, 1, "", "", "", 35, "Hakkımızda", "", null, null },
+                    { 11, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, null, false, false, 1, "", "", "", 11, "Kullanıcı Tipleri", "", null, null },
+                    { 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, null, true, false, 1, "", "", "", 2, "Kullanıcılar", "", null, null },
+                    { 10, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, null, false, false, 1, "", "", "", 10, "Kullanıcı Tipleri", "", null, null },
+                    { 9, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, null, false, false, 1, "", "", "", 9, "Kullanıcı Tipleri", "", null, null },
+                    { 3, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, null, false, false, 1, "", "", "", 3, "Kullanıcılar", "", null, null },
+                    { 8, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, null, false, false, 1, "", "", "", 8, "Kullanıcı Tipleri", "", null, null },
+                    { 7, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, null, true, false, 1, "", "", "", 7, "Kullanıcı Tipleri", "", null, null },
+                    { 34, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, null, false, false, 1, "", "", "", 34, "Hakkımızda", "", null, null },
+                    { 6, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, null, false, false, 1, "", "", "", 6, "Kullanıcılar", "", null, null },
+                    { 4, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, null, false, false, 1, "", "", "", 4, "Kullanıcılar", "", null, null },
+                    { 5, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, null, false, false, 1, "", "", "", 5, "Kullanıcılar", "", null, null }
+                });
+
+            migrationBuilder.InsertData(
+                schema: "dbo",
+                table: "PagePermissons",
+                columns: new[] { "Id", "AppOperationClaimId", "AppUserTypeId", "CreatedDate", "CreatedUserId", "DeletedDate", "DeletedUserId", "IsActive", "IsDeleted", "OperationClaimID", "PageID", "UpdatedDate", "UpdatedUserId", "UserTypeID" },
+                values: new object[,]
+                {
+                    { 1, null, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, null, true, false, 1, 2, null, null, 2 },
+                    { 2, null, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, null, true, false, 1, 3, null, null, 2 },
+                    { 5, null, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, null, true, false, 1, 6, null, null, 2 },
+                    { 4, null, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, null, true, false, 1, 5, null, null, 2 },
+                    { 6, null, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, null, true, false, 1, 7, null, null, 2 },
+                    { 7, null, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, null, true, false, 1, 8, null, null, 2 },
+                    { 8, null, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, null, true, false, 1, 9, null, null, 2 },
+                    { 9, null, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, null, true, false, 1, 10, null, null, 2 }
+                });
+
+            migrationBuilder.InsertData(
+                schema: "dbo",
+                table: "PagePermissons",
+                columns: new[] { "Id", "AppOperationClaimId", "AppUserTypeId", "CreatedDate", "CreatedUserId", "DeletedDate", "DeletedUserId", "IsActive", "IsDeleted", "OperationClaimID", "PageID", "UpdatedDate", "UpdatedUserId", "UserTypeID" },
+                values: new object[] { 3, null, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, null, true, false, 1, 4, null, null, 2 });
+
+            migrationBuilder.InsertData(
+                schema: "dbo",
+                table: "PagePermissons",
+                columns: new[] { "Id", "AppOperationClaimId", "AppUserTypeId", "CreatedDate", "CreatedUserId", "DeletedDate", "DeletedUserId", "IsActive", "IsDeleted", "OperationClaimID", "PageID", "UpdatedDate", "UpdatedUserId", "UserTypeID" },
+                values: new object[] { 10, null, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, null, true, false, 1, 11, null, null, 2 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AppUsers_UserTypeID",
@@ -346,21 +453,33 @@ namespace DataAccess.Migrations
                 column: "AppUserTypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PagePermissions_AppOperationClaimId",
+                name: "IX_PageLanguages_LanguageID",
                 schema: "dbo",
-                table: "PagePermissions",
+                table: "PageLanguages",
+                column: "LanguageID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PageLanguages_PageID",
+                schema: "dbo",
+                table: "PageLanguages",
+                column: "PageID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PagePermissons_AppOperationClaimId",
+                schema: "dbo",
+                table: "PagePermissons",
                 column: "AppOperationClaimId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PagePermissions_AppUserTypeId",
+                name: "IX_PagePermissons_AppUserTypeId",
                 schema: "dbo",
-                table: "PagePermissions",
+                table: "PagePermissons",
                 column: "AppUserTypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PagePermissions_PageID",
+                name: "IX_PagePermissons_PageID",
                 schema: "dbo",
-                table: "PagePermissions",
+                table: "PagePermissons",
                 column: "PageID");
 
             migrationBuilder.CreateIndex(
@@ -381,11 +500,15 @@ namespace DataAccess.Migrations
                 schema: "dbo");
 
             migrationBuilder.DropTable(
-                name: "Languages",
+                name: "PageLanguages",
                 schema: "dbo");
 
             migrationBuilder.DropTable(
-                name: "PagePermissions",
+                name: "PagePermissons",
+                schema: "dbo");
+
+            migrationBuilder.DropTable(
+                name: "Languages",
                 schema: "dbo");
 
             migrationBuilder.DropTable(

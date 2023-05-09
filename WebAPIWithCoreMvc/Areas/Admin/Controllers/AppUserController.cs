@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using Core.Entities.Enums;
 using Core.Utilities.Messages;
+using Entities.Abstract.Enums;
 using Entities.Dtos.AppUsers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
@@ -40,7 +40,7 @@ namespace WebAPIWithCoreMvc.Areas.Admin.Controllers
         {
             var result = await _appUserApiService.GetListDetailAsync();
             List<int> ids = new List<int>();
-            ids.Add((int)AppUserTypes.SystemAdmin);//SystemAdmin
+            ids.Add((int)EnumAppUserTypes.SystemAdmin);//SystemAdmin
             var users = result.Data.Where(x => ids.Contains(x.Id) == false);
             return View(users.ToList());
         }

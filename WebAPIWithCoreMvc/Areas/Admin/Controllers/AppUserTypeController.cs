@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using Core.Entities.Enums;
 using Core.Utilities.Messages;
+using Entities.Abstract.Enums;
 using Entities.Dtos.AppUsers;
 using Entities.Dtos.AppUserTypes;
 using Microsoft.AspNetCore.Authorization;
@@ -36,7 +36,7 @@ namespace WebAPIWithCoreMvc.Areas.Admin.Controllers
             if (result == null)
                 return View();
             List<int> ids = new List<int>();
-            ids.Add((int)AppUserTypes.SystemAdmin);//SystemAdmin
+            ids.Add((int)EnumAppUserTypes.SystemAdmin);//SystemAdmin
             var userTypes = result.Data.Where(x => ids.Contains(x.Id) == false);
             return View(userTypes.ToList());
         }
