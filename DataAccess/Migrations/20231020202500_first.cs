@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DataAccess.Migrations
 {
-    public partial class FirstMigration : Migration
+    public partial class first : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -165,7 +165,7 @@ namespace DataAccess.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     PageURL = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
-                    ParentID = table.Column<int>(type: "int", nullable: true),
+                    ParentPageID = table.Column<int>(type: "int", nullable: true),
                     PageTypeID = table.Column<int>(type: "int", nullable: false),
                     DisplayOrder = table.Column<int>(type: "int", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false)
@@ -292,8 +292,8 @@ namespace DataAccess.Migrations
                 columns: new[] { "Id", "CreatedDate", "CreatedUserId", "DeletedDate", "DeletedUserId", "IsActive", "IsDeleted", "UpdatedDate", "UpdatedUserId", "UserTypeName" },
                 values: new object[,]
                 {
-                    { -1, new DateTime(2023, 5, 9, 23, 33, 49, 733, DateTimeKind.Local).AddTicks(4474), -1, null, null, true, false, null, null, "System Admin" },
-                    { -2, new DateTime(2023, 5, 9, 23, 33, 49, 733, DateTimeKind.Local).AddTicks(4626), -1, null, null, true, false, null, null, "Admin" }
+                    { -1, new DateTime(2023, 10, 20, 23, 24, 59, 850, DateTimeKind.Local).AddTicks(8557), -1, null, null, true, false, null, null, "System Admin" },
+                    { -2, new DateTime(2023, 10, 20, 23, 24, 59, 850, DateTimeKind.Local).AddTicks(9019), -1, null, null, true, false, null, null, "Admin" }
                 });
 
             migrationBuilder.InsertData(
@@ -320,12 +320,12 @@ namespace DataAccess.Migrations
                 schema: "dbo",
                 table: "AppUsers",
                 columns: new[] { "Id", "CreatedDate", "CreatedUserId", "DeletedDate", "DeletedUserId", "Email", "FirstName", "GsmNumber", "IsActive", "IsDeleted", "LastName", "PasswordHash", "PasswordSalt", "ProfileImageUrl", "RefreshToken", "UpdatedDate", "UpdatedUserId", "UserName", "UserTypeID" },
-                values: new object[] { -1, new DateTime(2023, 5, 9, 23, 33, 49, 729, DateTimeKind.Local).AddTicks(8811), 1, null, null, "sadmin@gmail.com", "System", "", true, false, "Admin", new byte[] { 135, 61, 168, 89, 24, 40, 120, 22, 102, 147, 96, 230, 119, 226, 172, 71, 151, 18, 12, 83, 69, 62, 122, 240, 91, 28, 8, 151, 115, 166, 84, 132, 242, 195, 146, 250, 54, 10, 108, 128, 174, 136, 188, 255, 196, 107, 160, 169, 136, 135, 76, 235, 43, 50, 205, 191, 146, 124, 8, 241, 206, 115, 119, 235 }, new byte[] { 46, 218, 196, 22, 220, 119, 81, 48, 135, 233, 243, 34, 150, 244, 217, 189, 51, 127, 142, 19, 227, 34, 215, 204, 78, 216, 142, 51, 159, 68, 50, 97, 210, 244, 23, 109, 17, 144, 214, 236, 242, 113, 249, 23, 255, 218, 243, 188, 134, 168, 205, 78, 38, 10, 99, 198, 169, 19, 146, 60, 188, 208, 36, 124, 83, 121, 62, 210, 152, 245, 167, 216, 252, 234, 220, 114, 152, 133, 85, 140, 98, 183, 44, 96, 202, 155, 24, 214, 71, 113, 177, 40, 80, 176, 20, 155, 63, 1, 199, 19, 127, 128, 43, 229, 202, 30, 169, 191, 5, 75, 47, 254, 17, 21, 146, 99, 216, 94, 233, 159, 111, 228, 99, 229, 171, 41, 77, 65 }, "", new Guid("2d7cdd48-0709-402d-a148-f5432db48078"), null, null, "sadmin", -1 });
+                values: new object[] { -1, new DateTime(2023, 10, 20, 23, 24, 59, 845, DateTimeKind.Local).AddTicks(5306), 1, null, null, "sadmin@gmail.com", "System", "", true, false, "Admin", new byte[] { 225, 3, 41, 212, 27, 163, 144, 34, 65, 192, 0, 39, 115, 140, 159, 144, 251, 50, 71, 95, 191, 218, 176, 255, 112, 143, 89, 136, 85, 139, 51, 120, 207, 141, 221, 127, 194, 156, 44, 94, 62, 9, 155, 91, 181, 212, 69, 165, 230, 182, 50, 176, 178, 76, 222, 128, 130, 159, 245, 12, 206, 124, 95, 89 }, new byte[] { 148, 30, 252, 220, 106, 53, 0, 170, 239, 145, 218, 23, 68, 238, 119, 49, 152, 42, 152, 30, 51, 137, 86, 131, 20, 16, 68, 34, 236, 228, 250, 133, 121, 136, 132, 215, 239, 128, 124, 13, 226, 3, 156, 183, 182, 224, 173, 142, 29, 25, 53, 83, 237, 52, 184, 93, 83, 26, 134, 119, 115, 253, 245, 183, 189, 231, 159, 36, 179, 189, 65, 135, 187, 236, 102, 95, 187, 251, 164, 10, 152, 49, 200, 160, 16, 133, 139, 21, 144, 124, 197, 188, 56, 208, 124, 32, 119, 36, 92, 239, 149, 96, 43, 84, 36, 150, 139, 142, 70, 194, 96, 149, 212, 112, 85, 139, 4, 124, 59, 171, 98, 120, 243, 55, 29, 74, 139, 108 }, "", new Guid("f8923e1a-0aeb-4dbb-9cd5-042bf68e194f"), null, null, "sadmin", -1 });
 
             migrationBuilder.InsertData(
                 schema: "dbo",
                 table: "Pages",
-                columns: new[] { "Id", "DisplayOrder", "IsActive", "PageTypeID", "PageURL", "ParentID" },
+                columns: new[] { "Id", "DisplayOrder", "IsActive", "PageTypeID", "PageURL", "ParentPageID" },
                 values: new object[,]
                 {
                     { 19, 1, true, 1, "/Admin/Product/List", 18 },
@@ -370,40 +370,40 @@ namespace DataAccess.Migrations
                 columns: new[] { "Id", "CreatedDate", "CreatedUserId", "DeletedDate", "DeletedUserId", "IsActive", "IsDeleted", "LanguageID", "MetaDescription", "MetaKeywords", "MetaTitle", "PageID", "PageName", "PageSeoURL", "UpdatedDate", "UpdatedUserId" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, null, true, false, 1, "", "", "", 1, "Sistem Ayarları", "", null, null },
-                    { 15, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, null, false, false, 1, "", "", "", 15, "Sayfalar", "", null, null },
-                    { 16, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, null, false, false, 1, "", "", "", 16, "Sayfalar", "", null, null },
-                    { 17, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, null, true, false, 1, "", "", "", 17, "Sayfa Yetkileri", "", null, null },
-                    { 18, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, null, true, false, 1, "", "", "", 18, "Ürün", "", null, null },
-                    { 19, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, null, true, false, 1, "", "", "", 19, "Ürünler", "", null, null },
-                    { 20, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, null, false, false, 1, "", "", "", 20, "Ürünler", "", null, null },
-                    { 21, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, null, false, false, 1, "", "", "", 21, "Ürünler", "", null, null },
-                    { 22, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, null, false, false, 1, "", "", "", 22, "Ürünler", "", null, null },
-                    { 14, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, null, false, false, 1, "", "", "", 14, "Sayfalar", "", null, null },
-                    { 23, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, null, false, false, 1, "", "", "", 23, "Ürünler", "", null, null },
-                    { 25, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, null, false, false, 1, "", "", "", 25, "Ürün Tipleri", "", null, null },
-                    { 26, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, null, false, false, 1, "", "", "", 26, "Ürün Tipleri", "", null, null },
-                    { 27, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, null, false, false, 1, "", "", "", 27, "Ürün Tipleri", "", null, null },
-                    { 28, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, null, false, false, 1, "", "", "", 28, "Ürün Tipleri", "", null, null },
-                    { 29, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, null, true, false, 1, "", "", "", 29, "Genel Sayfalar", "", null, null },
-                    { 31, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, null, true, false, 1, "", "", "", 31, "Hakkımızda", "", null, null },
-                    { 32, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, null, false, false, 1, "", "", "", 32, "Hakkımızda", "", null, null },
-                    { 33, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, null, false, false, 1, "", "", "", 33, "Hakkımızda", "", null, null },
-                    { 24, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, null, true, false, 1, "", "", "", 24, "Ürün Tipleri", "", null, null },
-                    { 13, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, null, false, false, 1, "", "", "", 13, "Sayfalar", "", null, null },
-                    { 12, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, null, true, false, 1, "", "", "", 12, "Sayfalar", "", null, null },
-                    { 35, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, null, false, false, 1, "", "", "", 35, "Hakkımızda", "", null, null },
-                    { 11, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, null, false, false, 1, "", "", "", 11, "Kullanıcı Tipleri", "", null, null },
-                    { 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, null, true, false, 1, "", "", "", 2, "Kullanıcılar", "", null, null },
-                    { 10, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, null, false, false, 1, "", "", "", 10, "Kullanıcı Tipleri", "", null, null },
-                    { 9, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, null, false, false, 1, "", "", "", 9, "Kullanıcı Tipleri", "", null, null },
-                    { 3, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, null, false, false, 1, "", "", "", 3, "Kullanıcılar", "", null, null },
-                    { 8, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, null, false, false, 1, "", "", "", 8, "Kullanıcı Tipleri", "", null, null },
-                    { 7, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, null, true, false, 1, "", "", "", 7, "Kullanıcı Tipleri", "", null, null },
-                    { 34, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, null, false, false, 1, "", "", "", 34, "Hakkımızda", "", null, null },
-                    { 6, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, null, false, false, 1, "", "", "", 6, "Kullanıcılar", "", null, null },
-                    { 4, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, null, false, false, 1, "", "", "", 4, "Kullanıcılar", "", null, null },
-                    { 5, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, null, null, false, false, 1, "", "", "", 5, "Kullanıcılar", "", null, null }
+                    { 1, new DateTime(2023, 10, 20, 23, 24, 59, 861, DateTimeKind.Local).AddTicks(6228), -1, null, null, true, false, 1, "", "", "", 1, "Sistem Ayarları", "", null, null },
+                    { 15, new DateTime(2023, 10, 20, 23, 24, 59, 861, DateTimeKind.Local).AddTicks(8731), -1, null, null, false, false, 1, "", "", "", 15, "Sayfalar", "", null, null },
+                    { 16, new DateTime(2023, 10, 20, 23, 24, 59, 861, DateTimeKind.Local).AddTicks(8736), -1, null, null, false, false, 1, "", "", "", 16, "Sayfalar", "", null, null },
+                    { 17, new DateTime(2023, 10, 20, 23, 24, 59, 861, DateTimeKind.Local).AddTicks(8739), -1, null, null, true, false, 1, "", "", "", 17, "Sayfa Yetkileri", "", null, null },
+                    { 18, new DateTime(2023, 10, 20, 23, 24, 59, 861, DateTimeKind.Local).AddTicks(8741), -1, null, null, true, false, 1, "", "", "", 18, "Ürün", "", null, null },
+                    { 19, new DateTime(2023, 10, 20, 23, 24, 59, 861, DateTimeKind.Local).AddTicks(8743), -1, null, null, true, false, 1, "", "", "", 19, "Ürünler", "", null, null },
+                    { 20, new DateTime(2023, 10, 20, 23, 24, 59, 861, DateTimeKind.Local).AddTicks(8746), -1, null, null, false, false, 1, "", "", "", 20, "Ürünler", "", null, null },
+                    { 21, new DateTime(2023, 10, 20, 23, 24, 59, 861, DateTimeKind.Local).AddTicks(8748), -1, null, null, false, false, 1, "", "", "", 21, "Ürünler", "", null, null },
+                    { 22, new DateTime(2023, 10, 20, 23, 24, 59, 861, DateTimeKind.Local).AddTicks(8750), -1, null, null, false, false, 1, "", "", "", 22, "Ürünler", "", null, null },
+                    { 14, new DateTime(2023, 10, 20, 23, 24, 59, 861, DateTimeKind.Local).AddTicks(8729), -1, null, null, false, false, 1, "", "", "", 14, "Sayfalar", "", null, null },
+                    { 23, new DateTime(2023, 10, 20, 23, 24, 59, 861, DateTimeKind.Local).AddTicks(8752), -1, null, null, false, false, 1, "", "", "", 23, "Ürünler", "", null, null },
+                    { 25, new DateTime(2023, 10, 20, 23, 24, 59, 861, DateTimeKind.Local).AddTicks(8756), -1, null, null, false, false, 1, "", "", "", 25, "Ürün Tipleri", "", null, null },
+                    { 26, new DateTime(2023, 10, 20, 23, 24, 59, 861, DateTimeKind.Local).AddTicks(8760), -1, null, null, false, false, 1, "", "", "", 26, "Ürün Tipleri", "", null, null },
+                    { 27, new DateTime(2023, 10, 20, 23, 24, 59, 861, DateTimeKind.Local).AddTicks(8762), -1, null, null, false, false, 1, "", "", "", 27, "Ürün Tipleri", "", null, null },
+                    { 28, new DateTime(2023, 10, 20, 23, 24, 59, 861, DateTimeKind.Local).AddTicks(8764), -1, null, null, false, false, 1, "", "", "", 28, "Ürün Tipleri", "", null, null },
+                    { 29, new DateTime(2023, 10, 20, 23, 24, 59, 861, DateTimeKind.Local).AddTicks(8766), -1, null, null, true, false, 1, "", "", "", 29, "Genel Sayfalar", "", null, null },
+                    { 31, new DateTime(2023, 10, 20, 23, 24, 59, 861, DateTimeKind.Local).AddTicks(8768), -1, null, null, true, false, 1, "", "", "", 31, "Hakkımızda", "", null, null },
+                    { 32, new DateTime(2023, 10, 20, 23, 24, 59, 861, DateTimeKind.Local).AddTicks(8770), -1, null, null, false, false, 1, "", "", "", 32, "Hakkımızda", "", null, null },
+                    { 33, new DateTime(2023, 10, 20, 23, 24, 59, 861, DateTimeKind.Local).AddTicks(8772), -1, null, null, false, false, 1, "", "", "", 33, "Hakkımızda", "", null, null },
+                    { 24, new DateTime(2023, 10, 20, 23, 24, 59, 861, DateTimeKind.Local).AddTicks(8754), -1, null, null, true, false, 1, "", "", "", 24, "Ürün Tipleri", "", null, null },
+                    { 13, new DateTime(2023, 10, 20, 23, 24, 59, 861, DateTimeKind.Local).AddTicks(8727), -1, null, null, false, false, 1, "", "", "", 13, "Sayfalar", "", null, null },
+                    { 12, new DateTime(2023, 10, 20, 23, 24, 59, 861, DateTimeKind.Local).AddTicks(8725), -1, null, null, true, false, 1, "", "", "", 12, "Sayfalar", "", null, null },
+                    { 35, new DateTime(2023, 10, 20, 23, 24, 59, 861, DateTimeKind.Local).AddTicks(8776), -1, null, null, false, false, 1, "", "", "", 35, "Hakkımızda", "", null, null },
+                    { 11, new DateTime(2023, 10, 20, 23, 24, 59, 861, DateTimeKind.Local).AddTicks(8723), -1, null, null, false, false, 1, "", "", "", 11, "Kullanıcı Tipleri", "", null, null },
+                    { 2, new DateTime(2023, 10, 20, 23, 24, 59, 861, DateTimeKind.Local).AddTicks(8578), -1, null, null, true, false, 1, "", "", "", 2, "Kullanıcılar", "", null, null },
+                    { 10, new DateTime(2023, 10, 20, 23, 24, 59, 861, DateTimeKind.Local).AddTicks(8721), -1, null, null, false, false, 1, "", "", "", 10, "Kullanıcı Tipleri", "", null, null },
+                    { 9, new DateTime(2023, 10, 20, 23, 24, 59, 861, DateTimeKind.Local).AddTicks(8719), -1, null, null, false, false, 1, "", "", "", 9, "Kullanıcı Tipleri", "", null, null },
+                    { 3, new DateTime(2023, 10, 20, 23, 24, 59, 861, DateTimeKind.Local).AddTicks(8706), -1, null, null, false, false, 1, "", "", "", 3, "Kullanıcılar", "", null, null },
+                    { 8, new DateTime(2023, 10, 20, 23, 24, 59, 861, DateTimeKind.Local).AddTicks(8717), -1, null, null, false, false, 1, "", "", "", 8, "Kullanıcı Tipleri", "", null, null },
+                    { 7, new DateTime(2023, 10, 20, 23, 24, 59, 861, DateTimeKind.Local).AddTicks(8715), -1, null, null, true, false, 1, "", "", "", 7, "Kullanıcı Tipleri", "", null, null },
+                    { 34, new DateTime(2023, 10, 20, 23, 24, 59, 861, DateTimeKind.Local).AddTicks(8774), -1, null, null, false, false, 1, "", "", "", 34, "Hakkımızda", "", null, null },
+                    { 6, new DateTime(2023, 10, 20, 23, 24, 59, 861, DateTimeKind.Local).AddTicks(8713), -1, null, null, false, false, 1, "", "", "", 6, "Kullanıcılar", "", null, null },
+                    { 4, new DateTime(2023, 10, 20, 23, 24, 59, 861, DateTimeKind.Local).AddTicks(8709), -1, null, null, false, false, 1, "", "", "", 4, "Kullanıcılar", "", null, null },
+                    { 5, new DateTime(2023, 10, 20, 23, 24, 59, 861, DateTimeKind.Local).AddTicks(8711), -1, null, null, false, false, 1, "", "", "", 5, "Kullanıcılar", "", null, null }
                 });
 
             migrationBuilder.InsertData(

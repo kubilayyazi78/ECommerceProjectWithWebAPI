@@ -180,7 +180,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = -1,
-                            CreatedDate = new DateTime(2023, 5, 9, 23, 33, 49, 729, DateTimeKind.Local).AddTicks(8811),
+                            CreatedDate = new DateTime(2023, 10, 20, 23, 24, 59, 845, DateTimeKind.Local).AddTicks(5306),
                             CreatedUserId = 1,
                             Email = "sadmin@gmail.com",
                             FirstName = "System",
@@ -188,10 +188,10 @@ namespace DataAccess.Migrations
                             IsActive = true,
                             IsDeleted = false,
                             LastName = "Admin",
-                            PasswordHash = new byte[] { 135, 61, 168, 89, 24, 40, 120, 22, 102, 147, 96, 230, 119, 226, 172, 71, 151, 18, 12, 83, 69, 62, 122, 240, 91, 28, 8, 151, 115, 166, 84, 132, 242, 195, 146, 250, 54, 10, 108, 128, 174, 136, 188, 255, 196, 107, 160, 169, 136, 135, 76, 235, 43, 50, 205, 191, 146, 124, 8, 241, 206, 115, 119, 235 },
-                            PasswordSalt = new byte[] { 46, 218, 196, 22, 220, 119, 81, 48, 135, 233, 243, 34, 150, 244, 217, 189, 51, 127, 142, 19, 227, 34, 215, 204, 78, 216, 142, 51, 159, 68, 50, 97, 210, 244, 23, 109, 17, 144, 214, 236, 242, 113, 249, 23, 255, 218, 243, 188, 134, 168, 205, 78, 38, 10, 99, 198, 169, 19, 146, 60, 188, 208, 36, 124, 83, 121, 62, 210, 152, 245, 167, 216, 252, 234, 220, 114, 152, 133, 85, 140, 98, 183, 44, 96, 202, 155, 24, 214, 71, 113, 177, 40, 80, 176, 20, 155, 63, 1, 199, 19, 127, 128, 43, 229, 202, 30, 169, 191, 5, 75, 47, 254, 17, 21, 146, 99, 216, 94, 233, 159, 111, 228, 99, 229, 171, 41, 77, 65 },
+                            PasswordHash = new byte[] { 225, 3, 41, 212, 27, 163, 144, 34, 65, 192, 0, 39, 115, 140, 159, 144, 251, 50, 71, 95, 191, 218, 176, 255, 112, 143, 89, 136, 85, 139, 51, 120, 207, 141, 221, 127, 194, 156, 44, 94, 62, 9, 155, 91, 181, 212, 69, 165, 230, 182, 50, 176, 178, 76, 222, 128, 130, 159, 245, 12, 206, 124, 95, 89 },
+                            PasswordSalt = new byte[] { 148, 30, 252, 220, 106, 53, 0, 170, 239, 145, 218, 23, 68, 238, 119, 49, 152, 42, 152, 30, 51, 137, 86, 131, 20, 16, 68, 34, 236, 228, 250, 133, 121, 136, 132, 215, 239, 128, 124, 13, 226, 3, 156, 183, 182, 224, 173, 142, 29, 25, 53, 83, 237, 52, 184, 93, 83, 26, 134, 119, 115, 253, 245, 183, 189, 231, 159, 36, 179, 189, 65, 135, 187, 236, 102, 95, 187, 251, 164, 10, 152, 49, 200, 160, 16, 133, 139, 21, 144, 124, 197, 188, 56, 208, 124, 32, 119, 36, 92, 239, 149, 96, 43, 84, 36, 150, 139, 142, 70, 194, 96, 149, 212, 112, 85, 139, 4, 124, 59, 171, 98, 120, 243, 55, 29, 74, 139, 108 },
                             ProfileImageUrl = "",
-                            RefreshToken = new Guid("2d7cdd48-0709-402d-a148-f5432db48078"),
+                            RefreshToken = new Guid("f8923e1a-0aeb-4dbb-9cd5-042bf68e194f"),
                             UserName = "sadmin",
                             UserTypeID = -1
                         });
@@ -239,7 +239,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = -1,
-                            CreatedDate = new DateTime(2023, 5, 9, 23, 33, 49, 733, DateTimeKind.Local).AddTicks(4474),
+                            CreatedDate = new DateTime(2023, 10, 20, 23, 24, 59, 850, DateTimeKind.Local).AddTicks(8557),
                             CreatedUserId = -1,
                             IsActive = true,
                             IsDeleted = false,
@@ -248,7 +248,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = -2,
-                            CreatedDate = new DateTime(2023, 5, 9, 23, 33, 49, 733, DateTimeKind.Local).AddTicks(4626),
+                            CreatedDate = new DateTime(2023, 10, 20, 23, 24, 59, 850, DateTimeKind.Local).AddTicks(9019),
                             CreatedUserId = -1,
                             IsActive = true,
                             IsDeleted = false,
@@ -389,9 +389,9 @@ namespace DataAccess.Migrations
                         .HasColumnType("nvarchar(250)")
                         .HasColumnName("PageURL");
 
-                    b.Property<int?>("ParentID")
+                    b.Property<int?>("ParentPageID")
                         .HasColumnType("int")
-                        .HasColumnName("ParentID");
+                        .HasColumnName("ParentPageID");
 
                     b.HasKey("Id");
 
@@ -415,7 +415,7 @@ namespace DataAccess.Migrations
                             IsActive = true,
                             PageTypeID = 1,
                             PageURL = "/Admin/AppUser/List",
-                            ParentID = 1
+                            ParentPageID = 1
                         },
                         new
                         {
@@ -424,7 +424,7 @@ namespace DataAccess.Migrations
                             IsActive = false,
                             PageTypeID = 1,
                             PageURL = "/Admin/AppUser/Add",
-                            ParentID = 2
+                            ParentPageID = 2
                         },
                         new
                         {
@@ -433,7 +433,7 @@ namespace DataAccess.Migrations
                             IsActive = false,
                             PageTypeID = 1,
                             PageURL = "/Admin/AppUser/Update",
-                            ParentID = 2
+                            ParentPageID = 2
                         },
                         new
                         {
@@ -442,7 +442,7 @@ namespace DataAccess.Migrations
                             IsActive = false,
                             PageTypeID = 1,
                             PageURL = "/Admin/AppUser/Delete",
-                            ParentID = 2
+                            ParentPageID = 2
                         },
                         new
                         {
@@ -451,7 +451,7 @@ namespace DataAccess.Migrations
                             IsActive = false,
                             PageTypeID = 1,
                             PageURL = "/Admin/AppUser/Detail",
-                            ParentID = 2
+                            ParentPageID = 2
                         },
                         new
                         {
@@ -460,7 +460,7 @@ namespace DataAccess.Migrations
                             IsActive = true,
                             PageTypeID = 1,
                             PageURL = "/Admin/AppUserType/List",
-                            ParentID = 1
+                            ParentPageID = 1
                         },
                         new
                         {
@@ -469,7 +469,7 @@ namespace DataAccess.Migrations
                             IsActive = false,
                             PageTypeID = 1,
                             PageURL = "/Admin/AppUserType/Add",
-                            ParentID = 7
+                            ParentPageID = 7
                         },
                         new
                         {
@@ -478,7 +478,7 @@ namespace DataAccess.Migrations
                             IsActive = false,
                             PageTypeID = 1,
                             PageURL = "/Admin/AppUserType/Update",
-                            ParentID = 7
+                            ParentPageID = 7
                         },
                         new
                         {
@@ -487,7 +487,7 @@ namespace DataAccess.Migrations
                             IsActive = false,
                             PageTypeID = 1,
                             PageURL = "/Admin/AppUserType/Delete",
-                            ParentID = 7
+                            ParentPageID = 7
                         },
                         new
                         {
@@ -496,7 +496,7 @@ namespace DataAccess.Migrations
                             IsActive = false,
                             PageTypeID = 1,
                             PageURL = "/Admin/AppUserType/Detail",
-                            ParentID = 7
+                            ParentPageID = 7
                         },
                         new
                         {
@@ -505,7 +505,7 @@ namespace DataAccess.Migrations
                             IsActive = true,
                             PageTypeID = 1,
                             PageURL = "/Admin/Page/List",
-                            ParentID = 1
+                            ParentPageID = 1
                         },
                         new
                         {
@@ -514,7 +514,7 @@ namespace DataAccess.Migrations
                             IsActive = false,
                             PageTypeID = 1,
                             PageURL = "/Admin/Page/Add",
-                            ParentID = 12
+                            ParentPageID = 12
                         },
                         new
                         {
@@ -523,7 +523,7 @@ namespace DataAccess.Migrations
                             IsActive = false,
                             PageTypeID = 1,
                             PageURL = "/Admin/Page/Update",
-                            ParentID = 12
+                            ParentPageID = 12
                         },
                         new
                         {
@@ -532,7 +532,7 @@ namespace DataAccess.Migrations
                             IsActive = false,
                             PageTypeID = 1,
                             PageURL = "/Admin/Page/Delete",
-                            ParentID = 12
+                            ParentPageID = 12
                         },
                         new
                         {
@@ -541,7 +541,7 @@ namespace DataAccess.Migrations
                             IsActive = false,
                             PageTypeID = 1,
                             PageURL = "/Admin/Page/Detail",
-                            ParentID = 12
+                            ParentPageID = 12
                         },
                         new
                         {
@@ -550,7 +550,7 @@ namespace DataAccess.Migrations
                             IsActive = true,
                             PageTypeID = 1,
                             PageURL = "/Admin/PagePermisson/List",
-                            ParentID = 1
+                            ParentPageID = 1
                         },
                         new
                         {
@@ -567,7 +567,7 @@ namespace DataAccess.Migrations
                             IsActive = true,
                             PageTypeID = 1,
                             PageURL = "/Admin/Product/List",
-                            ParentID = 18
+                            ParentPageID = 18
                         },
                         new
                         {
@@ -576,7 +576,7 @@ namespace DataAccess.Migrations
                             IsActive = false,
                             PageTypeID = 1,
                             PageURL = "/Admin/Product/Add",
-                            ParentID = 19
+                            ParentPageID = 19
                         },
                         new
                         {
@@ -585,7 +585,7 @@ namespace DataAccess.Migrations
                             IsActive = false,
                             PageTypeID = 1,
                             PageURL = "/Admin/Product/Update",
-                            ParentID = 19
+                            ParentPageID = 19
                         },
                         new
                         {
@@ -594,7 +594,7 @@ namespace DataAccess.Migrations
                             IsActive = false,
                             PageTypeID = 1,
                             PageURL = "/Admin/Product/Delete",
-                            ParentID = 19
+                            ParentPageID = 19
                         },
                         new
                         {
@@ -603,7 +603,7 @@ namespace DataAccess.Migrations
                             IsActive = false,
                             PageTypeID = 1,
                             PageURL = "/Admin/Product/Detail",
-                            ParentID = 19
+                            ParentPageID = 19
                         },
                         new
                         {
@@ -612,7 +612,7 @@ namespace DataAccess.Migrations
                             IsActive = true,
                             PageTypeID = 1,
                             PageURL = "/Admin/ProductType/List",
-                            ParentID = 18
+                            ParentPageID = 18
                         },
                         new
                         {
@@ -621,7 +621,7 @@ namespace DataAccess.Migrations
                             IsActive = false,
                             PageTypeID = 1,
                             PageURL = "/Admin/ProductType/Add",
-                            ParentID = 24
+                            ParentPageID = 24
                         },
                         new
                         {
@@ -630,7 +630,7 @@ namespace DataAccess.Migrations
                             IsActive = false,
                             PageTypeID = 1,
                             PageURL = "/Admin/ProductType/Update",
-                            ParentID = 24
+                            ParentPageID = 24
                         },
                         new
                         {
@@ -639,7 +639,7 @@ namespace DataAccess.Migrations
                             IsActive = false,
                             PageTypeID = 1,
                             PageURL = "/Admin/ProductType/Delete",
-                            ParentID = 24
+                            ParentPageID = 24
                         },
                         new
                         {
@@ -648,7 +648,7 @@ namespace DataAccess.Migrations
                             IsActive = false,
                             PageTypeID = 1,
                             PageURL = "/Admin/ProductType/Detail",
-                            ParentID = 24
+                            ParentPageID = 24
                         },
                         new
                         {
@@ -665,7 +665,7 @@ namespace DataAccess.Migrations
                             IsActive = true,
                             PageTypeID = 1,
                             PageURL = "/Admin/Contact/List",
-                            ParentID = 29
+                            ParentPageID = 29
                         },
                         new
                         {
@@ -674,7 +674,7 @@ namespace DataAccess.Migrations
                             IsActive = false,
                             PageTypeID = 1,
                             PageURL = "/Admin/Contact/Add",
-                            ParentID = 30
+                            ParentPageID = 30
                         },
                         new
                         {
@@ -683,7 +683,7 @@ namespace DataAccess.Migrations
                             IsActive = false,
                             PageTypeID = 1,
                             PageURL = "/Admin/Contact/Update",
-                            ParentID = 30
+                            ParentPageID = 30
                         },
                         new
                         {
@@ -692,7 +692,7 @@ namespace DataAccess.Migrations
                             IsActive = false,
                             PageTypeID = 1,
                             PageURL = "/Admin/Contact/Delete",
-                            ParentID = 30
+                            ParentPageID = 30
                         },
                         new
                         {
@@ -701,7 +701,7 @@ namespace DataAccess.Migrations
                             IsActive = false,
                             PageTypeID = 1,
                             PageURL = "/Admin/Contact/Detail",
-                            ParentID = 30
+                            ParentPageID = 30
                         });
                 });
 
@@ -782,8 +782,8 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatedUserId = 0,
+                            CreatedDate = new DateTime(2023, 10, 20, 23, 24, 59, 861, DateTimeKind.Local).AddTicks(6228),
+                            CreatedUserId = -1,
                             IsActive = true,
                             IsDeleted = false,
                             LanguageID = 1,
@@ -797,8 +797,8 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatedUserId = 0,
+                            CreatedDate = new DateTime(2023, 10, 20, 23, 24, 59, 861, DateTimeKind.Local).AddTicks(8578),
+                            CreatedUserId = -1,
                             IsActive = true,
                             IsDeleted = false,
                             LanguageID = 1,
@@ -812,8 +812,8 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatedUserId = 0,
+                            CreatedDate = new DateTime(2023, 10, 20, 23, 24, 59, 861, DateTimeKind.Local).AddTicks(8706),
+                            CreatedUserId = -1,
                             IsActive = false,
                             IsDeleted = false,
                             LanguageID = 1,
@@ -827,8 +827,8 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatedUserId = 0,
+                            CreatedDate = new DateTime(2023, 10, 20, 23, 24, 59, 861, DateTimeKind.Local).AddTicks(8709),
+                            CreatedUserId = -1,
                             IsActive = false,
                             IsDeleted = false,
                             LanguageID = 1,
@@ -842,8 +842,8 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 5,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatedUserId = 0,
+                            CreatedDate = new DateTime(2023, 10, 20, 23, 24, 59, 861, DateTimeKind.Local).AddTicks(8711),
+                            CreatedUserId = -1,
                             IsActive = false,
                             IsDeleted = false,
                             LanguageID = 1,
@@ -857,8 +857,8 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 6,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatedUserId = 0,
+                            CreatedDate = new DateTime(2023, 10, 20, 23, 24, 59, 861, DateTimeKind.Local).AddTicks(8713),
+                            CreatedUserId = -1,
                             IsActive = false,
                             IsDeleted = false,
                             LanguageID = 1,
@@ -872,8 +872,8 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 7,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatedUserId = 0,
+                            CreatedDate = new DateTime(2023, 10, 20, 23, 24, 59, 861, DateTimeKind.Local).AddTicks(8715),
+                            CreatedUserId = -1,
                             IsActive = true,
                             IsDeleted = false,
                             LanguageID = 1,
@@ -887,8 +887,8 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 8,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatedUserId = 0,
+                            CreatedDate = new DateTime(2023, 10, 20, 23, 24, 59, 861, DateTimeKind.Local).AddTicks(8717),
+                            CreatedUserId = -1,
                             IsActive = false,
                             IsDeleted = false,
                             LanguageID = 1,
@@ -902,8 +902,8 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 9,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatedUserId = 0,
+                            CreatedDate = new DateTime(2023, 10, 20, 23, 24, 59, 861, DateTimeKind.Local).AddTicks(8719),
+                            CreatedUserId = -1,
                             IsActive = false,
                             IsDeleted = false,
                             LanguageID = 1,
@@ -917,8 +917,8 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 10,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatedUserId = 0,
+                            CreatedDate = new DateTime(2023, 10, 20, 23, 24, 59, 861, DateTimeKind.Local).AddTicks(8721),
+                            CreatedUserId = -1,
                             IsActive = false,
                             IsDeleted = false,
                             LanguageID = 1,
@@ -932,8 +932,8 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 11,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatedUserId = 0,
+                            CreatedDate = new DateTime(2023, 10, 20, 23, 24, 59, 861, DateTimeKind.Local).AddTicks(8723),
+                            CreatedUserId = -1,
                             IsActive = false,
                             IsDeleted = false,
                             LanguageID = 1,
@@ -947,8 +947,8 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 12,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatedUserId = 0,
+                            CreatedDate = new DateTime(2023, 10, 20, 23, 24, 59, 861, DateTimeKind.Local).AddTicks(8725),
+                            CreatedUserId = -1,
                             IsActive = true,
                             IsDeleted = false,
                             LanguageID = 1,
@@ -962,8 +962,8 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 13,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatedUserId = 0,
+                            CreatedDate = new DateTime(2023, 10, 20, 23, 24, 59, 861, DateTimeKind.Local).AddTicks(8727),
+                            CreatedUserId = -1,
                             IsActive = false,
                             IsDeleted = false,
                             LanguageID = 1,
@@ -977,8 +977,8 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 14,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatedUserId = 0,
+                            CreatedDate = new DateTime(2023, 10, 20, 23, 24, 59, 861, DateTimeKind.Local).AddTicks(8729),
+                            CreatedUserId = -1,
                             IsActive = false,
                             IsDeleted = false,
                             LanguageID = 1,
@@ -992,8 +992,8 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 15,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatedUserId = 0,
+                            CreatedDate = new DateTime(2023, 10, 20, 23, 24, 59, 861, DateTimeKind.Local).AddTicks(8731),
+                            CreatedUserId = -1,
                             IsActive = false,
                             IsDeleted = false,
                             LanguageID = 1,
@@ -1007,8 +1007,8 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 16,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatedUserId = 0,
+                            CreatedDate = new DateTime(2023, 10, 20, 23, 24, 59, 861, DateTimeKind.Local).AddTicks(8736),
+                            CreatedUserId = -1,
                             IsActive = false,
                             IsDeleted = false,
                             LanguageID = 1,
@@ -1022,8 +1022,8 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 17,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatedUserId = 0,
+                            CreatedDate = new DateTime(2023, 10, 20, 23, 24, 59, 861, DateTimeKind.Local).AddTicks(8739),
+                            CreatedUserId = -1,
                             IsActive = true,
                             IsDeleted = false,
                             LanguageID = 1,
@@ -1037,8 +1037,8 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 18,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatedUserId = 0,
+                            CreatedDate = new DateTime(2023, 10, 20, 23, 24, 59, 861, DateTimeKind.Local).AddTicks(8741),
+                            CreatedUserId = -1,
                             IsActive = true,
                             IsDeleted = false,
                             LanguageID = 1,
@@ -1052,8 +1052,8 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 19,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatedUserId = 0,
+                            CreatedDate = new DateTime(2023, 10, 20, 23, 24, 59, 861, DateTimeKind.Local).AddTicks(8743),
+                            CreatedUserId = -1,
                             IsActive = true,
                             IsDeleted = false,
                             LanguageID = 1,
@@ -1067,8 +1067,8 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 20,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatedUserId = 0,
+                            CreatedDate = new DateTime(2023, 10, 20, 23, 24, 59, 861, DateTimeKind.Local).AddTicks(8746),
+                            CreatedUserId = -1,
                             IsActive = false,
                             IsDeleted = false,
                             LanguageID = 1,
@@ -1082,8 +1082,8 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 21,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatedUserId = 0,
+                            CreatedDate = new DateTime(2023, 10, 20, 23, 24, 59, 861, DateTimeKind.Local).AddTicks(8748),
+                            CreatedUserId = -1,
                             IsActive = false,
                             IsDeleted = false,
                             LanguageID = 1,
@@ -1097,8 +1097,8 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 22,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatedUserId = 0,
+                            CreatedDate = new DateTime(2023, 10, 20, 23, 24, 59, 861, DateTimeKind.Local).AddTicks(8750),
+                            CreatedUserId = -1,
                             IsActive = false,
                             IsDeleted = false,
                             LanguageID = 1,
@@ -1112,8 +1112,8 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 23,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatedUserId = 0,
+                            CreatedDate = new DateTime(2023, 10, 20, 23, 24, 59, 861, DateTimeKind.Local).AddTicks(8752),
+                            CreatedUserId = -1,
                             IsActive = false,
                             IsDeleted = false,
                             LanguageID = 1,
@@ -1127,8 +1127,8 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 24,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatedUserId = 0,
+                            CreatedDate = new DateTime(2023, 10, 20, 23, 24, 59, 861, DateTimeKind.Local).AddTicks(8754),
+                            CreatedUserId = -1,
                             IsActive = true,
                             IsDeleted = false,
                             LanguageID = 1,
@@ -1142,8 +1142,8 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 25,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatedUserId = 0,
+                            CreatedDate = new DateTime(2023, 10, 20, 23, 24, 59, 861, DateTimeKind.Local).AddTicks(8756),
+                            CreatedUserId = -1,
                             IsActive = false,
                             IsDeleted = false,
                             LanguageID = 1,
@@ -1157,8 +1157,8 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 26,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatedUserId = 0,
+                            CreatedDate = new DateTime(2023, 10, 20, 23, 24, 59, 861, DateTimeKind.Local).AddTicks(8760),
+                            CreatedUserId = -1,
                             IsActive = false,
                             IsDeleted = false,
                             LanguageID = 1,
@@ -1172,8 +1172,8 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 27,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatedUserId = 0,
+                            CreatedDate = new DateTime(2023, 10, 20, 23, 24, 59, 861, DateTimeKind.Local).AddTicks(8762),
+                            CreatedUserId = -1,
                             IsActive = false,
                             IsDeleted = false,
                             LanguageID = 1,
@@ -1187,8 +1187,8 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 28,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatedUserId = 0,
+                            CreatedDate = new DateTime(2023, 10, 20, 23, 24, 59, 861, DateTimeKind.Local).AddTicks(8764),
+                            CreatedUserId = -1,
                             IsActive = false,
                             IsDeleted = false,
                             LanguageID = 1,
@@ -1202,8 +1202,8 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 29,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatedUserId = 0,
+                            CreatedDate = new DateTime(2023, 10, 20, 23, 24, 59, 861, DateTimeKind.Local).AddTicks(8766),
+                            CreatedUserId = -1,
                             IsActive = true,
                             IsDeleted = false,
                             LanguageID = 1,
@@ -1217,8 +1217,8 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 31,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatedUserId = 0,
+                            CreatedDate = new DateTime(2023, 10, 20, 23, 24, 59, 861, DateTimeKind.Local).AddTicks(8768),
+                            CreatedUserId = -1,
                             IsActive = true,
                             IsDeleted = false,
                             LanguageID = 1,
@@ -1232,8 +1232,8 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 32,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatedUserId = 0,
+                            CreatedDate = new DateTime(2023, 10, 20, 23, 24, 59, 861, DateTimeKind.Local).AddTicks(8770),
+                            CreatedUserId = -1,
                             IsActive = false,
                             IsDeleted = false,
                             LanguageID = 1,
@@ -1247,8 +1247,8 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 33,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatedUserId = 0,
+                            CreatedDate = new DateTime(2023, 10, 20, 23, 24, 59, 861, DateTimeKind.Local).AddTicks(8772),
+                            CreatedUserId = -1,
                             IsActive = false,
                             IsDeleted = false,
                             LanguageID = 1,
@@ -1262,8 +1262,8 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 34,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatedUserId = 0,
+                            CreatedDate = new DateTime(2023, 10, 20, 23, 24, 59, 861, DateTimeKind.Local).AddTicks(8774),
+                            CreatedUserId = -1,
                             IsActive = false,
                             IsDeleted = false,
                             LanguageID = 1,
@@ -1277,8 +1277,8 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 35,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatedUserId = 0,
+                            CreatedDate = new DateTime(2023, 10, 20, 23, 24, 59, 861, DateTimeKind.Local).AddTicks(8776),
+                            CreatedUserId = -1,
                             IsActive = false,
                             IsDeleted = false,
                             LanguageID = 1,

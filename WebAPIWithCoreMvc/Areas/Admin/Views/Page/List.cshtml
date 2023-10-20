@@ -1,5 +1,95 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿
+﻿@using Core.Utilities.Messages
+
+@model IEnumerable<PageListViewModel>
+
+@inject Core.Utilities.Localization.ILocalizationService _localizationService
+
 @{
+    ViewData["Title"] = "Sayfa Listesi";
+
 }
+<div class="col-12">
+    <div class="card card-secondary">
+        <div class="card-header">
+            <h3 class="card-title">Sayfa Liste</h3>
+            <div class="card-tools">
+                <form asp-action="Add" asp-controller="Page" method="get">
+                    <button type="submit" class="btn btn-default btn-xs float-right">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body table-responsive p-0">
+            <table class="table table-hover text-nowrap">
+                <thead>
+                    <tr>
+
+                        <th>
+                            #
+                        </th>
+                        <th>
+                            Sayfa Adı
+                        </th>
+                        <th>
+                            Ana Sayfa Adı
+                        </th>
+                        <th>
+                            Sayfa URL
+                        </th>
+
+                        <th>
+                            Sayfa Tipi Adı
+                        </th>
+
+                        <th>
+                            Dil
+                        </th>
+                        <th>
+                            Aktif mi?
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PageID)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PageName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ParentPageName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PageURL)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PageTypeName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.LanguageName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IsActive)
+                            </td>
+                            <td>
+                                <a class="btn btn-secondary btn-xs" asp-action="Update" asp-route-id="@item.PageID">]</a>
+                                <a class="btn btn-secondary btn-xs" asp-action="Detail" asp-route-id="@item.PageID">]</a>
+                                <a class="btn btn-secondary btn-xs" asp-action="Delete" asp-route-id="@item.PageID">]</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+</div>
