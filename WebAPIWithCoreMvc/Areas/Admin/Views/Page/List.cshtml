@@ -9,6 +9,12 @@
     ViewData["Title"] = "Sayfa Listesi";
 
 }
+
+@*
+    Page liste sayfası detayları düenlenecek.
+    22.08.2023
+
+*@
 <div class="col-12">
     <div class="card card-secondary">
         <div class="card-header">
@@ -30,6 +36,9 @@
                         <th>
                             #
                         </th>
+                         @* <th>
+                            @Html.DisplayNameFor(model => model.PageLanguageID)
+                            </th>*@
                         <th>
                             Sayfa Adı
                         </th>
@@ -54,42 +63,43 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in Model)
+@foreach (var item in Model)
                     {
-                        <tr>
+                    <tr>
 
-                            <td>
-                                @Html.DisplayFor(modelItem => item.PageID)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.PageName)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.ParentPageName)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.PageURL)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.PageTypeName)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.LanguageName)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.IsActive)
-                            </td>
-                            <td>
-                                <a class="btn btn-secondary btn-xs" asp-action="Update" asp-route-id="@item.PageID">]</a>
-                                <a class="btn btn-secondary btn-xs" asp-action="Detail" asp-route-id="@item.PageID">]</a>
-                                <a class="btn btn-secondary btn-xs" asp-action="Delete" asp-route-id="@item.PageID">]</a>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
-        <!-- /.card-body -->
-    </div>
-    <!-- /.card -->
+                        <td>
+@Html.DisplayFor(modelItem => item.PageID)
+</td>
+ @* <td>
+    @Html.DisplayFor(modelItem => item.PageLanguageID)
+    </td>*@
+<td>
+@Html.DisplayFor(modelItem => item.PageName)
+</td>
+<td>
+@Html.DisplayFor(modelItem => item.ParentPageName)
+</td>
+<td>
+@Html.DisplayFor(modelItem => item.PageURL)
+</td>
+<td>
+@Html.DisplayFor(modelItem => item.PageTypeName)
+</td>
+<td>
+@Html.DisplayFor(modelItem => item.LanguageName)
+</td>
+<td>
+@Html.DisplayFor(modelItem => item.IsActive)
+</td>
+<td>
+    <a class="btn btn-secondary btn-xs" asp-action="Update" asp-route-id="@item.PageID">@_localizationService[ResultCodes.BUTTON_Update]</a>
+    <a class="btn btn-secondary btn-xs" asp-action="Detail" asp-route-id="@item.PageID">@_localizationService[ResultCodes.BUTTON_Detail]</a>
+    <a class="btn btn-secondary btn-xs" asp-action="Delete" asp-route-id="@item.PageID">@_localizationService[ResultCodes.BUTTON_Delete]</a>
+</td>
+</tr>
+}
+</tbody>
+</table>
+</div>
+<!-- /.card-body -->
 </div>
