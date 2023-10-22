@@ -1,15 +1,18 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using AutoMapper;
+using Core.Utilities.Messages;
+using Entities.Dtos.PageLanguages;
+using Entities.Dtos.Pages;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+using WebAPIWithCoreMvc.ApiServices;
 using WebAPIWithCoreMvc.ApiServices.Interfaces;
-using AutoMapper;
-using Entities.Dtos.Pages;
 using WebAPIWithCoreMvc.Helpers;
-using Core.Utilities.Messages;
 using WebAPIWithCoreMvc.Models;
+
 
 namespace WebAPIWithCoreMvc.Areas.Admin.Controllers
 {
@@ -76,18 +79,26 @@ namespace WebAPIWithCoreMvc.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Add()
         {
+            await DropDownListFill();
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(PageAddDto appUserTypeAddDto)
+        public async Task<IActionResult> Add(PageAddViewModel pageAddViewModel)
         {
-            var result = await _pageApiService.AddAsync(appUserTypeAddDto);
-            if (!result.Success)
+            var mapperPageAdd = _mapper.Map<PageAddDto>(pageAddViewModel);
+            var mapperPageLanguageAdd = _mapper.Map<PageLanguageAddDto>(pageAddViewModel);
+
+            var resultPage = await _pageApiService.AddAsync(mapperPageAdd);
+            mapperPageLanguageAdd.PageID = resultPage.Data.Id;
+            var resultPageLanguage = await _pageLanguageApiService.AddAsync(mapperPageLanguageAdd);
+
+            if (!resultPageLanguage.Success)
             {
-                var errorList = HelperMethods.ErrorList(result);
+                var errorList = HelperMethods.ErrorList(resultPageLanguage);
                 ViewBag.Errors = errorList;
-                return View(appUserTypeAddDto);
+                await DropDownListFill();
+                return View(pageAddViewModel);
             }
             return RedirectToAction(Constants.List);
         }
@@ -142,6 +153,27 @@ namespace WebAPIWithCoreMvc.Areas.Admin.Controllers
             var pageDto = await _pageApiService.GetByIdAsync(id);
             var pageDetailDto = _mapper.Map<PageDetailDto>(pageDto.Data);
             return View(pageDetailDto);
+        }
+
+        private async Task DropDownListFill()
+        {
+            #region Languages
+            var languages = await _languageApiService.GetListAsync();
+            ViewBag.Languages = new SelectList(languages.Data.Where(x => x.Id > 0).ToList(), "Id", "LanguageName");
+            #endregion
+
+            #region ParentPages
+            var pages = await _pageApiService.GetListAsync();
+            var pageIds = pages.Data.Where(x => x.ParentPageID == null).Select(x => x.Id);
+            var pageLanguages = await _pageLanguageApiService.GetListAsync();
+            var parentPages = pageLanguages.Data.Where(x => pageIds.Contains(x.PageID)).Select(x => new { Id = x.Id, PageName = x.PageName });
+            ViewBag.ParentPages = new SelectList(parentPages.Where(x => x.Id > 0).ToList(), "Id", "PageName");
+            #endregion
+
+            #region PageTypes
+            var pageTypes = await _pageTypeApiService.GetListAsync();
+            ViewBag.PageTypes = new SelectList(pageTypes.Data.Where(x => x.Id > 0).ToList(), "Id", "PageTypeName");
+            #endregion
         }
     }
 }
