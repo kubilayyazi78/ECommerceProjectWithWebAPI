@@ -1,26 +1,25 @@
+using System;
+using Core.Utilities.Settings;
+using System.Collections.Generic;
+using System.Globalization;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Threading.Tasks;
-using Core.Utilities.Localization;
-using Core.Utilities.Settings;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Localization;
 using WebAPIWithCoreMvc.ApiServices;
 using WebAPIWithCoreMvc.ApiServices.Interfaces;
-using WebAPIWithCoreMvc.Handlers;
-using CookieRequestCultureProvider = Core.Providers.CookieRequestCultureProvider;
 using Core.Utilities.Messages;
+using CookieRequestCultureProvider = Core.Providers.CookieRequestCultureProvider;
+using Core.Utilities.Localization;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
 using AutoMapper;
 using Entities.Mappings;
+using WebAPIWithCoreMvc.Mappings;
+using WebAPIWithCoreMvc.Handlers;
 
 namespace WebAPIWithCoreMvc
 {
@@ -92,7 +91,7 @@ namespace WebAPIWithCoreMvc
             #endregion Cookie
 
             #region AutoMapper
-
+            //services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             var mapperConfig = new MapperConfiguration(mc =>
             {
                 mc.AddProfile(new MappingProfile());
@@ -106,30 +105,30 @@ namespace WebAPIWithCoreMvc
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-
             var localizationOptions = app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>();
             app.UseRequestLocalization(localizationOptions.Value);
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseExceptionHandler("/Home/Error");
-            app.UseStatusCodePagesWithRedirects("/Admin/Error/MyStatusCode?code={0}");
 
+            //app.UseExceptionHandler("/Home/Error");
+            //app.UseStatusCodePagesWithRedirects("/Admin/Error/MyStatusCode?code={0}");
             app.UseSession();
             app.UseStaticFiles();
-
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
+                //Admin/Home/Index
                 endpoints.MapAreaControllerRoute(
                     areaName: "Admin",
                     name: "Admin",
                     pattern: "Admin/{controller=Home}/{action=Index}/{id?}"
                 );
+                //Home/Index
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
