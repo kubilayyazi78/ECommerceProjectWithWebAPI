@@ -3,14 +3,10 @@ using Microsoft.AspNetCore.Http;
 
 namespace Entities.Dtos.UploadImages
 {
-    public class FileUploadAPIDto:IDto
+    public class FileUploadAPIDto : IDto
     {
-        public IFormFile Files  { get; set; }
-
+        public IFormFile files { get; set; }
         public string WebHostEnvironmentWebRootPath { get; set; }
-
-        public string ApiIPAddress { get; set; }
-
-
+        public string ApiIPAdress { get; set; }
     }
 }

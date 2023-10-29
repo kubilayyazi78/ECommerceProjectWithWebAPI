@@ -3,6 +3,7 @@ using Entities.Concrete;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
+
 namespace DataAccess.Concrete.EntityFramework.Configurations
 {
     public class AppUserTypeConfiguration : IEntityTypeConfiguration<AppUserType>

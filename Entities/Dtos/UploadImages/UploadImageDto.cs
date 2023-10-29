@@ -2,7 +2,7 @@
 
 namespace Entities.Dtos.UploadImages
 {
-    public class UploadImageDto:IDto
+    public class UploadImageDto : IDto
     {
         public string FullPath { get; set; }
     }

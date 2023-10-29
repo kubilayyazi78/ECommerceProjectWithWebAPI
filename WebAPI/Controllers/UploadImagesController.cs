@@ -24,7 +24,7 @@ namespace WebAPI.Controllers
         [Route("[action]")]
         public async Task<IActionResult> AddUploadImage([FromForm] FileUploadAPIDto fileUploadAPIDto)
         {
-            fileUploadAPIDto.ApiIPAddress = $"{this.Request.Scheme}://{this.Request.Host}{this.Request.PathBase}";
+            fileUploadAPIDto.ApiIPAdress = $"{this.Request.Scheme}://{this.Request.Host}{this.Request.PathBase}";
             fileUploadAPIDto.WebHostEnvironmentWebRootPath = _webHostEnvironment.WebRootPath + "\\Upload\\";
             var result = await _uploadImageService.UploadImageAsync(fileUploadAPIDto);
             if (result.Success)

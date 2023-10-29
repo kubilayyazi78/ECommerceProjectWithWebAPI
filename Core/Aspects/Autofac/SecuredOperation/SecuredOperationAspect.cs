@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
-using Castle.DynamicProxy;
+﻿using Castle.DynamicProxy;
 using Core.Extensions;
 using Core.Utilities.Interceptors;
 using Core.Utilities.Messages;
 using Microsoft.AspNetCore.Http;
-
+using System;
+using System.Diagnostics;
+using System.Security.Claims;
 namespace Core.Aspects.Autofac.SecuredOperation
 {
     public class SecuredOperationAspect : MethodInterception
@@ -29,10 +25,8 @@ namespace Core.Aspects.Autofac.SecuredOperation
             {
                 var userId = Convert.ToInt32(_httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
                 var roleClaims = _httpContextAccessor.HttpContext.User.ClaimRoles();
-
                 if (_attributeRoles != null)
                 {
-
                     if (userId != Constants.SystemAdminID)
                     {
                         if (roleClaims.Count <= 0)

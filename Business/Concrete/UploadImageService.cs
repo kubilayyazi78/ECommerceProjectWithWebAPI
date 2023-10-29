@@ -18,26 +18,23 @@ namespace Business.Concrete
             _localizationService = localizationService;
         }
 
-
-
-        public async Task<ApiDataResponse<UploadImageDto>> UploadImageAsync(FileUploadAPIDto fileUploadAPIDto)
+        public async Task<ApiDataResponse<UploadImageDto>> UploadImageAsync(FileUploadAPIDto fileUploudAPI)
         {
-            if (fileUploadAPIDto.Files.Length <= 0)
-            {
-                return new ErrorApiDataResponse<UploadImageDto>(null, _localizationService[ResultCodes.ERROR_ImageNotFound]);
-            }
+            if (fileUploudAPI.files.Length <= 0)
+                return new ErrorApiDataResponse<UploadImageDto>(
+                    data: null,
+                    message: _localizationService[ResultCodes.ERROR_ImageNotFound],
+                    resultCodes: ResultCodes.ERROR_ImageNotFound);
 
-            if (!Directory.Exists(fileUploadAPIDto.WebHostEnvironmentWebRootPath))
+            if (!Directory.Exists(fileUploudAPI.WebHostEnvironmentWebRootPath))
+                Directory.CreateDirectory(fileUploudAPI.WebHostEnvironmentWebRootPath);
+            var newFileName = Guid.NewGuid().ToString() + Path.GetExtension(fileUploudAPI.files.FileName);
+            using (FileStream fileStream = File.Create(fileUploudAPI.WebHostEnvironmentWebRootPath + newFileName))
             {
-                Directory.CreateDirectory(fileUploadAPIDto.WebHostEnvironmentWebRootPath);
-            }
-            var newFileName = Guid.NewGuid().ToString() + Path.GetExtension(fileUploadAPIDto.Files.FileName);
-            using (FileStream fileStream = File.Create(fileUploadAPIDto.WebHostEnvironmentWebRootPath + newFileName))
-            {
-                fileUploadAPIDto.Files.CopyTo(fileStream);
+                fileUploudAPI.files.CopyTo(fileStream);
                 fileStream.Flush();
                 UploadImageDto uploadImageDto = new UploadImageDto();
-                uploadImageDto.FullPath = await Task.FromResult(fileUploadAPIDto.ApiIPAddress + "/Upload/" + newFileName);
+                uploadImageDto.FullPath = await Task.FromResult(fileUploudAPI.ApiIPAdress + "/Upload/" + newFileName);
                 return new SuccessApiDataResponse<UploadImageDto>(uploadImageDto, _localizationService[ResultCodes.HTTP_OK]);
             }
         }

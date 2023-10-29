@@ -1,9 +1,6 @@
-﻿
-using Core.Entities;
-
-namespace Entities.Dtos.PagePageLanguages
+﻿namespace Entities.Dtos.PageLanguages
 {
-    public class PageLanguageDeleteDto : IDto
+    public class PageLanguageDeleteDto
     {
         public int Id { get; set; }
         public int PageID { get; set; }
@@ -13,9 +10,5 @@ namespace Entities.Dtos.PagePageLanguages
         public string MetaKeywords { get; set; }
         public string MetaDescription { get; set; }
         public int LanguageID { get; set; }
-        public string PageURL { get; set; }
-        public int? ParentID { get; set; }
-        public int PageTypeID { get; set; }
-        public int DisplayOrder { get; set; }
     }
 }

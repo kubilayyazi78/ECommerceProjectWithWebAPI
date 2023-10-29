@@ -3,17 +3,17 @@ using Business.Abstract;
 using Business.Constants;
 using Business.Validations.FluentValidation;
 using Core.Aspects.Autofac.Validation;
+using Core.Entities.Concrete;
 using Core.Utilities.Responses;
+using Core.Utilities.Security.Hash.Sha512;
 using Core.Utilities.Security.Token;
+using Entities.Concrete;
+using Entities.Dtos.AppUsers;
 using Entities.Dtos.Auths;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Core.Utilities.Security.Hash.Sha512;
-using Entities.Dtos.AppUsers;
-using Microsoft.AspNetCore.Http;
-using Core.Entities.Concrete;
-using Entities.Concrete;
 
 namespace Business.Concrete
 {

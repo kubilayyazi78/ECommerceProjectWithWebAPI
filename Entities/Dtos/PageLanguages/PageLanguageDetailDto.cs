@@ -1,13 +1,6 @@
-﻿using Core.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Entities.Dtos.PageLanguages
+﻿namespace Entities.Dtos.PageLanguages
 {
-    class PageLanguageDetailDto:IDto
+    public class PageLanguageDetailDto
     {
         public int Id { get; set; }
         public int PageID { get; set; }
@@ -17,9 +10,6 @@ namespace Entities.Dtos.PageLanguages
         public string MetaKeywords { get; set; }
         public string MetaDescription { get; set; }
         public int LanguageID { get; set; }
-        public string PageURL { get; set; }
-        public int? ParentID { get; set; }
-        public int PageTypeID { get; set; }
-        public int DisplayOrder { get; set; }
+
     }
 }

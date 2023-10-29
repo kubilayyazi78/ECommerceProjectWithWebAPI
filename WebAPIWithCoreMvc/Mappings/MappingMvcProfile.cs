@@ -16,21 +16,21 @@ namespace WebAPIWithCoreMvc.Mappings
             CreateMap<PageAddViewModel, PageLanguageAddDto>().ReverseMap();
             #endregion
 
-            //#region AppUser
-            //CreateMap<AppUserAddViewModel, AppUserAddDto>().ReverseMap();
-            //CreateMap<AppUserDeleteViewModel, AppUserDeleteDto>().ReverseMap();
-            //CreateMap<AppUserUpdateViewModel, AppUserUpdateDto>().ReverseMap();
-            //CreateMap<AppUserDetailViewModel, AppUserDetailDto>().ReverseMap();
-            //CreateMap<AppUserListViewModel, AppUserDto>().ReverseMap();
-            //#endregion
+            #region AppUser
+            CreateMap<AppUserAddViewModel, AppUserAddDto>().ReverseMap();
+            CreateMap<AppUserDeleteViewModel, AppUserDeleteDto>().ReverseMap();
+            CreateMap<AppUserUpdateViewModel, AppUserUpdateDto>().ReverseMap();
+            CreateMap<AppUserDetailViewModel, AppUserDetailDto>().ReverseMap();
+            CreateMap<AppUserListViewModel, AppUserDto>().ReverseMap();
+            #endregion
 
-            //#region AppUserType
-            //CreateMap<AppUserTypeAddViewModel, AppUserTypeAddDto>().ReverseMap();
-            //CreateMap<AppUserTypeDeleteViewModel, AppUserTypeDeleteDto>().ReverseMap();
-            //CreateMap<AppUserTypeUpdateViewModel, AppUserTypeUpdateDto>().ReverseMap();
-            //CreateMap<AppUserTypeDetailViewModel, AppUserTypeDetailDto>().ReverseMap();
-            //CreateMap<AppUserTypeListViewModel, AppUserTypeDto>().ReverseMap();
-            //#endregion
+            #region AppUserType
+            CreateMap<AppUserTypeAddViewModel, AppUserTypeAddDto>().ReverseMap();
+            CreateMap<AppUserTypeDeleteViewModel, AppUserTypeDeleteDto>().ReverseMap();
+            CreateMap<AppUserTypeUpdateViewModel, AppUserTypeUpdateDto>().ReverseMap();
+            CreateMap<AppUserTypeDetailViewModel, AppUserTypeDetailDto>().ReverseMap();
+            CreateMap<AppUserTypeListViewModel, AppUserTypeDto>().ReverseMap();
+            #endregion
         }
     }
 }

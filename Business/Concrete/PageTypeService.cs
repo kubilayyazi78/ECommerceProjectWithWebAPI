@@ -37,7 +37,5 @@ namespace Business.Concrete
             return new SuccessApiDataResponse<List<PageTypeDto>>(data: pageDtos, message: _localizationService[ResultCodes.HTTP_OK], resultCount: pageDtos.Count);
 
         }
-
-     
     }
 }
